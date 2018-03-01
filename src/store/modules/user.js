@@ -42,7 +42,9 @@ const user = {
 
     // 获取用户信息
     GetInfo({ commit, state }) {
+      debugger
       return new Promise((resolve, reject) => {
+        debugger
         getInfo(state.token).then(response => {
           const data = response.data
           commit('SET_ROLES', data.role)

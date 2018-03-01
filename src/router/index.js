@@ -30,7 +30,7 @@ export default new Router({
           path: 'index',
           name: 'Form',
           component: () => import('@/views/form/index'),
-          meta: { title: 'Form', icon: 'form' }
+          meta: { title: 'Form', icon: 'example' }
         }
       ]
     },
