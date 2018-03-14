@@ -32,6 +32,16 @@ export default {
     thirdparty: '第三方登录',
     thirdpartyTips: '本地不能模拟，请结合自己业务进行模拟！！！'
   },
+  customer: {
+    id: "ID",
+    phoneNumber: "手机号",
+    name: "名字",
+    realName: "显示名",
+    email: "邮箱",
+    countryCode: "所属国家",
+    balanceCurrency: "使用币种",
+    status: "状态",
+  },
   table: {
     dynamicTips1: '固定表头, 按照表头顺序排序',
     dynamicTips2: '不固定表头, 按照点击顺序排序',

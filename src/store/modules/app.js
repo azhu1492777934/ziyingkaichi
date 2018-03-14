@@ -4,7 +4,10 @@ const app = {
   state: {
     sidebar: {
       opened: !+Cookies.get('sidebarStatus')
-    }
+    },
+    theme: 'default',
+    livenewsChannels: Cookies.get('livenewsChannels') || '[]',
+    visitedViews: []
   },
   mutations: {
     TOGGLE_SIDEBAR: state => {

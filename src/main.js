@@ -18,7 +18,7 @@ import i18n from './lang' // Internationalization
 import '@/icons' // icon
 import '@/permission' // permission control
 
-import './mock'
+// import './mock'
 
 Vue.use(ElementUI, {
   i18n: (key, value) => i18n.t(key, value)

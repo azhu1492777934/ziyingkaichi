@@ -25,5 +25,3 @@ const i18n = new VueI18n({
 })
 
 export default i18n
-
-//use demo <h3>{{$t('errorLog.tips')}}</h3>

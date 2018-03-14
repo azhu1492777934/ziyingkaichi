@@ -1,10 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Layout from '../views/layout/Layout'
 
 Vue.use(Router)
-
-/* Layout */
-import Layout from '../views/layout/Layout'
 
 export const constantRouterMap = [
   { path: '/login', component: () => import('@/views/login/index'), hidden: true },
@@ -56,7 +54,6 @@ export const constantRouterMap = [
       }
     ]
   },
-
   {
     path: "/customer",
     component: Layout,
@@ -65,10 +62,35 @@ export const constantRouterMap = [
         path: 'index',
         name: 'customer',
         component: () => import('@/views/customer/index'),
-        meta: { title: 'route.customer', icon: 'form' }
-      }
+        meta: { title: 'route.customer', icon: 'form' },
+      },
     ]
   },
+  {
+    path: "/customer",
+    component: Layout,
+    children: [
+      {
+        path: 'new',
+        name: 'new',
+        component: () => import('@/views/customer/new'),
+      },
+    ],
+    hidden: true
+  },
+  {
+    path: "/customer",
+    component: Layout,
+    children: [
+      {
+        path: 'edit/:id',
+        name: 'edit',
+        component: () => import('@/views/customer/edit'),
+      },
+    ],
+    hidden: true
+  },
+
   { path: '*', redirect: '/404', hidden: true }
 ]
 
