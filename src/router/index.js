@@ -23,7 +23,8 @@ export const constantRouterMap = [
     path: '/customer',
     component: Layout,
     redirect: 'noredirect',
-    name: '客户信息管理',
+    // name: '客户信息管理',
+    name: 'HQL一对一',
     icon: 'table',
     children: [
       { path: 'customer', component: () => import('@/views/customer/customer/index'), name: '客户管理' },
@@ -41,6 +42,21 @@ export const constantRouterMap = [
       { path: 'order/show/:id', component: () =>import('@/views/customer/order/show'), name: '查看行程', hidden: true  },
     ]
   },
+
+  {
+    path: '/operation',
+    component: Layout,
+    redirect: 'noredirect',
+    // name: '运营管理',
+    name: 'HQL多对一',
+    icon: 'table',
+    children: [
+      { path: 'country', component: () => import('@/views/operation/country/index'), name: '国家管理' },
+      { path: 'country/new', component: () => import('@/views/operation/country/new'), name: '国家新增', hidden: true  },
+      { path: 'country/edit/:id', component: () =>import('@/views/operation/country/edit'), name: '国家编辑', hidden: true  },
+    ]
+  },
+
   { path: '*', redirect: '/404', hidden: true }
 ]
 
