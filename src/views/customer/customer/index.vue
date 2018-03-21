@@ -24,7 +24,7 @@
         <el-col :span="8">
           <el-button style="margin-left: 26px" type="primary" icon="search" @click="handleFilter">搜索</el-button>
           <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="batchDelete()" icon="delete" style="left: 10px">删除</el-button>
-          <a :href="'#/customer/new'" target="_blank">
+          <a :href="'#/customer/customer/new'" target="_blank">
             <el-button class="filter-item el-icon-plus" type="primary" style="margin-right: 10px;">新建</el-button>
           </a>
         </el-col>
@@ -68,16 +68,16 @@
       <el-table-column
         prop="email"
         v-bind:label="$t('customer.email')"
+        width="140">
+      </el-table-column>
+      <el-table-column
+        prop="countryCodeCn"
+        v-bind:label="$t('customer.countryCode')"
         width="120">
       </el-table-column>
       <el-table-column
-        prop="countryCn"
-        v-bind:label="$t('customer.countryCode')"
-        width="80">
-      </el-table-column>
-      <el-table-column
-        prop="balanceCurrencyCn"
-        v-bind:label="$t('customer.balanceCurrency')"
+        prop="currencyCn"
+        v-bind:label="$t('customer.currency')"
         width="80">
       </el-table-column>
       <el-table-column
@@ -90,8 +90,8 @@
         align="center"
         width=""
       >
-        <template scope="scope">
-          <a :href="'#/customer/edit/' + scope.row.id" target="_blank"><el-button size="small">编辑</el-button></a>
+        <template slot-scope="scope">
+          <a :href="'#/customer/customer/edit/' + scope.row.id" target="_blank"><el-button size="small">编辑</el-button></a>
           <!--<router-link :to="'/customer/edit/' + scope.row.id"><el-button size="small">编辑</el-button> </router-link>-->
           <el-button size="small" @click="handelDelete(scope.row.id)">删除</el-button>
         </template>
@@ -109,7 +109,7 @@
 
 
 <script>
-  import { modelList, batchDelete, modelDelete } from 'api/customer';
+  import { modelList, batchDelete, modelDelete } from 'api/customer/customer';
   import { Message } from 'element-ui';
 
   export default {

@@ -47,8 +47,8 @@
 </template>
 
 <script>
-  import { countryMap } from 'api/country';
-  import { modelDetail, modelUpdate } from 'api/customer';
+  import { countryMap } from 'api/operation/country';
+  import { modelDetail, modelUpdate } from 'api/customer/customer';
   import { Message } from 'element-ui';
 
   export default {
@@ -121,7 +121,7 @@
         })
       },
       cancelForm() {
-        this.$router.push('/customer/index');
+        this.$router.push('/customer/customer');
       },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
@@ -137,7 +137,7 @@
                   duration: 0,
                   showClose: true
                 });
-                this.$router.push('/customer/index');
+                this.$router.push('/customer/customer');
               }
             });
           }

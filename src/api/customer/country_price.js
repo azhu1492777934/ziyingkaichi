@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function modelList(query) {
   return request({
-    url: '/customer/list',
+    url: '/country_price/list',
     method: 'post',
     data: query
   })
@@ -10,7 +10,7 @@ export function modelList(query) {
 
 export function batchDelete(ids, query) {
   return request({
-    url: '/customer/batchDelete',
+    url: '/country_price/batchDelete',
     method: 'post',
     data: {ids: ids, query: query}
   })
@@ -18,14 +18,14 @@ export function batchDelete(ids, query) {
 
 export function modelDelete(id) {
   return request({
-    url: '/customer/delete/' + id,
+    url: '/country_price/delete/' + id,
     method: 'post'
   })
 }
 
 export function modelCreate(model) {
   return request({
-    url: '/customer/create',
+    url: '/country_price/create',
     method: 'post',
     data: model
   })
@@ -33,7 +33,7 @@ export function modelCreate(model) {
 
 export function modelUpdate(model) {
   return request({
-    url: '/customer/update',
+    url: '/country_price/update',
     method: 'post',
     data: model
   })
@@ -41,7 +41,14 @@ export function modelUpdate(model) {
 
 export function modelDetail(id) {
   return request({
-    url: '/customer/show/' + id,
+    url: '/country_price/show/' + id,
     method: 'get'
+  })
+}
+export function batchUpdate(ids, query, model) {
+  return request({
+    url: '/country_price/batchUpdate',
+    method: 'post',
+    data: {ids: ids, query: query, model: model}
   })
 }
