@@ -61,7 +61,6 @@ export const constantRouterMap = [
 
       { path: 'country_operator', component: () => import('@/views/operation/country_operator/index'), name: '运营商支持国家管理' },
       { path: 'country_operator/new', component: () => import('@/views/operation/country_operator/new'), name: '运营商支持国家新增', hidden: true  },
-      { path: 'country_operator/edit/:id', component: () =>import('@/views/operation/country_operator/edit'), name: '运营商支持国家编辑', hidden: true  },
 
       { path: 'operator_prefer', component: () => import('@/views/operation/operator_prefer/index'), name: 'PLMN配置管理' },
       { path: 'operator_prefer/new', component: () => import('@/views/operation/operator_prefer/new'), name: 'PLMN配置新增', hidden: true  },

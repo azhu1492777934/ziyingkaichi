@@ -10,15 +10,15 @@
       <el-form-item prop="modelCondition" v-for="(domain, index) in ruleForm.modelCondition" :key="domain.key" style="margin-left: 0px">
         <hr/>
         <br/>
-        <el-form-item v-bind:label="$t('operator.operatorCode')"  :prop="'modelCondition.' + index + '.countryCode'" :rules="rules.countryCode">
+        <el-form-item v-bind:label="$t('operator.operatorCode')"  :prop="'modelCondition.' + index + '.operatorCode'" :rules="rules.operatorCode">
           <el-input v-model="domain.operatorCode"></el-input>
         </el-form-item>
 
-        <el-form-item v-bind:label="$t('operator.operatorNameEn')"  :prop="'modelCondition.' + index + '.countryCode'" :rules="rules.countryCode">
+        <el-form-item v-bind:label="$t('operator.operatorNameEn')"  :prop="'modelCondition.' + index + '.operatorNameEn'" :rules="rules.operatorNameEn">
           <el-input v-model="domain.operatorNameEn"></el-input>
         </el-form-item>
 
-        <el-form-item v-bind:label="$t('operator.operatorNameCn')"  :prop="'modelCondition.' + index + '.countryCode'" :rules="rules.countryCode">
+        <el-form-item v-bind:label="$t('operator.operatorNameCn')"  :prop="'modelCondition.' + index + '.operatorNameCn'" :rules="rules.operatorNameCn">
           <el-input v-model="domain.operatorNameCn"></el-input>
         </el-form-item>
 
@@ -28,27 +28,27 @@
           </el-select>
         </el-form-item>
 
-        <el-form-item v-bind:label="$t('operator.mcc')"  :prop="'modelCondition.' + index + '.countryCode'" :rules="rules.countryCode">
+        <el-form-item v-bind:label="$t('operator.mcc')"  :prop="'modelCondition.' + index + '.mcc'" :rules="rules.mcc">
           <el-input v-model="domain.mcc"></el-input>
         </el-form-item>
 
-        <el-form-item v-bind:label="$t('operator.mnc')"  :prop="'modelCondition.' + index + '.countryCode'" :rules="rules.countryCode">
+        <el-form-item v-bind:label="$t('operator.mnc')"  :prop="'modelCondition.' + index + '.mnc'" :rules="rules.mnc">
           <el-input v-model="domain.mnc"></el-input>
         </el-form-item>
 
-        <el-form-item v-bind:label="$t('operator.apn')"  :prop="'modelCondition.' + index + '.countryCode'" :rules="rules.countryCode">
+        <el-form-item v-bind:label="$t('operator.apn')"  :prop="'modelCondition.' + index + '.apn'" :rules="rules.apn">
           <el-input v-model="domain.apn"></el-input>
         </el-form-item>
 
-        <el-form-item v-bind:label="$t('operator.level')"  :prop="'modelCondition.' + index + '.countryCode'" :rules="rules.countryCode">
+        <el-form-item v-bind:label="$t('operator.level')"  :prop="'modelCondition.' + index + '.level'" :rules="rules.level">
           <el-input v-model="domain.level"></el-input>
         </el-form-item>
 
-        <el-form-item v-bind:label="$t('operator.groupSize')"  :prop="'modelCondition.' + index + '.countryCode'" :rules="rules.countryCode">
+        <el-form-item v-bind:label="$t('operator.groupSize')"  :prop="'modelCondition.' + index + '.groupSize'" :rules="rules.groupSize">
           <el-input v-model="domain.groupSize"></el-input>
         </el-form-item>
 
-        <el-form-item v-bind:label="$t('operator.status')"  :prop="'modelCondition.' + index + '.countryCode'" :rules="rules.countryCode">
+        <el-form-item v-bind:label="$t('operator.status')"  :prop="'modelCondition.' + index + '.status'" :rules="rules.status">
           <el-radio-group v-model="domain.status">
             <el-radio v-for="i in statusArr" :key="i.id" :label="i.id" :value="i.id">{{ i.name }}</el-radio>
           </el-radio-group>
@@ -183,7 +183,7 @@
         width: 120px;
       }
       .el-form-item__error{
-        margin-left: 80px;
+        margin-left: 120px;
       }
     }
     .is-default-hidden {

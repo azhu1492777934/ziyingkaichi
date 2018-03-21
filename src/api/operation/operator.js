@@ -1,5 +1,12 @@
 import request from '@/utils/request'
 
+export function operatorMap() {
+  return request({
+    url: '/operator/map',
+    method: 'get'
+  })
+}
+
 export function modelList(query) {
   return request({
     url: '/operator/list',

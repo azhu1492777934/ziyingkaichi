@@ -103,16 +103,6 @@ export default {
   },
 
   operator: {
-    // operatorcode	operatornameen	operatornamecn	countrycode	MCC	MNC	APN	LEVEL	STATUS	GroupSize
-//     查询  mcc(模糊匹配）
-//     名称（模糊匹配）
-//     中文名称（模糊匹配）
-//     所属国家（下拉列表）
-//     APN（模糊匹配）
-//     状态（下拉列表）
-//   操作  修改：列表所有属性
-//         删除
-// 批量操作  添加：残有所有属性
     id: "ID",
     operatorCode: "运营商编号",
     operatorNameEn: "名称",
@@ -127,22 +117,6 @@ export default {
   },
 
   country_operator: {
-//     运营商支持国家
-//     列表：	国家编码	国家名称	运营商编码	运营商名称	优先级	状态
-// roamCountryCode		operatorCode		level	status
-// 状态： 0：可用；1：停用
-// 查询条件：	国家（下拉列表）
-// 		运营商编码（文本，模糊查询）
-// 		状态（下拉列表）
-// 	操作：	可用/停用
-// 删除
-// 批量操作:	添加： （国家编码、运营商编码、优先级、状态）
-// （需要判重，国家和运营商不能完全相同）
-//     private int id ;
-// private Integer roamCountryCode;
-// private Integer operatorCode;
-// private Integer level;
-// private Integer status;
     id: "ID",
     roamCountryCode: "国家编码",
     roamCountryCodeCn: "国家名称",
