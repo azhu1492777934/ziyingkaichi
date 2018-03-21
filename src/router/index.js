@@ -54,6 +54,22 @@ export const constantRouterMap = [
       { path: 'country', component: () => import('@/views/operation/country/index'), name: '国家管理' },
       { path: 'country/new', component: () => import('@/views/operation/country/new'), name: '国家新增', hidden: true  },
       { path: 'country/edit/:id', component: () =>import('@/views/operation/country/edit'), name: '国家编辑', hidden: true  },
+
+      { path: 'operator', component: () => import('@/views/operation/operator/index'), name: '运营商管理' },
+      { path: 'operator/new', component: () => import('@/views/operation/operator/new'), name: '运营商新增', hidden: true  },
+      { path: 'operator/edit/:id', component: () =>import('@/views/operation/operator/edit'), name: '运营商编辑', hidden: true  },
+
+      { path: 'country_operator', component: () => import('@/views/operation/country_operator/index'), name: '运营商支持国家管理' },
+      { path: 'country_operator/new', component: () => import('@/views/operation/country_operator/new'), name: '运营商支持国家新增', hidden: true  },
+      { path: 'country_operator/edit/:id', component: () =>import('@/views/operation/country_operator/edit'), name: '运营商支持国家编辑', hidden: true  },
+
+      { path: 'operator_prefer', component: () => import('@/views/operation/operator_prefer/index'), name: 'PLMN配置管理' },
+      { path: 'operator_prefer/new', component: () => import('@/views/operation/operator_prefer/new'), name: 'PLMN配置新增', hidden: true  },
+      { path: 'operator_prefer/edit/:id', component: () =>import('@/views/operation/operator_prefer/edit'), name: 'PLMN配置编辑', hidden: true  },
+
+      { path: 'used_net', component: () => import('@/views/operation/used_net/index'), name: '接入网络配置管理' },
+      { path: 'used_net/new', component: () => import('@/views/operation/used_net/new'), name: '接入网络配置新增', hidden: true  },
+      { path: 'used_net/edit/:id', component: () =>import('@/views/operation/used_net/edit'), name: '接入网络配置编辑', hidden: true  },
     ]
   },
 

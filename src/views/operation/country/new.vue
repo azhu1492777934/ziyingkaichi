@@ -1,7 +1,7 @@
 <template>
   <div class="app-container calendar-list-container" id="basicData_new">
 
-    <span style="margin-right: 10px"><el-button class="el-icon-plus" @click="addModelForm" style="font-weight: normal">新添客户</el-button></span>
+    <span style="margin-right: 10px"><el-button class="el-icon-plus" @click="addModelForm" style="font-weight: normal">新添国家</el-button></span>
     <span><b style="color: red;">*</b>为必填项</span>
     <br/><br/>
 
