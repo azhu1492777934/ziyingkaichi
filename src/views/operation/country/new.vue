@@ -161,7 +161,7 @@
         width: 120px;
       }
       .el-form-item__error{
-        margin-left: 80px;
+        margin-left: 120px;
       }
     }
     .is-default-hidden {

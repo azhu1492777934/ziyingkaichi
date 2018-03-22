@@ -145,26 +145,6 @@ export default {
     usedNet: "使用网络策略",
   },
 
-  // 活跃终端
-  // 列表字段：	终端	IMSI	开始时间	最后一次心跳时间	使用国家
-  //           TSID	IMSI	DATE	BEATTIME	Vcountrycode
-  // 查询条件:	终端(模糊查询）
-	// 	运营商编码，下拉选择（m_operator表），主要用来查询IMSI（m_terminal_sim关联m_simcard).
-  //   IMSI(模糊查询）
-	// 	使用国家，下接选择（m_country表）
-	// 操作:	释放主卡，删除m_terminal_sim该条记录，并将SIM_GROUP卡组缓存的该卡状态置为空闲（有接口实现）
-	// 批量操作：	释放主卡
-//   private int id;
-// private long imsi;
-// private int tsid;
-// private String mcc;
-// private String groupKey;
-// private Date beatTime;
-// private Date date ;
-// private long ecardImsi;
-// private int ecardDuration;
-// private String runVersion;
-// private int vCountryCode;
   terminal_sim: {
     id: "ID",
     tsid: "终端",
@@ -174,39 +154,6 @@ export default {
     vCountryCode: "使用国家",
   },
 
-  // 终端信息管理
-  // 列表：	编号	SSID	密码	MAC	批次	版本	状态	IMEI	上传日志
-  //       TSID	SSID	WIFIPASSWORD	MAC	batch	sversion	status	IMEI	UPLOG
-  //       0：不上传；1：上传
-  //       "0:正常；
-  //       1：未初始化；
-  //       2：停用；
-  //       3：注销"
-  //  查询条件：	终端编号（模糊查询）
-	// 	SSID（模糊查询）
-	// 	批次（精确匹配）
-	// 	状态（下拉列表）
-	// 操作:	停用： 将状态置为2
-  // 多选操作：	状态修改：	能够批量修改设备状态，包括：正常、未初始化、停用、注销
-//   private int id ;
-// private int tsid; //终端编号，IMEI后8位
-// private String mac; //MAC
-// private String model; //终端型号
-// private String batch; //生产批次
-// private String sversion; //软件版本
-// private String key;  //密钥，用于终端的通讯加密
-// private int status; //状态，0:正常；1：未初始化；2：停用；3：注销
-// private int upLog=0; //是否上传日志，0：不上传，1：上传
-// private String imei;
-// private String activated; //是否已经激活：0：未激活；1：已激活
-// private int homeLocation; //设备归属国家编码
-// private String ssid;
-// private String wifiPassword;
-// private String licFix; //密钥后缀
-// private int usedVPN; //是否使用VPN
-// private int usedSoft; //是否使用软卡
-// private int departmentId; //代理商分组ID，默认为0
-// private String meid; //CDMA终端的MEID号，等同于IMEI
   terminal: {
     id: "ID",
     tsid: "编号",
