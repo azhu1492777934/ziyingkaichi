@@ -136,19 +136,6 @@ export default {
   },
 
   used_net: {
-//     接入网络配置
-//     列表：	运营商编码	套餐ID	套餐名	MCC	使用网络策略
-// operatorcode	packageId		MCC	usedNet
-// 字典表
-// 查询条件	运营商编码（模糊查询）
-// 	操作	修改： 套餐ID、MCC、使用网络策略
-// 删除
-// 批量操作	添加： 运营商编码、套餐ID、MCC、使有网络
-//     private int id ;
-// private int operatorCode;
-// private int packageId;
-// private String mcc;
-// private int usedNet;
     id: "ID",
     operatorCode: "运营商编码",
     operatorCodeCn: "运营商名称",
@@ -156,6 +143,135 @@ export default {
     packageCn: "套餐名",
     mcc: "MCC",
     usedNet: "使用网络策略",
+  },
+
+  // 活跃终端
+  // 列表字段：	终端	IMSI	开始时间	最后一次心跳时间	使用国家
+  //           TSID	IMSI	DATE	BEATTIME	Vcountrycode
+  // 查询条件:	终端(模糊查询）
+	// 	运营商编码，下拉选择（m_operator表），主要用来查询IMSI（m_terminal_sim关联m_simcard).
+  //   IMSI(模糊查询）
+	// 	使用国家，下接选择（m_country表）
+	// 操作:	释放主卡，删除m_terminal_sim该条记录，并将SIM_GROUP卡组缓存的该卡状态置为空闲（有接口实现）
+	// 批量操作：	释放主卡
+//   private int id;
+// private long imsi;
+// private int tsid;
+// private String mcc;
+// private String groupKey;
+// private Date beatTime;
+// private Date date ;
+// private long ecardImsi;
+// private int ecardDuration;
+// private String runVersion;
+// private int vCountryCode;
+  terminal_sim: {
+    id: "ID",
+    tsid: "终端",
+    imsi: "IMSI",
+    date: "开始时间",
+    beatTime: "最后一次心跳时间",
+    vCountryCode: "使用国家",
+  },
+
+  // 终端信息管理
+  // 列表：	编号	SSID	密码	MAC	批次	版本	状态	IMEI	上传日志
+  //       TSID	SSID	WIFIPASSWORD	MAC	batch	sversion	status	IMEI	UPLOG
+  //       0：不上传；1：上传
+  //       "0:正常；
+  //       1：未初始化；
+  //       2：停用；
+  //       3：注销"
+  //  查询条件：	终端编号（模糊查询）
+	// 	SSID（模糊查询）
+	// 	批次（精确匹配）
+	// 	状态（下拉列表）
+	// 操作:	停用： 将状态置为2
+  // 多选操作：	状态修改：	能够批量修改设备状态，包括：正常、未初始化、停用、注销
+//   private int id ;
+// private int tsid; //终端编号，IMEI后8位
+// private String mac; //MAC
+// private String model; //终端型号
+// private String batch; //生产批次
+// private String sversion; //软件版本
+// private String key;  //密钥，用于终端的通讯加密
+// private int status; //状态，0:正常；1：未初始化；2：停用；3：注销
+// private int upLog=0; //是否上传日志，0：不上传，1：上传
+// private String imei;
+// private String activated; //是否已经激活：0：未激活；1：已激活
+// private int homeLocation; //设备归属国家编码
+// private String ssid;
+// private String wifiPassword;
+// private String licFix; //密钥后缀
+// private int usedVPN; //是否使用VPN
+// private int usedSoft; //是否使用软卡
+// private int departmentId; //代理商分组ID，默认为0
+// private String meid; //CDMA终端的MEID号，等同于IMEI
+  terminal: {
+    id: "ID",
+    tsid: "编号",
+    ssid: "SSID",
+    wifiPassword: "密码",
+    mac: "MAC",
+    batch: "批次",
+    sversion: "版本",
+    status: "状态",
+    imei: "IMEI",
+    upLog: "上传日志",
+  },
+
+  // 终端升级管理
+  // 列表：	版本说明 	源版本号	目标版本号	目标版本路径	升级方式	状态	终端列表
+  //       describe	oVersion	tVersion	downUrl	type	status	terminalList
+  //       状态，0：有效;1：无效
+  //       升级方式，0：升级所有设备；1：根据终端列表升级
+  // 查询条件	源版本号（精确匹配）
+	// 	      目标版本号（精确匹配）
+	// 操作：	停用
+  //       删除
+  // 批量操作：	添加：新创建一条版本升级记录，包括describe,oVersion,tVersion,downUrl,status,type,terminalList)
+  //         （添加时需要判断重，不允许源版本和目标版要都相同）						terminalList与type关联，只有type=1时才能填写
+//   private int id ;
+// private String describe ;
+// private String oversion ;
+// private String tversion ;
+// private String downUrl ;
+// private Integer status ;
+// private Integer type ;
+// private String terminalList ;
+// private String operatorMan ;
+// private Date operatorTime ;
+  terminal_version: {
+    id: "ID",
+    describe: "版本说明",
+    oVersion: "源版本号",
+    tVersion: "目标版本号",
+    downUrl: "目标版本路径",
+    type: "升级方式",
+    status: "状态",
+    terminalList: "终端列表",
+  },
+
+
+  // 终端流量管理
+  // 列表：	终端	可用流量	有效期	说明
+  //       TSID	AllowFlow	ValidityDate	NOTE
+  // 查询条件：	TSID（模糊匹配）
+	// 操作：	修改：可以修改可用流量、有效期和说明三个属性
+  // 批量操作： 	添加: 创建一条流量账户记录，包括TSID、AllowFlow、ValidityDate、NOTE
+	// 		      （需要判重，一个TSID只有一条记录）
+	// 	        修改：可以批量修改可用流量、有效期、说明三个字段中的任意一个或多个属性）
+//   private int id;
+// private int tsid;
+// private long allowFlow;
+// private Date validityDate;
+// private String note;
+  flow_balance: {
+    id: "ID",
+    tsid: "终端",
+    allowFlow: "可用流量",
+    validityDate: "有效期",
+    note: "说明",
   },
 
   errorLog: {
