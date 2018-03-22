@@ -127,19 +127,6 @@ export default {
   },
 
   operator_prefer: {
-//     PLMN配置
-//     列表：	运营商编码	运营商名称	接入MCC	PPLMN	FPLMN
-// operatorcode		roamMcc	PPLMN	FPLMN
-// 查询条件：	运营商编码（模糊查询）
-// 		MCC（精确匹配）
-// 	操作：	修改： MCC、PPLMN、FPLMN
-// 删除：
-// 	批量操作：	添加： 所有属性。（需要判重，运营商编码和MCC不能完全相同）
-//     private int id;
-// private int operatorCode;
-// private String roamMcc;
-// private String pPlmn;
-// private String fPlmn;
     id: "ID",
     operatorCode: "运营商编码",
     operatorCodeCn: "运营商名称",
@@ -164,6 +151,7 @@ export default {
 // private int usedNet;
     id: "ID",
     operatorCode: "运营商编码",
+    operatorCodeCn: "运营商名称",
     packageId: "套餐ID",
     packageCn: "套餐名",
     mcc: "MCC",

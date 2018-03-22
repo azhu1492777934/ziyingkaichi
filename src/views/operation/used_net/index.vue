@@ -3,22 +3,13 @@
     <div class="filter-container search">
       <el-row>
         <el-col :span="4">
-          <el-input class="filter-item" :placeholder="$t('country.countryName')"
-                    v-model="listQuery.q.countryName" clearable type="text"> </el-input>
-        </el-col>
-        <el-col :span="4">
-          <el-input class="filter-item" :placeholder="$t('country.nameCn')"
-                    v-model="listQuery.q.nameCn" clearable type="text"> </el-input>
-        </el-col>
-        <el-col :span="4">
-          <el-select v-model="listQuery.q.status" clearable>
-            <el-option v-for="i in statusArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
-          </el-select>
+          <el-input class="filter-item" :placeholder="$t('used_net.operatorCode')"
+                    v-model="listQuery.q.operatorCode" clearable type="text"> </el-input>
         </el-col>
 
         <el-col :span="12">
           <el-button style="margin-left: 26px" type="primary" icon="search" @click="handleFilter">搜索</el-button>
-          <a :href="'#/operation/country/new'" target="_blank" style="margin-left: 10px;">
+          <a :href="'#/operation/used_net/new'" target="_blank" style="margin-left: 10px;">
             <el-button class="filter-item el-icon-plus" type="primary" style="margin-right: 10px;">新建</el-button>
           </a>
         </el-col>
@@ -35,44 +26,39 @@
       tooltip-effect="dark"
       style="width: 100%">
       <el-table-column
-        prop="countryCode"
-        v-bind:label="$t('country.countryCode')"
+        prop="id"
+        v-bind:label="$t('used_net.id')"
         width="100">
       </el-table-column>
       <el-table-column
-        prop="countryName"
-        v-bind:label="$t('country.countryName')"
-        width="80">
+        prop="operatorCode"
+        v-bind:label="$t('used_net.operatorCode')"
+        width="100">
       </el-table-column>
       <el-table-column
-        prop="continentCode"
-        v-bind:label="$t('country.continentCode')"
-        width="80">
-      </el-table-column>
-      <el-table-column
-        prop="timeZone"
-        v-bind:label="$t('country.timeZone')"
-        width="80">
-      </el-table-column>
-      <el-table-column
-        prop="nameCn"
-        v-bind:label="$t('country.nameCn')"
-        width="120">
-      </el-table-column>
-      <el-table-column
-        prop="longItude"
-        v-bind:label="$t('country.longItude')"
+        prop="operatorCodeCn"
+        v-bind:label="$t('used_net.operatorCodeCn')"
         width="140">
       </el-table-column>
       <el-table-column
-        prop="latItude"
-        v-bind:label="$t('country.latItude')"
-        width="80">
+        prop="packageId"
+        v-bind:label="$t('used_net.packageId')"
+        width="100">
       </el-table-column>
       <el-table-column
-        prop="status"
-        v-bind:label="$t('country.status')"
-        width="80">
+        prop="packageCn"
+        v-bind:label="$t('used_net.packageCn')"
+        width="100">
+      </el-table-column>
+      <el-table-column
+        prop="mcc"
+        v-bind:label="$t('used_net.mcc')"
+        width="100">
+      </el-table-column>
+      <el-table-column
+        prop="usedNet"
+        v-bind:label="$t('used_net.usedNet')"
+        width="120">
       </el-table-column>
       <el-table-column
         label="操作"
@@ -80,7 +66,7 @@
         width=""
       >
         <template slot-scope="scope">
-          <a :href="'#/operation/country/edit/' + scope.row.id" target="_blank"><el-button size="small">编辑</el-button></a>
+          <a :href="'#/operation/used_net/edit/' + scope.row.id" target="_blank"><el-button size="small">编辑</el-button></a>
           <el-button size="small" @click="handelDelete(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
@@ -97,7 +83,7 @@
 
 
 <script>
-  import { modelList, modelDelete } from 'api/operation/country';
+  import { modelList, modelDelete } from 'api/operation/used_net';
   import { Message } from 'element-ui';
 
   export default {
@@ -114,7 +100,6 @@
             customerRealName: '',
           }
         },
-        statusArr: [{ id: '0', name: '不可用' }, { id: '1', name: '可用' }],
       }
     },
     created() {

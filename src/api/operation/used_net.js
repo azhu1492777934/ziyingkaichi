@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function modelList(query) {
   return request({
-    url: '/operator_prefer/list',
+    url: '/used_net/list',
     method: 'post',
     data: query
   })
@@ -10,21 +10,21 @@ export function modelList(query) {
 
 export function modelDetail(id) {
   return request({
-    url: '/operator_prefer/show/' + id,
+    url: '/used_net/show/' + id,
     method: 'get'
   })
 }
 
 export function modelDelete(id) {
   return request({
-    url: '/operator_prefer/delete/' + id,
+    url: '/used_net/delete/' + id,
     method: 'post'
   })
 }
 
 export function modelCreate(model) {
   return request({
-    url: '/operator_prefer/create',
+    url: '/used_net/create',
     method: 'post',
     data: model
   })
@@ -32,7 +32,7 @@ export function modelCreate(model) {
 
 export function modelUpdate(model) {
   return request({
-    url: '/operator_prefer/update',
+    url: '/used_net/update',
     method: 'post',
     data: model
   })
