@@ -167,27 +167,6 @@ export default {
     upLog: "上传日志",
   },
 
-  // 终端升级管理
-  // 列表：	版本说明 	源版本号	目标版本号	目标版本路径	升级方式	状态	终端列表
-  //       describe	oVersion	tVersion	downUrl	type	status	terminalList
-  //       状态，0：有效;1：无效
-  //       升级方式，0：升级所有设备；1：根据终端列表升级
-  // 查询条件	源版本号（精确匹配）
-	// 	      目标版本号（精确匹配）
-	// 操作：	停用
-  //       删除
-  // 批量操作：	添加：新创建一条版本升级记录，包括describe,oVersion,tVersion,downUrl,status,type,terminalList)
-  //         （添加时需要判断重，不允许源版本和目标版要都相同）						terminalList与type关联，只有type=1时才能填写
-//   private int id ;
-// private String describe ;
-// private String oversion ;
-// private String tversion ;
-// private String downUrl ;
-// private Integer status ;
-// private Integer type ;
-// private String terminalList ;
-// private String operatorMan ;
-// private Date operatorTime ;
   terminal_version: {
     id: "ID",
     describe: "版本说明",

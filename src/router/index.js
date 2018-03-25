@@ -35,9 +35,9 @@ export const constantRouterMap = [
       { path: 'terminal_version', component: () => import('@/views/terminal/terminal_version/index'), name: '终端升级管理' },
       { path: 'terminal_version/new', component: () => import('@/views/terminal/terminal_version/new'), name: '终端升级新增', hidden: true  },
 
-      { path: 'flow_balamce', component: () => import('@/views/terminal/flow_balamce/index'), name: '终端流量管理' },
-      { path: 'flow_balamce/new', component: () => import('@/views/terminal/flow_balamce/new'), name: '终端流量新增', hidden: true  },
-      { path: 'flow_balamce/edit/:id', component: () =>import('@/views/terminal/flow_balamce/edit'), name: '终端流量编辑', hidden: true  },
+      { path: 'flow_balance', component: () => import('@/views/terminal/flow_balance/index'), name: '终端流量管理' },
+      { path: 'flow_balance/new', component: () => import('@/views/terminal/flow_balance/new'), name: '终端流量新增', hidden: true  },
+      { path: 'flow_balance/edit/:id', component: () =>import('@/views/terminal/flow_balance/edit'), name: '终端流量编辑', hidden: true  },
     ]
   },
 

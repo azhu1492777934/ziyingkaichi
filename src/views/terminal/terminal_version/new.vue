@@ -26,7 +26,7 @@
         </el-form-item>
 
         <el-form-item v-bind:label="$t('terminal_version.type')" :prop="'modelCondition.' + index + '.type'" :rules="rules.type">
-          <el-radio-group v-model="domain.type">
+          <el-radio-group v-model="domain.type" @change="checkTerminalList(domain)">
             <el-radio v-for="i in typeArr" :key="i.id" :label="i.id" :value="i.id">{{ i.name }}</el-radio>
           </el-radio-group>
         </el-form-item>
@@ -37,7 +37,7 @@
           </el-radio-group>
         </el-form-item>
 
-        <el-form-item v-bind:label="$t('terminal_version.terminalList')" :prop="'modelCondition.' + index + '.terminalList'" :rules="rules.terminalList">
+        <el-form-item v-bind:label="$t('terminal_version.terminalList')" v-show="domain.type == 1" :prop="'modelCondition.' + index + '.terminalList'">
           <el-input v-model="domain.terminalList"></el-input>
         </el-form-item>
 
@@ -68,6 +68,7 @@
         ruleForm: {
           modelCondition: [
             {
+              terminalListShow: false,
             }
           ]
         },
@@ -90,15 +91,18 @@
           status: [
             { required: true, message: this.$t('terminal_version.status') + '不能为空' }
           ],
-          terminalList: [
-            { required: true, message: this.$t('terminal_version.terminalList') + '不能为空' }
-          ],
         },
         statusArr: [{ id: '0', name: '有效' }, { id: '1', name: '无效' }],
         typeArr: [{ id: '0', name: '升级所有设备' }, { id: '1', name: '根据终端列表升级' }],
+        terminalListVisible: false,
       }
     },
     methods: {
+      checkTerminalList(item) {
+        if (item.type != 1) {
+          item.terminalList = undefined
+        }
+      },
       addModelForm() {
         this.ruleForm.modelCondition.push({});
       },
