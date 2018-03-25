@@ -71,6 +71,30 @@ export const constantRouterMap = [
   },
 
   {
+    path: '/sim_card',
+    component: Layout,
+    redirect: 'noredirect',
+    // name: '主卡业务',
+    name: 'HQL一对多',
+    icon: 'table',
+    children: [
+      { path: 'simpool', component: () => import('@/views/sim_card/simpool/index'), name: '卡池管理' },
+      { path: 'simpool/show/:id', component: () =>import('@/views/sim_card/simpool/show'), name: '卡池查看', hidden: true  },
+
+      { path: 'sim_card', component: () => import('@/views/sim_card/sim_card/index'), name: '主卡信息管理' },
+      { path: 'sim_card/new', component: () => import('@/views/sim_card/sim_card/new'), name: '主卡信息新增', hidden: true  },
+      { path: 'sim_card/edit/:id', component: () => import('@/views/sim_card/sim_card/edit'), name: '主卡信息编辑', hidden: true  },
+
+      { path: 'simpackage', component: () => import('@/views/sim_card/simpackage/index'), name: '流量套餐管理' },
+      { path: 'simpackage/new', component: () => import('@/views/sim_card/simpackage/new'), name: '流量套餐新增', hidden: true  },
+      { path: 'simpackage/edit/:id', component: () =>import('@/views/sim_card/simpackage/edit'), name: '流量套餐编辑', hidden: true  },
+
+      { path: 'ready_terminal_sim', component: () => import('@/views/sim_card/ready_terminal_sim/index'), name: '预置主卡管理' },
+      { path: 'ready_terminal_sim/new', component: () => import('@/views/sim_card/ready_terminal_sim/new'), name: '预置主卡新增', hidden: true  },
+    ]
+  },
+
+  {
     path: '/customer',
     component: Layout,
     redirect: 'noredirect',
