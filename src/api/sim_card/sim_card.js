@@ -77,3 +77,12 @@ export function download(ids, query, model) {
     data: {ids: ids, query: query, model: model}
   })
 }
+
+export function simcardMap(imsi) {
+  return request({
+    url: '/simcard/map',
+    method: 'post',
+    data: { query: { imsi: imsi } }
+  })
+}
+

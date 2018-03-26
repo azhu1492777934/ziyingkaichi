@@ -31,24 +31,9 @@ export function modelCreate(model) {
   })
 }
 
-export function modelUpdate(model) {
-  return request({
-    url: '/ready_terminal_sim/update',
-    method: 'post',
-    data: model
-  })
-}
-
 export function modelDetail(id) {
   return request({
     url: '/ready_terminal_sim/show/' + id,
     method: 'get'
-  })
-}
-export function batchUpdate(ids, query, model) {
-  return request({
-    url: '/ready_terminal_sim/batchUpdate',
-    method: 'post',
-    data: {ids: ids, query: query, model: model}
   })
 }

@@ -196,65 +196,6 @@ export default {
     version: "版本号",
   },
 
-  /**
-   * 主卡信息管理
-   操作：	修改:	字段名	中文名	可修改/只读
-   IMSI	IMSI码	只读
-   NUMBER	卡号	可修改（必填）
-   ICCID	ICCID	只读
-   PIN	PIN码	可修改
-   OPERATORCODE	运营商编码	可修改(必填)
-   MCNUMBER	短信中心号码	可修改（必填）
-   PACKAGEID	流量套餐ID	只读
-   OFFPERIOD	账期日	必填（1-31）
-   SUSTAINED	账期持结时间，1：表示1个月；6：表示半年	必填（整数，表示一个账期持续几个月，默认是1）
-   SIMMEPROTOCOL	协议类型:2G:sim;3G:usim	可修改（必填）
-   STATUS	状态	可修改（必填）
-   CPSTATUS	卡位状态	只读
-   CPID	卡池编号	只读
-   CPCHANNELID	卡池通道编号	只读
-   COUNTRYCODE	国家编码	可修改（必填）
-   PROVINCECODE	省编码	可修改
-   EXPIRYDATE	有效期截卡时间	可修改（为空表示不限）
-   INSERTDATE	插入时间	只读
-   USEDVPN	是否支持VPN	可修改（必填，默认为0，表示不支持）
-   VPNIP		可修改
-   VPNNAME		可修改
-   VPNPASS		可修改
-   SoftType	是否是软卡；0：实卡；1：软卡	可修改（必填，默认为0）
-   KI	KI，用于软卡	可修改
-   OPC	OPC，用于软卡	可修改
-   OP	OP，用于软卡	可修改
-   APN	上网所使用APN	可修改
-   OPENDATE	开卡日期	可修改
-   NOTE	备注	可修改
-   列表： 卡池IP  卡位  IMSI  ICCID 国家  运营商 套餐  账期  状态  卡位状态
-   "cpid
-   （关联显示卡池IP）" cpdhannelid IMSI  ICCID countrycode(字典） operatorcode(字典）  packageId(字典) offperiod status  cpstatus
-   0：正常；1:停用; 2：指定;3:待激活；4：作废；5：冻结
-   卡池状态，0：正常，1:待激活,2:拔出，8:超时
-   查询：
-   卡池IP（模糊查询）    m_simpool
-   IMSI（模糊查询）
-   IMSI列表（列表，可以同时查询多个IMSI，以逗号隔开）
-   ICCID（模糊查询）
-   国家（下拉选择）    m_country
-   运营商（下拉选择）   m_operator
-   套餐（下拉选择）    m_simPackage
-   状态（下拉选择）
-   卡位状态（下拉选择）
-   插入时间（起始时间和结束时间）
-   有效期（起始时间和结束时间）
-   账期(下拉列表，1-31）
-
-   批量操作:	添加	(可编辑属性和修改相同，只读项添加时必填）
-   修改套餐	packageID,下拉列表，需要重新计算卡组（m_sim_group),并重新刷新缓存，需要重新计算月流量，刷新卡缓存（有接口）
-   修改月流量账期	OFFPERIOD、SUSTAINED，需要重新计算月流量，刷新卡缓存（有接口）
-   更新卡有效期	EXPIRYDATE，需要刷新卡缓存
-   更新APN	APN，需要刷新卡缓存
-   更新状态	status,(下拉字典），冻结、作废、未激活的卡移出卡组（m_sim_group),需要刷新卡组和卡缓存（有接口）
-   导出卡信息	将查询结果导出成Excel
-   */
   simcard: {
     id: "ID",
     imsi: "IMSI码",
@@ -301,9 +242,9 @@ export default {
    * 流量套餐管理
    列表： 套餐名 运营商编码 最大本地流量（KB)  最大漫游流量(KB)  优先级 支持的漫游国家 状态
           NAME  operatorcode  maxflow maxroamflow level mccs  status
-   0：正常；1:删除
+                                                              0：正常；1:删除
    查询条件  套餐名 (模糊查询）
-   运营商编码(模糊查询）
+            运营商编码(模糊查询）
    操作： 修改：允许修改套餐名、运营商编码、优先级、支持的漫游国家、状态、最大本地流量、最大大漫游流量，如果修改最大本地流量或最大漫游流量，需要重新计算该套餐下所有SIM卡的当前月流量。
    删除： 只有没有被主卡使用的套餐才能被删除。
    批量操作： 添加：   套餐名 运营商编码 最大本地流量（KB)  最大漫游流量(KB)  优先级 支持的漫游国家 状态（默认为正常）
@@ -320,8 +261,8 @@ export default {
     id: "ID",
     name: "套餐名",
     operatorCode: "运营商编码",
-    maxflow: "最大本地流量（KB)",
-    maxroamflow: "最大漫游流量(KB)",
+    maxFlow: "最大本地流量（KB)",
+    maxRoamFlow: "最大漫游流量(KB)",
     level: "优先级",
     mccs: "支持的漫游国家",
     status: "状态",
