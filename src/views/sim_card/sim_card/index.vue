@@ -496,11 +496,11 @@
         download(this.modelIds, this.listQuery.q, {}).then(response=>{
           const res = response.data;
           require.ensure([], () => {
-            // const { export_json_to_excel } = require('vendor/Export2Excel');
-            // const tHeader = res.data.headList;
-            // const data = res.data.dataList;
-            // const fileName = res.data.fileName;
-            // export_json_to_excel(tHeader, data, fileName);
+            const { export_json_to_excel } = require('vendor/Export2Excel');
+            const tHeader = res.data.headList;
+            const data = res.data.dataList;
+            const fileName = res.data.fileName;
+            export_json_to_excel(tHeader, data, fileName);
           })
         });
       },
