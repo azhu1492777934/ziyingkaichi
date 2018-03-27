@@ -238,25 +238,6 @@ export default {
     note: "说明",
   },
 
-  /**
-   * 流量套餐管理
-   列表： 套餐名 运营商编码 最大本地流量（KB)  最大漫游流量(KB)  优先级 支持的漫游国家 状态
-          NAME  operatorcode  maxflow maxroamflow level mccs  status
-                                                              0：正常；1:删除
-   查询条件  套餐名 (模糊查询）
-            运营商编码(模糊查询）
-   操作： 修改：允许修改套餐名、运营商编码、优先级、支持的漫游国家、状态、最大本地流量、最大大漫游流量，如果修改最大本地流量或最大漫游流量，需要重新计算该套餐下所有SIM卡的当前月流量。
-   删除： 只有没有被主卡使用的套餐才能被删除。
-   批量操作： 添加：   套餐名 运营商编码 最大本地流量（KB)  最大漫游流量(KB)  优先级 支持的漫游国家 状态（默认为正常）
-   private int id;
-   private String name;
-   private int operatorCode;
-   private  int maxFlow;
-   private int maxRoamFlow;
-   private int status;
-   private String mccs;
-   private int level;
-   */
   simpackage: {
     id: "ID",
     name: "套餐名",
@@ -268,26 +249,6 @@ export default {
     status: "状态",
   },
 
-  /**
-   * 预置主卡管理
-   列表： 终端编号  主卡IMSI  卡指定前状态  预置时间  预置类型
-          TSID  IMSI  LastStatus  insertDate  TYPE
-   预指定卡类型，0：临时指定一次；1：一直指定
-   查询条件  TSID（模糊查询）
-   IMSI（模糊查询）
-   预置类型（下拉字典）
-   操作： 无
-   批量操作： 添加: 终端编号、主卡IMSI、预置类型，自动填定卡指定前状态、插入时间和操作人
-   需要从指定的主卡（m_simCard)找到当前卡的状态，记录在lastStatus,并将m_simCard的status置为2（指定状态）
-   删除：批量删除预置记录，并同时将m_simCard的status置为指定前的状态lastStatus.
-   private int id;
-   private int tsid;
-   private long imsi;
-   private int lastStatus;
-   private Date insertDate;
-   private int operator;
-   private int type;
-   */
   ready_terminal_sim: {
     id: "ID",
     tsid: "终端编号",
@@ -295,6 +256,86 @@ export default {
     lastStatus: "卡指定前状态",
     insertDate: "预置时间",
     type: "预置类型",
+  },
+
+  /**
+   * 副卡信息管理
+   列表： IMSI  卡号  ICCID 运营商编码 国家编码  短信中心号码  状态
+        IMSI  NUMBER  ICCID OPERATORCODE  COUNTRYCODE MCNUMBER  STATUS
+   0：预置卡、1：临时卡、2：作废
+   查询条件： IMSI(模糊查询）
+   操作： 无
+   批量修改： 修改状态（下拉字典）
+   private int id ;
+   private long imsi;
+   private String number;
+   private String iccid;
+   private int operatorCode;
+   private int countryCode;
+   private String mcNumber; //短信中心号码
+   private Date rechargeTime; //最后充值时间
+   private Double balance;  //账户余额
+   private int status; //状态
+   private String detail;  //详情，加密的卡信息
+   */
+  channel_card: {
+    id: "ID",
+    imsi: "IMSI",
+    number: "卡号",
+    iccid: "ICCID",
+    operatorCode: "运营商编码",
+    countryCode: "国家编码",
+    mcNumber: "短信中心号码",
+    status: "状态",
+  },
+
+  /**
+   * 副卡配置管理
+   列表： TSID  IMSI  状态
+        TSID  IMSI  Status
+   0:已同步；1：新增；2：删除
+   查询  TSID（模糊查询）
+   IMSI（模糊查询）
+   状态（下拉字典）
+   操作  无
+   批量操作： 添加  tsid,IMSI,状态
+   修改  状态  （只能修改状态字段）
+   删除
+   private int id ;
+   private int tsid;
+   private Long imsi;
+   private Integer status;
+   */
+  terminal_channel: {
+    id: "ID",
+    tsid: "TSID",
+    imsi: "IMSI",
+    status: "状态",
+  },
+
+  /**
+   * 副卡PLMN配置
+   列表： 运营商编码 MCC rplmn pplmn fplmn
+          operatorcode  mcc rplmn pplmn fplmn
+   查询： 运营商编码（模糊查询）
+   MCC（精确匹配）
+   操作： 修改 (只能修改rplmn，pplmn，fplmn
+   批量操作： 添加：运营商编码、MCC、RPLMN、PPLMN、FPLMN
+   删除：
+   private int id ;
+   private int operatorCode;
+   private String mcc;
+   private String rplmn;
+   private String pplmn;
+   private String fplmn;
+   */
+  channel_card_prefer: {
+    id: "ID",
+    operatorCode: "运营商编码",
+    mcc: "MCC",
+    rplmn: "rplmn",
+    pplmn: "pplmn",
+    fplmn: "fplmn",
   },
 
   errorLog: {

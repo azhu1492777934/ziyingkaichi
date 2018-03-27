@@ -24,8 +24,8 @@ export const constantRouterMap = [
     path: '/terminal',
     component: Layout,
     redirect: 'noredirect',
-    // name: '终端业务',
-    name: 'HQL多对一',
+    name: '终端业务',
+    // name: 'HQL多对一',
     icon: 'table',
     children: [
       { path: 'terminal_sim', component: () => import('@/views/terminal/terminal_sim/index'), name: '活跃终端管理' },
@@ -45,8 +45,8 @@ export const constantRouterMap = [
     path: '/operation',
     component: Layout,
     redirect: 'noredirect',
-    // name: '运营管理',
-    name: 'HQL多对多',
+    name: '运营管理',
+    // name: 'HQL多对多',
     icon: 'table',
     children: [
       { path: 'country', component: () => import('@/views/operation/country/index'), name: '国家管理' },
@@ -74,8 +74,8 @@ export const constantRouterMap = [
     path: '/sim_card',
     component: Layout,
     redirect: 'noredirect',
-    // name: '主卡业务',
-    name: 'HQL一对多',
+    name: '主卡业务',
+    // name: 'HQL一对多',
     icon: 'table',
     children: [
       { path: 'simpool', component: () => import('@/views/sim_card/simpool/index'), name: '卡池管理' },
@@ -95,11 +95,30 @@ export const constantRouterMap = [
   },
 
   {
+    path: '/channel_card',
+    component: Layout,
+    redirect: 'noredirect',
+    name: '副卡业务',
+    // name: 'HQL一对多',
+    icon: 'table',
+    children: [
+      { path: 'channel_card', component: () => import('@/views/channel_card/channel_card/index'), name: '副卡信息管理' },
+
+      { path: 'terminal_channel', component: () => import('@/views/channel_card/terminal_channel/index'), name: '副卡配置管理' },
+      { path: 'terminal_channel/new', component: () => import('@/views/channel_card/terminal_channel/new'), name: '副卡配置新增', hidden: true  },
+
+      { path: 'channel_card_prefer', component: () => import('@/views/channel_card/channel_card_prefer/index'), name: '副卡PLMN配置管理' },
+      { path: 'channel_card_prefer/new', component: () => import('@/views/channel_card/channel_card_prefer/new'), name: '副卡PLMN配置新增', hidden: true  },
+      { path: 'channel_card_prefer/edit/:id', component: () =>import('@/views/channel_card/channel_card_prefer/edit'), name: '副卡PLMN配置编辑', hidden: true  },
+    ]
+  },
+
+  {
     path: '/customer',
     component: Layout,
     redirect: 'noredirect',
-    // name: '客户信息管理',
-    name: 'HQL一对一',
+    name: '客户信息管理',
+    // name: 'HQL一对一',
     icon: 'table',
     children: [
       { path: 'customer', component: () => import('@/views/customer/customer/index'), name: '客户管理' },
