@@ -65,9 +65,9 @@ const user = {
         login(username, userInfo.password).then(response => {
           const res = response.data
           if (res.status > 0) {
-            setUserToken(res.data.username, res.data.token);
-            commit('SET_USERNAME', res.data.username);
-            commit('SET_TOKEN', res.data.token);
+            setUserToken(res.data.name, res.data.password);
+            commit('SET_USERNAME', res.data.name);
+            commit('SET_TOKEN', res.data.password);
           }
           resolve()
         }).catch(error => {
@@ -79,9 +79,8 @@ const user = {
     // 获取用户信息
     GetInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
-        getInfo(state.token).then(response => {
+        getInfo(state.username, state.token).then(response => {
           const data = response.data
-          commit('SET_ROLES', data.role);
           commit('SET_NAME', data.name);
           commit('SET_AVATAR', data.avatar);
           resolve(response)
@@ -94,7 +93,7 @@ const user = {
     // 登出
     LogOut({ commit, state }) {
       return new Promise((resolve, reject) => {
-        logout(state.token).then((response) => {
+        logout(state.username, state.token).then((response) => {
           const data = response.data
           commit('SET_USERNAME', '');
           commit('SET_TOKEN', '');

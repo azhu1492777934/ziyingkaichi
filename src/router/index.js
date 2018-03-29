@@ -137,6 +137,30 @@ export const constantRouterMap = [
     ]
   },
 
+  {
+    path: '/auth_role',
+    component: Layout,
+    redirect: 'noredirect',
+    name: '系统管理',
+    // name: 'HQL一对一',
+    icon: 'table',
+    children: [
+      { path: 'auth_user', component: () => import('@/views/auth_role/auth_user/index'), name: '账号管理' },
+      { path: 'auth_user/new', component: () => import('@/views/auth_role/auth_user/new'), name: '客户新增', hidden: true  },
+      { path: 'auth_user/edit/:id', component: () =>import('@/views/auth_role/auth_user/edit'), name: '客户编辑', hidden: true  },
+      { path: 'auth_user/role/:id', component: () =>import('@/views/auth_role/auth_user/role'), name: '客户权限', hidden: true  },
+
+      { path: 'auth_role', component: () => import('@/views/auth_role/auth_role/index'), name: '权限管理' },
+      { path: 'auth_role/new', component: () => import('@/views/auth_role/auth_role/new'), name: '权限新增', hidden: true  },
+      { path: 'auth_role/edit/:id', component: () =>import('@/views/auth_role/auth_role/edit'), name: '权限编辑', hidden: true  },
+
+
+      { path: 'auth_permission', component: () => import('@/views/auth_role/auth_permission/index'), name: '接口管理' },
+      { path: 'auth_permission/new', component: () => import('@/views/auth_role/auth_permission/new'), name: '接口新增', hidden: true  },
+      { path: 'auth_permission/edit/:id', component: () =>import('@/views/auth_role/auth_permission/edit'), name: '接口编辑', hidden: true  },
+    ]
+  },
+
   { path: '*', redirect: '/404', hidden: true }
 ]
 

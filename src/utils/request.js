@@ -38,7 +38,7 @@ service.interceptors.response.use(
         duration: 0,
         showClose: true,
         onClose() {
-          if (res.status === -8888) {
+          if (res.status === -8) {
             store.dispatch('FedLogOut').then(() => {
               location.href = '/'// 为了重新实例化vue-router对象 避免bug
             });

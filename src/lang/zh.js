@@ -258,26 +258,6 @@ export default {
     type: "预置类型",
   },
 
-  /**
-   * 副卡信息管理
-   列表： IMSI  卡号  ICCID 运营商编码 国家编码  短信中心号码  状态
-        IMSI  NUMBER  ICCID OPERATORCODE  COUNTRYCODE MCNUMBER  STATUS
-   0：预置卡、1：临时卡、2：作废
-   查询条件： IMSI(模糊查询）
-   操作： 无
-   批量修改： 修改状态（下拉字典）
-   private int id ;
-   private long imsi;
-   private String number;
-   private String iccid;
-   private int operatorCode;
-   private int countryCode;
-   private String mcNumber; //短信中心号码
-   private Date rechargeTime; //最后充值时间
-   private Double balance;  //账户余额
-   private int status; //状态
-   private String detail;  //详情，加密的卡信息
-   */
   channel_card: {
     id: "ID",
     imsi: "IMSI",
@@ -289,23 +269,6 @@ export default {
     status: "状态",
   },
 
-  /**
-   * 副卡配置管理
-   列表： TSID  IMSI  状态
-        TSID  IMSI  Status
-   0:已同步；1：新增；2：删除
-   查询  TSID（模糊查询）
-   IMSI（模糊查询）
-   状态（下拉字典）
-   操作  无
-   批量操作： 添加  tsid,IMSI,状态
-   修改  状态  （只能修改状态字段）
-   删除
-   private int id ;
-   private int tsid;
-   private Long imsi;
-   private Integer status;
-   */
   terminal_channel: {
     id: "ID",
     tsid: "TSID",
@@ -313,22 +276,6 @@ export default {
     status: "状态",
   },
 
-  /**
-   * 副卡PLMN配置
-   列表： 运营商编码 MCC rplmn pplmn fplmn
-          operatorcode  mcc rplmn pplmn fplmn
-   查询： 运营商编码（模糊查询）
-   MCC（精确匹配）
-   操作： 修改 (只能修改rplmn，pplmn，fplmn
-   批量操作： 添加：运营商编码、MCC、RPLMN、PPLMN、FPLMN
-   删除：
-   private int id ;
-   private int operatorCode;
-   private String mcc;
-   private String rplmn;
-   private String pplmn;
-   private String fplmn;
-   */
   channel_card_prefer: {
     id: "ID",
     operatorCode: "运营商编码",
@@ -336,6 +283,38 @@ export default {
     rplmn: "rplmn",
     pplmn: "pplmn",
     fplmn: "fplmn",
+  },
+  /**
+   * 系统管理
+   账号管理	tb_auth_user，tb_auth_user_role
+   权限管理	tb_auth_role，tb_auth_role_permission，tb_auth_permission
+   */
+  auth_user: {
+    id: "ID",
+    name: "登录名",
+    phonenumber: "手机号",
+    password: "密码",
+    describe: "描述",
+  },
+  auth_role: {
+    id: "ID",
+    name: "名称",
+    code: "编码",
+    status: "状态",
+    createDate: "创建日期",
+  },
+  auth_permission: {
+    id: "ID",
+    text: "接口名",
+    parentId: "父级ID",
+    parentCn: "父级名称",
+    url: "URL",
+    orderNum: "排序",
+    iconCls: "图标",
+    status: "状态",
+    isMenu: "是否是菜单",
+    funDesc: "接口描述",
+    createTime: "创建时间",
   },
 
   errorLog: {
