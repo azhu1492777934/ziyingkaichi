@@ -53,14 +53,14 @@
         width="140">
       </el-table-column>
       <el-table-column
-        :prop="dateCn"
+        prop="dateCn"
         v-bind:label="$t('terminal_sim.date')"
-        width="140">
+        width="160">
       </el-table-column>
       <el-table-column
         prop="beatTimeCn"
         v-bind:label="$t('terminal_sim.beatTime')"
-        width="140">
+        width="160">
       </el-table-column>
       <el-table-column
         prop="vcountryCodeCn"
