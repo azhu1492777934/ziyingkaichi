@@ -25,7 +25,6 @@ export const constantRouterMap = [
     component: Layout,
     redirect: 'noredirect',
     name: '终端业务',
-    // name: 'HQL多对一',
     icon: 'table',
     children: [
       { path: 'terminal_sim', component: () => import('@/views/terminal/terminal_sim/index'), name: '活跃终端管理' },
@@ -46,7 +45,6 @@ export const constantRouterMap = [
     component: Layout,
     redirect: 'noredirect',
     name: '运营管理',
-    // name: 'HQL多对多',
     icon: 'table',
     children: [
       { path: 'country', component: () => import('@/views/operation/country/index'), name: '国家管理' },
@@ -75,7 +73,6 @@ export const constantRouterMap = [
     component: Layout,
     redirect: 'noredirect',
     name: '主卡业务',
-    // name: 'HQL一对多',
     icon: 'table',
     children: [
       { path: 'simpool', component: () => import('@/views/sim_card/simpool/index'), name: '卡池管理' },
@@ -99,7 +96,6 @@ export const constantRouterMap = [
     component: Layout,
     redirect: 'noredirect',
     name: '副卡业务',
-    // name: 'HQL一对多',
     icon: 'table',
     children: [
       { path: 'channel_card', component: () => import('@/views/channel_card/channel_card/index'), name: '副卡信息管理' },
@@ -118,7 +114,6 @@ export const constantRouterMap = [
     component: Layout,
     redirect: 'noredirect',
     name: '客户信息管理',
-    // name: 'HQL一对一',
     icon: 'table',
     children: [
       { path: 'customer', component: () => import('@/views/customer/customer/index'), name: '客户管理' },
@@ -142,7 +137,6 @@ export const constantRouterMap = [
     component: Layout,
     redirect: 'noredirect',
     name: '系统管理',
-    // name: 'HQL一对一',
     icon: 'table',
     children: [
       { path: 'auth_user', component: () => import('@/views/auth_role/auth_user/index'), name: '账号管理' },
