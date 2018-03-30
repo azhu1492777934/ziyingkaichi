@@ -39,7 +39,7 @@
       <el-table-column
         prop="ip"
         v-bind:label="$t('simpool.ip')"
-        width="80">
+        width="120">
       </el-table-column>
       <el-table-column
         prop="port"
@@ -49,7 +49,7 @@
       <el-table-column
         prop="sumIp"
         v-bind:label="$t('simpool.sumIp')"
-        width="80">
+        width="120">
       </el-table-column>
       <el-table-column
         prop="webPort"

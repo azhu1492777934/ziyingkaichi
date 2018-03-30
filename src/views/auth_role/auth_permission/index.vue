@@ -33,42 +33,42 @@
       <el-table-column
         prop="text"
         v-bind:label="$t('auth_permission.text')"
-        width="140">
+        width="250">
       </el-table-column>
-      <el-table-column
-        prop="parentCn"
-        v-bind:label="$t('auth_permission.parentCn')"
-        width="140">
-      </el-table-column>
+      <!--<el-table-column-->
+        <!--prop="parentCn"-->
+        <!--v-bind:label="$t('auth_permission.parentCn')"-->
+        <!--width="140">-->
+      <!--</el-table-column>-->
       <el-table-column
         prop="url"
         v-bind:label="$t('auth_permission.url')"
-        width="140">
+        width="250">
       </el-table-column>
-      <el-table-column
-        prop="orderNum"
-        v-bind:label="$t('auth_permission.orderNum')"
-        width="140">
-      </el-table-column>
+      <!--<el-table-column-->
+        <!--prop="orderNum"-->
+        <!--v-bind:label="$t('auth_permission.orderNum')"-->
+        <!--width="140">-->
+      <!--</el-table-column>-->
       <!--<el-table-column-->
         <!--prop="statusCn"-->
         <!--v-bind:label="$t('auth_permission.status')"-->
         <!--width="140">-->
       <!--</el-table-column>-->
-      <el-table-column
-        prop="isMenuCn"
-        v-bind:label="$t('auth_permission.isMenu')"
-        width="140">
-      </el-table-column>
+      <!--<el-table-column-->
+        <!--prop="isMenuCn"-->
+        <!--v-bind:label="$t('auth_permission.isMenu')"-->
+        <!--width="140">-->
+      <!--</el-table-column>-->
       <el-table-column
         prop="funDesc"
         v-bind:label="$t('auth_permission.funDesc')"
-        width="140">
+        width="180">
       </el-table-column>
       <el-table-column
         prop="createTimeCn"
         v-bind:label="$t('auth_permission.createTime')"
-        width="140">
+        width="180">
       </el-table-column>
       <el-table-column
         label="操作"
@@ -93,7 +93,7 @@
 
 
 <script>
-  import { modelList, modelDelete } from 'api/auth_role/auth_permission';
+  import { modelList, modelDelete, authSetPermission } from 'api/auth_role/auth_permission';
   import { Message } from 'element-ui';
 
   export default {
@@ -166,7 +166,7 @@
             showClose: true
           });
         });
-      }
+      },
     }
   }
 </script>

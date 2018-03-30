@@ -48,7 +48,7 @@
       <el-table-column
         prop="createDateCn"
         v-bind:label="$t('auth_role.createDate')"
-        width="140">
+        width="160">
       </el-table-column>
       <el-table-column
         label="操作"

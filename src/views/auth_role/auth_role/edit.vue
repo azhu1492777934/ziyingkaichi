@@ -18,10 +18,18 @@
       </el-form-item>
 
       <el-form-item v-bind:label="$t('auth_role.code')" prop="authPermissionId" >
-        <el-checkbox :indeterminate="isAll" v-model="ruleForm.isAll" @change="handleCheckAll" style="color: #1f2d3d;float: left">全部</el-checkbox>
-        <el-checkbox-group v-model="ruleForm.authPermissionId" @change="handleChecked" style="display: inline-block">
-          <el-checkbox v-for="i in authPermissionIdArr" :label="i.id" :key="i.id" style="color: #1f2d3d">{{ i.name }}</el-checkbox>
-        </el-checkbox-group>
+        <!--<el-checkbox :indeterminate="isAll" v-model="ruleForm.isAll" @change="handleCheckAll" style="color: #1f2d3d;float: left">全部</el-checkbox>-->
+        <!--<el-checkbox-group v-model="ruleForm.authPermissionId" @change="handleChecked" style="display: inline-block">-->
+          <!--<el-checkbox v-for="i in authPermissionIdArr" :label="i.id" :key="i.id" style="color: #1f2d3d">{{ i.name }}</el-checkbox>-->
+        <!--</el-checkbox-group>-->
+        <el-select v-model="ruleForm.authPermissionId" multiple filterable placeholder="请选择">
+          <el-option
+            v-for="i in authPermissionIdArr"
+            :key="i.id"
+            :label="i.name"
+            :value="i.id">
+          </el-option>
+        </el-select>
       </el-form-item>
 
       <el-form-item>
@@ -73,23 +81,6 @@
       this.getAuthPermissionMap();
     },
     methods: {
-      // 遍历数组获取数组内的id值
-      getIds(s) {
-        const ids = [];
-        s.forEach(k => {
-          ids.push(k.id);
-        });
-        return ids;
-      },
-      handleCheckAll(val) {
-        this.ruleForm.authPermissionId = val ? this.getIds(this.authPermissionIdArr) : [];
-        this.isAll = false;
-      },
-      handleChecked(value) {
-        var checkedCount = value.length;
-        this.ruleForm.isAll = checkedCount === this.authPermissionIdArr.length;
-        this.isAll = checkedCount > 0 && checkedCount < this.authPermissionIdArr.length;
-      },
       getAuthRoleMap(){
         authRoleMap().then(response => {
           const res = response.data;

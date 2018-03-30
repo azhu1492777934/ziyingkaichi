@@ -15,23 +15,23 @@
           <el-input v-model="domain.text"></el-input>
         </el-form-item>
 
-        <el-form-item v-bind:label="$t('auth_permission.parentId')">
-          <el-input v-model="domain.parentId"></el-input>
-        </el-form-item>
+        <!--<el-form-item v-bind:label="$t('auth_permission.parentId')">-->
+          <!--<el-input v-model="domain.parentId"></el-input>-->
+        <!--</el-form-item>-->
 
         <el-form-item v-bind:label="$t('auth_permission.url')" :prop="'modelCondition.' + index + '.url'" :rules="rules.url">
           <el-input v-model="domain.url"></el-input>
         </el-form-item>
 
-        <el-form-item v-bind:label="$t('auth_permission.orderNum')" :prop="'modelCondition.' + index + '.orderNum'" :rules="rules.orderNum">
-          <el-input v-model="domain.orderNum"></el-input>
-        </el-form-item>
+        <!--<el-form-item v-bind:label="$t('auth_permission.orderNum')" :prop="'modelCondition.' + index + '.orderNum'" :rules="rules.orderNum">-->
+          <!--<el-input v-model="domain.orderNum"></el-input>-->
+        <!--</el-form-item>-->
 
-        <el-form-item v-bind:label="$t('auth_permission.isMenu')">
-          <el-radio-group v-model="domain.isMenu">
-            <el-radio v-for="i in isMenuArr" :key="i.id" :label="i.id" :value="i.id">{{ i.name }}</el-radio>
-          </el-radio-group>
-        </el-form-item>
+        <!--<el-form-item v-bind:label="$t('auth_permission.isMenu')">-->
+          <!--<el-radio-group v-model="domain.isMenu">-->
+            <!--<el-radio v-for="i in isMenuArr" :key="i.id" :label="i.id" :value="i.id">{{ i.name }}</el-radio>-->
+          <!--</el-radio-group>-->
+        <!--</el-form-item>-->
 
         <el-form-item v-bind:label="$t('auth_permission.funDesc')">
           <el-input v-model="domain.funDesc"></el-input>
@@ -64,6 +64,7 @@
         ruleForm: {
           modelCondition: [
             {
+              orderNum: 0
             }
           ]
         },
@@ -86,7 +87,7 @@
     },
     methods: {
       addModelForm() {
-        this.ruleForm.modelCondition.push({});
+        this.ruleForm.modelCondition.push({orderNum: 0});
       },
       removeModelCondition(item) {
         const index = this.ruleForm.modelCondition.indexOf(item);

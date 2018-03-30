@@ -125,12 +125,13 @@
     }
     .el-form-item {
       margin-bottom: 20px;
-      label {
-        width: 100px;
-      }
-      .el-form-item__error{
-        margin-left: 100px;
-      }
+      margin-left: 20px;
+      /*label {*/
+        /*width: 160px;*/
+      /*}*/
+      /*.el-form-item__error{*/
+        /*margin-left: 100px;*/
+      /*}*/
     }
     .is-default-hidden {
       display: none;

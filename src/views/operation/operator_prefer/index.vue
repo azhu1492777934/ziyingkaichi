@@ -42,7 +42,7 @@
       <el-table-column
         prop="operatorCodeCn"
         v-bind:label="$t('operator_prefer.operatorCodeCn')"
-        width="100">
+        width="140">
       </el-table-column>
       <el-table-column
         prop="roamMcc"

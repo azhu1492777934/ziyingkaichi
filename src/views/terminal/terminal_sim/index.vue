@@ -50,15 +50,15 @@
       <el-table-column
         prop="imsi"
         v-bind:label="$t('terminal_sim.imsi')"
-        width="80">
+        width="140">
       </el-table-column>
       <el-table-column
-        prop="date"
+        :prop="dateCn"
         v-bind:label="$t('terminal_sim.date')"
-        width="80">
+        width="140">
       </el-table-column>
       <el-table-column
-        prop="beatTime"
+        prop="beatTimeCn"
         v-bind:label="$t('terminal_sim.beatTime')"
         width="140">
       </el-table-column>

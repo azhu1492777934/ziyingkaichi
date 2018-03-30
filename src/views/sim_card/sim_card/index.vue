@@ -99,7 +99,7 @@
       <el-table-column
         prop="cpIP"
         v-bind:label="$t('simcard.cpIP')"
-        width="100">
+        width="120">
       </el-table-column>
       <el-table-column
         prop="cpChannelId"
@@ -109,12 +109,12 @@
       <el-table-column
         prop="imsi"
         v-bind:label="$t('simcard.imsi')"
-        width="80">
+        width="140">
       </el-table-column>
       <el-table-column
         prop="iccid"
         v-bind:label="$t('simcard.iccid')"
-        width="80">
+        width="180">
       </el-table-column>
       <el-table-column
         prop="countryCodeCn"

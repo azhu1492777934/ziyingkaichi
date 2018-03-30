@@ -54,12 +54,12 @@
       <el-table-column
         prop="ssid"
         v-bind:label="$t('terminal.ssid')"
-        width="80">
+        width="140">
       </el-table-column>
       <el-table-column
         prop="wifiPassword"
         v-bind:label="$t('terminal.wifiPassword')"
-        width="80">
+        width="140">
       </el-table-column>
       <el-table-column
         prop="mac"
@@ -84,7 +84,7 @@
       <el-table-column
         prop="imei"
         v-bind:label="$t('terminal.imei')"
-        width="120">
+        width="140">
       </el-table-column>
       <el-table-column
         prop="upLogCn"

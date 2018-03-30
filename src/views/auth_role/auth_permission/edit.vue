@@ -13,17 +13,17 @@
         <el-input v-model="ruleForm.text"></el-input>
       </el-form-item>
 
-      <el-form-item v-bind:label="$t('auth_permission.parentId')"  prop="parentId">
-        <el-input v-model="ruleForm.parentId"></el-input>
-      </el-form-item>
+      <!--<el-form-item v-bind:label="$t('auth_permission.parentId')"  prop="parentId">-->
+        <!--<el-input v-model="ruleForm.parentId"></el-input>-->
+      <!--</el-form-item>-->
 
       <el-form-item v-bind:label="$t('auth_permission.url')"  prop="url">
         <el-input v-model="ruleForm.url"></el-input>
       </el-form-item>
 
-      <el-form-item v-bind:label="$t('auth_permission.orderNum')"  prop="orderNum">
-        <el-input v-model="ruleForm.orderNum"></el-input>
-      </el-form-item>
+      <!--<el-form-item v-bind:label="$t('auth_permission.orderNum')"  prop="orderNum">-->
+        <!--<el-input v-model="ruleForm.orderNum"></el-input>-->
+      <!--</el-form-item>-->
 
       <!--<el-form-item v-bind:label="$t('auth_permission.status')"  prop="status">-->
         <!--<el-radio-group v-model="ruleForm.status">-->
@@ -31,11 +31,11 @@
         <!--</el-radio-group>-->
       <!--</el-form-item>-->
 
-      <el-form-item v-bind:label="$t('auth_permission.isMenu')"  prop="isMenu">
-        <el-radio-group v-model="ruleForm.isMenu">
-          <el-radio v-for="i in isMenuArr" :key="i.id" :label="i.id" :value="i.id">{{ i.name }}</el-radio>
-        </el-radio-group>
-      </el-form-item>
+      <!--<el-form-item v-bind:label="$t('auth_permission.isMenu')"  prop="isMenu">-->
+        <!--<el-radio-group v-model="ruleForm.isMenu">-->
+          <!--<el-radio v-for="i in isMenuArr" :key="i.id" :label="i.id" :value="i.id">{{ i.name }}</el-radio>-->
+        <!--</el-radio-group>-->
+      <!--</el-form-item>-->
 
       <el-form-item v-bind:label="$t('auth_permission.funDesc')"  prop="funDesc">
         <el-input v-model="ruleForm.funDesc"></el-input>
@@ -65,6 +65,7 @@
         id: this.$route.params.id,
         listLoading: true,
         ruleForm: {
+          orderNum: 0
         },
         rules: {
           text: [

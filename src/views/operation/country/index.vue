@@ -42,7 +42,7 @@
       <el-table-column
         prop="countryName"
         v-bind:label="$t('country.countryName')"
-        width="80">
+        width="120">
       </el-table-column>
       <el-table-column
         prop="continentCode"

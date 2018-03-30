@@ -58,12 +58,12 @@
       <el-table-column
         prop="operatorNameEn"
         v-bind:label="$t('operator.operatorNameEn')"
-        width="80">
+        width="120">
       </el-table-column>
       <el-table-column
         prop="operatorNameCn"
         v-bind:label="$t('operator.operatorNameCn')"
-        width="80">
+        width="120">
       </el-table-column>
       <el-table-column
         prop="countryCodeCn"
