@@ -16,7 +16,7 @@
       </el-form-item>
 
       <el-form-item v-bind:label="$t('used_net.packageId')" prop="packageId">
-        <el-input v-model="ruleForm.packageId"></el-input>
+        <el-input type="number" v-model="ruleForm.packageId"></el-input>
       </el-form-item>
 
       <el-form-item v-bind:label="$t('used_net.mcc')" prop="mcc">
@@ -24,7 +24,7 @@
       </el-form-item>
 
       <el-form-item v-bind:label="$t('used_net.usedNet')" prop="usedNet">
-        <el-input v-model="ruleForm.usedNet"></el-input>
+        <el-input type="number" v-model="ruleForm.usedNet"></el-input>
       </el-form-item>
 
       <el-form-item>

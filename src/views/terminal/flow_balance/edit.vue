@@ -10,11 +10,11 @@
       <br/>
 
       <el-form-item v-bind:label="$t('flow_balance.tsid')" prop="tsid">
-        <el-input v-model="ruleForm.tsid"></el-input>
+        <el-input type="number" v-model="ruleForm.tsid"></el-input>
       </el-form-item>
 
       <el-form-item v-bind:label="$t('flow_balance.allowFlow')" prop="allowFlow">
-        <el-input v-model="ruleForm.allowFlow"></el-input>
+        <el-input type="number" v-model="ruleForm.allowFlow"></el-input>
       </el-form-item>
 
       <el-form-item v-bind:label="$t('flow_balance.validityDate')" prop="validityDate">

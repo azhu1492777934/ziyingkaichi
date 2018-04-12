@@ -20,15 +20,15 @@
       </el-form-item>
 
       <el-form-item v-bind:label="$t('simpackage.maxFlow')" prop="maxFlow">
-        <el-input v-model="ruleForm.maxFlow"></el-input>
+        <el-input type="number" v-model="ruleForm.maxFlow"></el-input>
       </el-form-item>
 
       <el-form-item v-bind:label="$t('simpackage.maxRoamFlow')" prop="maxRoamFlow">
-        <el-input v-model="ruleForm.maxRoamFlow"></el-input>
+        <el-input type="number" v-model="ruleForm.maxRoamFlow"></el-input>
       </el-form-item>
 
       <el-form-item v-bind:label="$t('simpackage.level')" prop="level">
-        <el-input v-model="ruleForm.level"></el-input>
+        <el-input type="number" v-model="ruleForm.level"></el-input>
       </el-form-item>
 
       <el-form-item v-bind:label="$t('simpackage.mccs')" prop="mccs">

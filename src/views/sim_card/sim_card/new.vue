@@ -12,7 +12,7 @@
         <br/>
 
         <el-form-item v-bind:label="$t('simcard.imsi')" :prop="'modelCondition.' + index + '.imsi'" :rules="rules.imsi">
-          <el-input v-model="domain.imsi"></el-input>
+          <el-input type="number" v-model="domain.imsi"></el-input>
         </el-form-item>
         <el-form-item v-bind:label="$t('simcard.number')" :prop="'modelCondition.' + index + '.number'" :rules="rules.number">
           <el-input v-model="domain.number"></el-input>
@@ -37,10 +37,10 @@
           </el-select>
         </el-form-item>
         <el-form-item v-bind:label="$t('simcard.offPeriod')" :prop="'modelCondition.' + index + '.offPeriod'" :rules="rules.offPeriod">
-          <el-input v-model="domain.offPeriod"></el-input>
+          <el-input type="number" v-model="domain.offPeriod"></el-input>
         </el-form-item>
         <el-form-item v-bind:label="$t('simcard.suStained')" :prop="'modelCondition.' + index + '.suStained'" :rules="rules.suStained">
-          <el-input v-model="domain.suStained"></el-input>
+          <el-input type="number" v-model="domain.suStained"></el-input>
         </el-form-item>
         <el-form-item v-bind:label="$t('simcard.simMeProtocol')" :prop="'modelCondition.' + index + '.simMeProtocol'" :rules="rules.simMeProtocol">
           <el-input v-model="domain.simMeProtocol"></el-input>
@@ -61,7 +61,7 @@
           </el-select>
         </el-form-item>
         <el-form-item v-bind:label="$t('simcard.cpChannelId')" :prop="'modelCondition.' + index + '.cpChannelId'" :rules="rules.cpChannelId">
-          <el-input v-model="domain.cpChannelId"></el-input>
+          <el-input type="number" v-model="domain.cpChannelId"></el-input>
         </el-form-item>
         <el-form-item v-bind:label="$t('simcard.countryCode')" :prop="'modelCondition.' + index + '.countryCode'" :rules="rules.countryCode">
           <el-select v-model="domain.countryCode" filterable clearable>
@@ -69,7 +69,7 @@
           </el-select>
         </el-form-item>
         <el-form-item v-bind:label="$t('simcard.provinceCode')" :prop="'modelCondition.' + index + '.provinceCode'">
-          <el-input v-model="domain.provinceCode"></el-input>
+          <el-input type="number" v-model="domain.provinceCode"></el-input>
         </el-form-item>
         <el-form-item v-bind:label="$t('simcard.expiryDate')" :prop="'modelCondition.' + index + '.expiryDate'">
           <el-date-picker type="date" v-model="domain.expiryDate"></el-date-picker>
@@ -78,7 +78,7 @@
           <el-date-picker type="date" v-model="domain.insertDate"></el-date-picker>
         </el-form-item>
         <el-form-item v-bind:label="$t('simcard.usedVpn')" :prop="'modelCondition.' + index + '.usedVpn'" :rules="rules.usedVpn">
-          <el-input v-model="domain.usedVpn"></el-input>
+          <el-input type="number" v-model="domain.usedVpn"></el-input>
         </el-form-item>
         <el-form-item v-bind:label="$t('simcard.vpnIP')" :prop="'modelCondition.' + index + '.vpnIP'">
           <el-input v-model="domain.vpnIP"></el-input>

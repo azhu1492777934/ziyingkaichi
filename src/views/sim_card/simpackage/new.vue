@@ -22,15 +22,15 @@
         </el-form-item>
 
         <el-form-item v-bind:label="$t('simpackage.maxFlow')" :prop="'modelCondition.' + index + '.maxFlow'" :rules="rules.maxFlow">
-          <el-input v-model="domain.maxFlow"></el-input>
+          <el-input type="number" v-model="domain.maxFlow"></el-input>
         </el-form-item>
 
         <el-form-item v-bind:label="$t('simpackage.maxRoamFlow')" :prop="'modelCondition.' + index + '.maxRoamFlow'" :rules="rules.maxRoamFlow">
-          <el-input v-model="domain.maxRoamFlow"></el-input>
+          <el-input type="number" v-model="domain.maxRoamFlow"></el-input>
         </el-form-item>
 
         <el-form-item v-bind:label="$t('simpackage.level')" :prop="'modelCondition.' + index + '.level'" :rules="rules.level">
-          <el-input v-model="domain.level"></el-input>
+          <el-input type="number" v-model="domain.level"></el-input>
         </el-form-item>
 
         <el-form-item v-bind:label="$t('simpackage.mccs')" :prop="'modelCondition.' + index + '.mccs'" :rules="rules.mccs">

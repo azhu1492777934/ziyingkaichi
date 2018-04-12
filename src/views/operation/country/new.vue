@@ -11,7 +11,7 @@
         <hr/>
         <br/>
         <el-form-item v-bind:label="$t('country.countryCode')" :prop="'modelCondition.' + index + '.countryCode'" :rules="rules.countryCode">
-          <el-input v-model="domain.countryCode"></el-input>
+          <el-input type="number" v-model="domain.countryCode"></el-input>
         </el-form-item>
 
         <el-form-item v-bind:label="$t('country.countryName')" :prop="'modelCondition.' + index + '.countryName'" :rules="rules.countryName">
@@ -19,7 +19,7 @@
         </el-form-item>
 
         <el-form-item v-bind:label="$t('country.continentCode')" :prop="'modelCondition.' + index + '.continentCode'" :rules="rules.continentCode">
-          <el-input v-model="domain.continentCode"></el-input>
+          <el-input type="number" v-model="domain.continentCode"></el-input>
         </el-form-item>
 
         <el-form-item v-bind:label="$t('country.timeZone')" :prop="'modelCondition.' + index + '.timeZone'" :rules="rules.timeZone">
@@ -31,11 +31,11 @@
         </el-form-item>
 
         <el-form-item v-bind:label="$t('country.longItude')" :prop="'modelCondition.' + index + '.longItude'" :rules="rules.longItude">
-          <el-input v-model="domain.longItude"></el-input>
+          <el-input type="number" v-model="domain.longItude"></el-input>
         </el-form-item>
 
         <el-form-item v-bind:label="$t('country.latItude')" :prop="'modelCondition.' + index + '.latItude'" :rules="rules.latItude">
-          <el-input v-model="domain.latItude"></el-input>
+          <el-input type="number" v-model="domain.latItude"></el-input>
         </el-form-item>
 
         <el-form-item v-bind:label="$t('country.status')" :prop="'modelCondition.' + index + '.status'" :rules="rules.status">

@@ -11,7 +11,7 @@
         <hr/>
         <br/>
         <el-form-item v-bind:label="$t('operator.operatorCode')"  :prop="'modelCondition.' + index + '.operatorCode'" :rules="rules.operatorCode">
-          <el-input v-model="domain.operatorCode"></el-input>
+          <el-input type="number" v-model="domain.operatorCode"></el-input>
         </el-form-item>
 
         <el-form-item v-bind:label="$t('operator.operatorNameEn')"  :prop="'modelCondition.' + index + '.operatorNameEn'" :rules="rules.operatorNameEn">
@@ -41,7 +41,7 @@
         </el-form-item>
 
         <el-form-item v-bind:label="$t('operator.level')"  :prop="'modelCondition.' + index + '.level'" :rules="rules.level">
-          <el-input v-model="domain.level"></el-input>
+          <el-input type="number" v-model="domain.level"></el-input>
         </el-form-item>
 
         <el-form-item v-bind:label="$t('operator.groupSize')"  :prop="'modelCondition.' + index + '.groupSize'" :rules="rules.groupSize">

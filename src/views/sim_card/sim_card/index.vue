@@ -11,48 +11,48 @@
         <el-col :span="4">
           <el-input class="filter-item" :placeholder="$t('simcard.iccid')" v-model="listQuery.q.iccid" clearable type="text"> </el-input>
         </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="2">
+        <el-col :span="4">
           <el-select v-model="listQuery.q.countryCode" filterable clearable :placeholder="$t('simcard.countryCode')">
             <el-option v-for="i in countryCodeArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
           </el-select>
         </el-col>
-        <el-col :span="2">
+        <el-col :span="4">
           <el-select v-model="listQuery.q.operatorCode" filterable clearable :placeholder="$t('simcard.operatorCode')">
             <el-option v-for="i in operatorCodeArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
           </el-select>
         </el-col>
-        <el-col :span="2">
+      </el-row>
+      <el-row>
+        <el-col :span="4">
           <el-select v-model="listQuery.q.packageId" filterable clearable :placeholder="$t('simcard.packageId')">
             <el-option v-for="i in packageArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
           </el-select>
         </el-col>
-        <el-col :span="2">
+        <el-col :span="4">
           <el-select v-model="listQuery.q.status" filterable clearable :placeholder="$t('simcard.status')">
             <el-option v-for="i in statusArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
           </el-select>
         </el-col>
-        <el-col :span="2">
+        <el-col :span="4">
           <el-select v-model="listQuery.q.cpStatus" filterable clearable :placeholder="$t('simcard.cpStatus')">
             <el-option v-for="i in cpStatusArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
           </el-select>
         </el-col>
-        <el-col :span="2">
+        <el-col :span="4">
           <el-select v-model="listQuery.q.offPeriod" filterable clearable :placeholder="$t('simcard.offPeriod')">
             <el-option v-for="i in offPeriodArr" :key="i" :label="i" :value="i.id">{{i}}</el-option>
           </el-select>
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span="5">
+        <el-col :span="8">
           <el-date-picker style="width: 100%;"
                           v-model="listQuery.q.insertDateRange"
                           type="daterange"
                           :start-placeholder="$t('simcard.insertDate')" :end-placeholder="$t('simcard.insertDate')">
           </el-date-picker>
         </el-col>
-        <el-col :span="5">
+        <el-col :span="8">
           <el-date-picker style="width: 100%;"
                           v-model="listQuery.q.expiryDateRange"
                           type="daterange"
@@ -68,7 +68,7 @@
           <el-button type="primary" @click="handleDownload">下载当前结果</el-button>
         </el-col>
       </el-row>
-      <el-row>
+      <el-row style="margin-top: 10px;">
         <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="dialogUpdatePackageVisible = true">批量修改套餐</el-button>
         <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="dialogUpdateMonthVisible = true">批量修改月流量账期</el-button>
         <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="dialogUpdateExpiryDateVisible = true">批量更新卡有效期</el-button>
@@ -216,7 +216,7 @@
     <el-dialog title="批量更新APN" :visible.sync="dialogUpdateAPNVisible" size="tiny" @close="handleCancel()">
       <el-form :model="batchUpdateAPNForm">
         <el-form-item v-bind:label="$t('simcard.apn')" prop="apn">
-          <el-input v-model="batchUpdateAPNForm.apn"></el-input>
+          <el-input v-model="batchUpdateAPNForm.APN"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -251,6 +251,7 @@
   import { simpackageMap } from 'api/sim_card/simpackage';
   import { modelList, batchUpdatePackage, batchUpdateOffPeriod, batchUpdateExpiryDate, batchUpdateAPN, batchUpdateStatus, download, } from 'api/sim_card/sim_card';
   import { Message } from 'element-ui';
+  import * as moment from 'moment';
 
   export default {
     data() {
@@ -435,6 +436,7 @@
       handelUpdateExpiryDate() {
         const noColumn = this.batchUpdateExpiryDateForm.expiryDate == '';
         if (!noColumn) {
+          this.batchUpdateExpiryDateForm.expiryDate = moment(this.batchUpdateExpiryDateForm.expiryDate).format('YYYY-MM-DD HH:mm:ss')
           batchUpdateExpiryDate(this.modelIds, this.listQuery.q, this.batchUpdateExpiryDateForm).then(response=>{
             const res = response.data;
             if (res.status > 0) {

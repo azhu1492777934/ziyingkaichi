@@ -12,11 +12,11 @@
         <br/>
 
         <el-form-item v-bind:label="$t('flow_balance.tsid')" :prop="'modelCondition.' + index + '.tsid'" :rules="rules.tsid">
-          <el-input v-model="domain.tsid"></el-input>
+          <el-input type="number" v-model="domain.tsid"></el-input>
         </el-form-item>
 
         <el-form-item v-bind:label="$t('flow_balance.allowFlow')" :prop="'modelCondition.' + index + '.allowFlow'" :rules="rules.allowFlow">
-          <el-input v-model="domain.allowFlow"></el-input>
+          <el-input type="number" v-model="domain.allowFlow"></el-input>
         </el-form-item>
 
         <el-form-item v-bind:label="$t('flow_balance.validityDate')" :prop="'modelCondition.' + index + '.validityDate'" :rules="rules.validityDate">

@@ -12,11 +12,11 @@
         <br/>
 
         <el-form-item v-bind:label="$t('terminal_channel.tsid')" :prop="'modelCondition.' + index + '.tsid'" :rules="rules.tsid">
-          <el-input v-model="domain.tsid"></el-input>
+          <el-input type="number" v-model="domain.tsid"></el-input>
         </el-form-item>
 
         <el-form-item v-bind:label="$t('terminal_channel.imsi')" :prop="'modelCondition.' + index + '.imsi'" :rules="rules.imsi">
-          <el-input v-model="domain.imsi"></el-input>
+          <el-input type="number" v-model="domain.imsi"></el-input>
         </el-form-item>
 
         <el-form-item v-bind:label="$t('terminal_channel.status')" :prop="'modelCondition.' + index + '.status'" :rules="rules.status">

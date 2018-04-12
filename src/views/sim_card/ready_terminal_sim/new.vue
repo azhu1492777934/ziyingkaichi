@@ -12,7 +12,7 @@
         <br/>
 
         <el-form-item v-bind:label="$t('ready_terminal_sim.tsid')" :prop="'modelCondition.' + index + '.tsid'" :rules="rules.tsid">
-          <el-input v-model="domain.tsid"></el-input>
+          <el-input type="number" v-model="domain.tsid"></el-input>
         </el-form-item>
 
         <el-form-item v-bind:label="$t('ready_terminal_sim.imsi')" :prop="'modelCondition.' + index + '.imsi'" :rules="rules.imsi">

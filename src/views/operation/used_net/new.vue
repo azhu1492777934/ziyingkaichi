@@ -18,7 +18,7 @@
         </el-form-item>
 
         <el-form-item v-bind:label="$t('used_net.packageId')"  :prop="'modelCondition.' + index + '.packageId'" :rules="rules.packageId">
-          <el-input v-model="domain.packageId"></el-input>
+          <el-input type="number" v-model="domain.packageId"></el-input>
         </el-form-item>
 
         <el-form-item v-bind:label="$t('used_net.mcc')"  :prop="'modelCondition.' + index + '.mcc'" :rules="rules.mcc">
@@ -26,7 +26,7 @@
         </el-form-item>
 
         <el-form-item v-bind:label="$t('used_net.usedNet')"  :prop="'modelCondition.' + index + '.usedNet'" :rules="rules.usedNet">
-          <el-input v-model="domain.usedNet"></el-input>
+          <el-input type="number" v-model="domain.usedNet"></el-input>
         </el-form-item>
 
         <el-form-item :class=" index == 0 ? 'is-default-hidden' : ''">

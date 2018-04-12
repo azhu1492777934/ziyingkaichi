@@ -9,7 +9,7 @@
       <hr/>
       <br/>
       <el-form-item v-bind:label="$t('balance.balance')" prop="balance">
-        <el-input v-model="ruleForm.balance"></el-input>
+        <el-input type="number" v-model="ruleForm.balance"></el-input>
       </el-form-item>
 
       <el-form-item v-bind:label="$t('balance.currency')" prop="currency">

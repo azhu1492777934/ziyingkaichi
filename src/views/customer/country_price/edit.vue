@@ -27,15 +27,15 @@
       </el-form-item>
 
       <el-form-item v-bind:label="$t('country_price.price')" prop="price">
-        <el-input v-model="ruleForm.price"></el-input>
+        <el-input type="number" v-model="ruleForm.price"></el-input>
       </el-form-item>
 
       <el-form-item v-bind:label="$t('country_price.maxData')" prop="maxData">
-        <el-input v-model="ruleForm.maxData"></el-input>
+        <el-input type="number" v-model="ruleForm.maxData"></el-input>
       </el-form-item>
 
       <el-form-item v-bind:label="$t('country_price.speedLimit')" prop="speedLimit">
-        <el-input v-model="ruleForm.speedLimit"></el-input>
+        <el-input type="number" v-model="ruleForm.speedLimit"></el-input>
       </el-form-item>
 
       <el-form-item v-bind:label="$t('country_price.describe')" prop="describe">

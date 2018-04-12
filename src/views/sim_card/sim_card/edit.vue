@@ -11,7 +11,7 @@
 
 
       <el-form-item v-bind:label="$t('simcard.imsi')" prop="imsi" >
-        <el-input v-model="ruleForm.imsi" :disabled="false"></el-input>
+        <el-input type="number" v-model="ruleForm.imsi" :disabled="false"></el-input>
       </el-form-item>
       <el-form-item v-bind:label="$t('simcard.number')" prop="number">
         <el-input v-model="ruleForm.number"></el-input>
@@ -36,10 +36,10 @@
         </el-select>
       </el-form-item>
       <el-form-item v-bind:label="$t('simcard.offPeriod')" prop="offPeriod">
-        <el-input v-model="ruleForm.offPeriod"></el-input>
+        <el-input type="number" v-model="ruleForm.offPeriod"></el-input>
       </el-form-item>
       <el-form-item v-bind:label="$t('simcard.suStained')" prop="suStained">
-        <el-input v-model="ruleForm.suStained"></el-input>
+        <el-input type="number" v-model="ruleForm.suStained"></el-input>
       </el-form-item>
       <el-form-item v-bind:label="$t('simcard.simMeProtocol')" prop="simMeProtocol">
         <el-input v-model="ruleForm.simMeProtocol"></el-input>
@@ -60,7 +60,7 @@
         </el-select>
       </el-form-item>
       <el-form-item v-bind:label="$t('simcard.cpChannelId')" prop="cpChannelId">
-        <el-input v-model="ruleForm.cpChannelId"  :disabled="false"></el-input>
+        <el-input type="number" v-model="ruleForm.cpChannelId"  :disabled="false"></el-input>
       </el-form-item>
       <el-form-item v-bind:label="$t('simcard.countryCode')" prop="countryCode">
         <el-select v-model="ruleForm.countryCode" filterable clearable>
@@ -68,7 +68,7 @@
         </el-select>
       </el-form-item>
       <el-form-item v-bind:label="$t('simcard.provinceCode')" prop="provinceCode">
-        <el-input v-model="ruleForm.provinceCode"></el-input>
+        <el-input type="number" v-model="ruleForm.provinceCode"></el-input>
       </el-form-item>
       <el-form-item v-bind:label="$t('simcard.expiryDate')" prop="expiryDate">
         <el-date-picker type="date" v-model="ruleForm.expiryDate"></el-date-picker>
@@ -77,7 +77,7 @@
         <el-date-picker type="date" v-model="ruleForm.insertDate"  :disabled="false"></el-date-picker>
       </el-form-item>
       <el-form-item v-bind:label="$t('simcard.usedVpn')" prop="usedVpn">
-        <el-input v-model="ruleForm.usedVpn"></el-input>
+        <el-input type="number" v-model="ruleForm.usedVpn"></el-input>
       </el-form-item>
       <el-form-item v-bind:label="$t('simcard.vpnIP')" prop="vpnIP">
         <el-input v-model="ruleForm.vpnIP"></el-input>

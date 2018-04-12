@@ -24,7 +24,7 @@
         </el-form-item>
 
         <el-form-item v-bind:label="$t('country_operator.level')"  :prop="'modelCondition.' + index + '.level'" :rules="rules.level">
-          <el-input v-model="domain.level"></el-input>
+          <el-input type="number" v-model="domain.level"></el-input>
         </el-form-item>
 
         <el-form-item v-bind:label="$t('country_operator.status')"  :prop="'modelCondition.' + index + '.status'" :rules="rules.status">

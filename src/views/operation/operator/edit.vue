@@ -10,7 +10,7 @@
       <br/>
 
       <el-form-item v-bind:label="$t('operator.operatorCode')" prop="operatorCode">
-        <el-input v-model="ruleForm.operatorCode"></el-input>
+        <el-input type="number" v-model="ruleForm.operatorCode"></el-input>
       </el-form-item>
 
       <el-form-item v-bind:label="$t('operator.operatorNameEn')" prop="operatorNameEn">
@@ -40,7 +40,7 @@
       </el-form-item>
 
       <el-form-item v-bind:label="$t('operator.level')" prop="level">
-        <el-input v-model="ruleForm.level"></el-input>
+        <el-input type="number" v-model="ruleForm.level"></el-input>
       </el-form-item>
 
       <el-form-item v-bind:label="$t('operator.groupSize')" prop="groupSize">
