@@ -13,7 +13,7 @@
 
         <el-col :span="12">
           <el-button style="margin-left: 26px" type="primary" icon="search" @click="handleFilter">搜索</el-button>
-          <a :href="'#/terminal/terminal_version/new'" target="_blank" style="margin-left: 10px;">
+          <a :href="'#/terminal/terminal_version/new'" target="_self" style="margin-left: 10px;">
             <el-button class="filter-item el-icon-plus" type="primary" style="margin-right: 10px;">新建</el-button>
           </a>
         </el-col>

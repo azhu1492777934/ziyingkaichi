@@ -67,7 +67,7 @@
         width=""
       >
         <template slot-scope="scope">
-          <a :href="'#/sim_card/simpool/show/' + scope.row.id" target="_blank"><el-button size="small">查看</el-button></a>
+          <a :href="'#/sim_card/simpool/show/' + scope.row.id" target="_self"><el-button size="small">查看</el-button></a>
         </template>
       </el-table-column>
     </el-table>

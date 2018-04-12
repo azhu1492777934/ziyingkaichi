@@ -24,7 +24,7 @@
         <el-col :span="8">
           <el-button style="margin-left: 26px" type="primary" icon="search" @click="handleFilter">搜索</el-button>
           <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="batchDelete()" icon="delete" style="left: 10px">删除</el-button>
-          <a :href="'#/customer/customer/new'" target="_blank">
+          <a :href="'#/customer/customer/new'" target="_self">
             <el-button class="filter-item el-icon-plus" type="primary" style="margin-right: 10px;">新建</el-button>
           </a>
         </el-col>
@@ -91,7 +91,7 @@
         width=""
       >
         <template slot-scope="scope">
-          <a :href="'#/customer/customer/edit/' + scope.row.id" target="_blank"><el-button size="small">编辑</el-button></a>
+          <a :href="'#/customer/customer/edit/' + scope.row.id" target="_self"><el-button size="small">编辑</el-button></a>
           <!--<router-link :to="'/customer/edit/' + scope.row.id"><el-button size="small">编辑</el-button> </router-link>-->
           <el-button size="small" @click="handelDelete(scope.row.id)">删除</el-button>
         </template>

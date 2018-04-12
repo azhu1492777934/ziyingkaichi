@@ -12,7 +12,7 @@
         </el-col>
         <el-col :span="12">
           <el-button style="margin-left: 26px" type="primary" icon="search" @click="handleFilter">搜索</el-button>
-          <a :href="'#/sim_card/simpackage/new'" target="_blank" style="margin-left: 10px;">
+          <a :href="'#/sim_card/simpackage/new'" target="_self" style="margin-left: 10px;">
             <el-button class="filter-item el-icon-plus" type="primary" style="margin-right: 10px;">新建</el-button>
           </a>
         </el-col>
@@ -74,7 +74,7 @@
         width=""
       >
         <template slot-scope="scope">
-          <a :href="'#/sim_card/simpackage/edit/' + scope.row.id" target="_blank"><el-button size="small">编辑</el-button></a>
+          <a :href="'#/sim_card/simpackage/edit/' + scope.row.id" target="_self"><el-button size="small">编辑</el-button></a>
           <el-button size="small" v-show="scope.row.canDelete" @click="handelDelete(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>

@@ -18,7 +18,7 @@
         <el-col :span="8">
           <el-button style="margin-left: 26px" type="primary" icon="search" @click="handleFilter">搜索</el-button>
           <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="dialogUpdateVisible = true">批量修改状态</el-button>
-          <a :href="'#/channel_card/terminal_channel/new'" target="_blank" style="margin-left: 10px;">
+          <a :href="'#/channel_card/terminal_channel/new'" target="_self" style="margin-left: 10px;">
             <el-button class="filter-item el-icon-plus" type="primary" style="margin-right: 10px;">新建</el-button>
           </a>
         </el-col>

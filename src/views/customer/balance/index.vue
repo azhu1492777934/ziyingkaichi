@@ -61,7 +61,7 @@
         width=""
       >
         <template slot-scope="scope">
-          <a :href="'#/customer/balance/edit/' + scope.row.id" target="_blank"><el-button size="small">编辑</el-button></a>
+          <a :href="'#/customer/balance/edit/' + scope.row.id" target="_self"><el-button size="small">编辑</el-button></a>
         </template>
       </el-table-column>
     </el-table>

@@ -1,7 +1,7 @@
 <template>
   <div class="app-container calendar-list-container">
     <div class="detail-buttons">
-      <a :href="'/customer/order/edit/' + this.id" target="_blank">
+      <a :href="'/customer/order/edit/' + this.id" target="_self">
         <el-button class="filter-item" type="primary" >编辑</el-button>
       </a>
     </div>
