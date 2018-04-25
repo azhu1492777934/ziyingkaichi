@@ -475,7 +475,7 @@
         }
       },
       handelUpdateStatus() {
-        const noColumn = this.batchUpdateStatusForm.status == '';
+        const noColumn = this.batchUpdateStatusForm.status == undefined;
         if (!noColumn) {
           batchUpdateStatus(this.modelIds, this.listQuery.q, this.batchUpdateStatusForm).then(response=>{
             const res = response.data;

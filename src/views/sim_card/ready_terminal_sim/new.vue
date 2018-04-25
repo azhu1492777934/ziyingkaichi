@@ -16,9 +16,10 @@
         </el-form-item>
 
         <el-form-item v-bind:label="$t('ready_terminal_sim.imsi')" :prop="'modelCondition.' + index + '.imsi'" :rules="rules.imsi">
-          <el-select :remote-method="remoteMethod" remote filterable clearable v-model="domain.imsi" placeholder="" class="permission-input">
-            <el-option v-for="i in imsiArr" :key="i.name" :label="i.name" :value="i.name"></el-option>
-          </el-select>
+          <!--<el-select :remote-method="remoteMethod" remote filterable clearable v-model="domain.imsi" placeholder="" class="permission-input">-->
+            <!--<el-option v-for="i in imsiArr" :key="i.name" :label="i.name" :value="i.name"></el-option>-->
+          <!--</el-select>-->
+          <el-input type="number" v-model="domain.imsi"></el-input>
         </el-form-item>
 
         <!--<el-form-item v-bind:label="$t('ready_terminal_sim.lastStatus')" :prop="'modelCondition.' + index + '.lastStatus'" :rules="rules.lastStatus">-->
