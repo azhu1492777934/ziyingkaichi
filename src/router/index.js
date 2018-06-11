@@ -148,12 +148,17 @@ export const constantRouterMap = [
       { path: 'auth_role/new', component: () => import('@/views/auth_role/auth_role/new'), name: '权限新增', hidden: true  },
       { path: 'auth_role/edit/:id', component: () =>import('@/views/auth_role/auth_role/edit'), name: '权限编辑', hidden: true  },
 
-
       { path: 'auth_permission', component: () => import('@/views/auth_role/auth_permission/index'), name: '接口管理' },
       { path: 'auth_permission/new', component: () => import('@/views/auth_role/auth_permission/new'), name: '接口新增', hidden: true  },
       { path: 'auth_permission/edit/:id', component: () =>import('@/views/auth_role/auth_permission/edit'), name: '接口编辑', hidden: true  },
     ]
   },
+
+  { path: '/terminal/terminal_sim/list/:tsid', component: () => import('@/views/terminal/terminal_sim/list'), hidden: true },
+
+  { path: '/sim_card/sim_card/list/:imsi', component: () => import('@/views/sim_card/sim_card/list'), hidden: true },
+
+  { path: '/sim_card/sim_card/imsi/:imsi', component: () => import('@/views/sim_card/sim_card/imsi'), hidden: true },
 
   { path: '*', redirect: '/404', hidden: true }
 ]

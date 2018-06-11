@@ -69,11 +69,7 @@
         </el-col>
       </el-row>
       <el-row style="margin-top: 10px;">
-        <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="dialogUpdatePackageVisible = true">批量修改套餐</el-button>
-        <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="dialogUpdateMonthVisible = true">批量修改月流量账期</el-button>
-        <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="dialogUpdateExpiryDateVisible = true">批量更新卡有效期</el-button>
-        <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="dialogUpdateAPNVisible = true">批量更新APN</el-button>
-        <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="dialogUpdateStatusVisible = true">批量更新状态</el-button>
+        <el-button>{{this.$route.params.id}}</el-button>
       </el-row>
     </div>
 
@@ -110,9 +106,6 @@
         prop="imsi"
         v-bind:label="$t('simcard.imsi')"
         width="140">
-        <template slot-scope="scope">
-          <a style="text-decoration: underline" :href="'#/sim_card/sim_card/list/' + scope.row.imsi" target="_blank">{{ scope.row.imsi }}</a>
-        </template>
       </el-table-column>
       <el-table-column
         prop="iccid"
