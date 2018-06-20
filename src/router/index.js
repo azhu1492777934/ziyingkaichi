@@ -154,11 +154,11 @@ export const constantRouterMap = [
     ]
   },
 
-  { path: '/terminal/terminal_sim/list/:tsid', component: () => import('@/views/terminal/terminal_sim/list'), hidden: true },
+  { path: '/terminal/static/tsid_list', component: () => import('@/views/terminal/static/tsid_list'), hidden: true },
 
-  { path: '/sim_card/sim_card/list/:imsi', component: () => import('@/views/sim_card/sim_card/list'), hidden: true },
+  { path: '/terminal/static/imsi_list', component: () => import('@/views/terminal/static/imsi_list'), hidden: true },
 
-  { path: '/sim_card/sim_card/imsi/:imsi', component: () => import('@/views/sim_card/sim_card/imsi'), hidden: true },
+  { path: '/terminal/static/imsi_date_list', component: () => import('@/views/terminal/static/imsi_date_list'), hidden: true },
 
   { path: '*', redirect: '/404', hidden: true }
 ]

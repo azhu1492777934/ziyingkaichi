@@ -47,7 +47,7 @@
         v-bind:label="$t('terminal_sim.tsid')"
         width="100">
         <template slot-scope="scope">
-          <a style="text-decoration: underline" :href="'#/terminal/terminal_sim/list/' + scope.row.tsid" target="_blank">{{ scope.row.tsid }}</a>
+          <a style="text-decoration: underline" :href="'#/terminal/static/tsid_list?tsid=' + scope.row.tsid" target="_blank">{{ scope.row.tsid }}</a>
         </template>
       </el-table-column>
       <el-table-column
@@ -55,7 +55,7 @@
         v-bind:label="$t('terminal_sim.imsi')"
         width="140">
         <template slot-scope="scope">
-          <a style="text-decoration: underline" :href="'#/sim_card/sim_card/list/' + scope.row.imsi" target="_blank">{{ scope.row.imsi }}</a>
+          <a style="text-decoration: underline" :href="'#/terminal/static/imsi_list?imsi=' + scope.row.imsi" target="_blank">{{ scope.row.imsi }}</a>
         </template>
       </el-table-column>
       <el-table-column

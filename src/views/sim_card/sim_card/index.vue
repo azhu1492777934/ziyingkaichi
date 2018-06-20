@@ -111,7 +111,7 @@
         v-bind:label="$t('simcard.imsi')"
         width="140">
         <template slot-scope="scope">
-          <a style="text-decoration: underline" :href="'#/sim_card/sim_card/list/' + scope.row.imsi" target="_blank">{{ scope.row.imsi }}</a>
+          <a style="text-decoration: underline" :href="'#/terminal/static/imsi_list?imsi=' + scope.row.imsi" target="_blank">{{ scope.row.imsi }}</a>
         </template>
       </el-table-column>
       <el-table-column

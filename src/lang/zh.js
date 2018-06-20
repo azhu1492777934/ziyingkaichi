@@ -153,6 +153,48 @@ export default {
     vCountryCode: "使用国家",
   },
 
+  terminal_tsid: {
+    num: "序号",
+    tsid: "TSID",
+    imsi: "IMSI",
+    time: "时间",
+    flowincrement: "流量增量",
+    type: "心跳类型",
+    location: "国家",
+    resultDesc: "描述",
+    signaly: "信号强度",
+    signalType: "信号类型",
+    userCount: "连接数",
+    spid: "卡池号",
+    channelId: "通道",
+    apn: "APN",
+  },
+
+  flow_month: {
+    date: "日期",
+    imsi: "IMSI",
+    maxFlow: "本地套餐流量",
+    usedFlow: "本地使用",
+    residueFlow: "本地剩余",
+    maxRoamFlow: "漫游套餐流量",
+    usedRoamFlow: "漫游使用",
+    residueRoamFlow: "漫游剩余",
+    accountPeriodStartDate: "账期起始",
+    accountPeriodEndDate: "账期结束",
+    lastUpDateTime: "更新时间",
+  },
+
+  flow_day: {
+    id: "ID",
+    startDate: "起始日期",
+    endDate: "结束日期",
+    date: "日期",
+    imsi: "IMSI",
+    flow: "本地流量",
+    roamFlow: "漫游流量",
+    lastUpDateTime: "更新时间",
+  },
+
   terminal: {
     id: "ID",
     tsid: "编号",

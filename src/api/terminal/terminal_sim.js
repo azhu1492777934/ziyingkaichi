@@ -22,3 +22,4 @@ export function modelUnbind(id) {
     method: 'post'
   })
 }
+
