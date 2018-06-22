@@ -137,9 +137,9 @@
           this.listLoading = false
         })
 
-        if (!this.list) {
-          this.getList()
-        }
+        // if (!this.list) {
+        //   this.getList()
+        // }
       },
       getCountryMap() {
         countryMap().then(response=>{

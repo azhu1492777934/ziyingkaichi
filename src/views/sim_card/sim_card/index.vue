@@ -385,9 +385,9 @@
           this.listLoading = false
         })
 
-        if (!this.list) {
-          this.getList()
-        }
+        // if (!this.list) {
+        //   this.getList()
+        // }
       },
       handleCancel() {
         this.dialogUpdatePackageVisible = false;

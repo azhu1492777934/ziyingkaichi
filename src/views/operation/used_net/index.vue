@@ -118,9 +118,9 @@
           this.listLoading = false
         })
 
-        if (!this.list) {
-          this.getList()
-        }
+        // if (!this.list) {
+        //   this.getList()
+        // }
       },
       handleCurrentChange(val) {
         this.listQuery.page = val;
