@@ -10,13 +10,13 @@
       <br/>
 
       <el-form-item v-bind:label="$t('channel_card_prefer.operatorCode')"  prop="operatorCode">
-        <el-select v-model="ruleForm.operatorCode" filterable clearable :placeholder="$t('country_operator.operatorCode')" disabled="false">
+        <el-select v-model="ruleForm.operatorCode" filterable clearable :placeholder="$t('country_operator.operatorCode')" :disabled="false">
           <el-option v-for="i in operatorCodeArr" :key="i.id" :label="i.id" :value="i.id">{{i.id}}</el-option>
         </el-select>
       </el-form-item>
 
       <el-form-item v-bind:label="$t('channel_card_prefer.mcc')"  prop="mcc">
-        <el-input v-model="ruleForm.mcc" disabled="false"></el-input>
+        <el-input v-model="ruleForm.mcc" :disabled="false"></el-input>
       </el-form-item>
 
       <el-form-item v-bind:label="$t('channel_card_prefer.rplmn')"  prop="rplmn">
@@ -109,7 +109,7 @@
                 Message({
                   message: '更新成功',
                   type: 'success',
-                  duration: 0,
+                  duration: _const.messageDuration,
                   showClose: true
                 });
                 this.$router.push('/channel_card/channel_card_prefer');

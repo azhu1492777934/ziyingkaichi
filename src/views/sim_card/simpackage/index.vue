@@ -4,11 +4,11 @@
       <el-row>
         <el-col :span="4">
           <el-input class="filter-item" :placeholder="$t('simpackage.name')"
-                    v-model="listQuery.q.mcc" clearable type="text"> </el-input>
+                    v-model="listQuery.q.name" clearable type="text"> </el-input>
         </el-col>
         <el-col :span="4">
           <el-input class="filter-item" :placeholder="$t('simpackage.operatorCode')"
-                    v-model="listQuery.q.operatorNameEn" clearable type="text"> </el-input>
+                    v-model="listQuery.q.operatorCode" clearable type="text"> </el-input>
         </el-col>
         <el-col :span="12">
           <el-button style="margin-left: 26px" type="primary" icon="search" @click="handleFilter">搜索</el-button>
@@ -31,7 +31,7 @@
       <el-table-column
         prop="id"
         v-bind:label="$t('simpackage.id')"
-        width="100">
+        width="40">
       </el-table-column>
       <el-table-column
         prop="name"
@@ -41,28 +41,40 @@
       <el-table-column
         prop="operatorCode"
         v-bind:label="$t('simpackage.operatorCode')"
-        width="120">
+        width="80">
       </el-table-column>
       <el-table-column
         prop="maxFlow"
         v-bind:label="$t('simpackage.maxFlow')"
-        width="160">
+        width="130">
       </el-table-column>
       <el-table-column
         prop="maxRoamFlow"
         v-bind:label="$t('simpackage.maxRoamFlow')"
-        width="160">
+        width="130">
       </el-table-column>
       <el-table-column
         prop="level"
         v-bind:label="$t('simpackage.level')"
-        width="140">
+        width="80">
       </el-table-column>
       <el-table-column
         prop="mccs"
         v-bind:label="$t('simpackage.mccs')"
-        width="120">
+        width="80">
       </el-table-column>
+      <el-table-column
+        prop="blackProvincesCn"
+        v-bind:label="$t('simpackage.blackProvinces')"
+        width="200">
+      </el-table-column>
+      <el-table-column
+        prop="whiteProvincesCn"
+        v-bind:label="$t('simpackage.whiteProvinces')"
+        width="200">
+      </el-table-column>
+
+
       <el-table-column
         prop="statusCn"
         v-bind:label="$t('simpackage.status')"
@@ -71,7 +83,7 @@
       <el-table-column
         label="操作"
         align="center"
-        width=""
+        width="140"
       >
         <template slot-scope="scope">
           <a :href="'#/sim_card/simpackage/edit/' + scope.row.id" target="_self"><el-button size="small">编辑</el-button></a>
@@ -80,11 +92,8 @@
       </el-table-column>
     </el-table>
 
-    <div v-show="!listLoading && total > 0" class="pagination-container">
-      <el-pagination @current-change="handleCurrentChange" :current-page.sync="listQuery.page"
-                     :page-size="listQuery.perPage" layout="total, prev, pager, next" :total="total">
-      </el-pagination>
-    </div>
+    <!-- 分页全局组件 -->
+    <my-pagination :listQuery="listQuery" :total="total" :listLoading="listLoading" @get="getList()"></my-pagination>
     <!-- 列表-end -->
   </div>
 </template>
@@ -102,7 +111,7 @@
         listLoading: true,
         listQuery: {
           page: 1,
-          perPage: 20,
+          perPage: 100,
           q: {
           }
         },
@@ -150,7 +159,7 @@
               Message({
                 message: '删除成功',
                 type: 'success',
-                duration: 0,
+                duration: _const.messageDuration,
                 showClose: true
               });
               this.getList();
@@ -160,7 +169,7 @@
           this.$message({
             type: 'info',
             message: '已取消删除',
-            duration: 0,
+            duration: _const.messageDuration,
             showClose: true
           });
         });

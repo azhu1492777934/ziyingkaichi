@@ -35,12 +35,12 @@
       <el-table-column
         prop="imsi"
         v-bind:label="$t('channel_card.imsi')"
-        width="100">
+        width="150">
       </el-table-column>
       <el-table-column
         prop="iccid"
         v-bind:label="$t('channel_card.iccid')"
-        width="80">
+        width="200">
       </el-table-column>
       <el-table-column
         prop="operatorCode"
@@ -50,6 +50,11 @@
       <el-table-column
         prop="countryCode"
         v-bind:label="$t('channel_card.countryCode')"
+        width="140">
+      </el-table-column>
+      <el-table-column
+        prop="countryCn"
+        v-bind:label="$t('channel_card.countryCn')"
         width="140">
       </el-table-column>
       <el-table-column
@@ -64,11 +69,8 @@
       </el-table-column>
     </el-table>
 
-    <div v-show="!listLoading && total > 0" class="pagination-container">
-      <el-pagination @current-change="handleCurrentChange" :current-page.sync="listQuery.page"
-                     :page-size="listQuery.perPage" layout="total, prev, pager, next" :total="total">
-      </el-pagination>
-    </div>
+   <!-- 分页全局组件 -->
+    <my-pagination :listQuery="listQuery" :total="total" :listLoading="listLoading" @get="getList()"></my-pagination>
     <!-- 列表-end -->
 
     <!-- 批量修改-start -->
@@ -91,6 +93,7 @@
 
 
 <script>
+  import { countryMap } from 'api/operation/country';
   import { modelList, batchUpdate } from 'api/channel_card/channel_card';
   import { Message } from 'element-ui';
 
@@ -102,7 +105,7 @@
         listLoading: true,
         listQuery: {
           page: 1,
-          perPage: 20,
+          perPage: 100,
           q: {
             imsi: '',
           }
@@ -120,12 +123,21 @@
         dialogUpdateVisible: false,
         formLabelWidth: '150px',
         statusArr: [{id: 0, name: '预置卡'},{id: 1, name: '临时卡'},{id: 2, name: '作废'}],
+        countryCodeArr: [],
       }
     },
     created() {
       this.getList();
     },
     methods: {
+      getCountryMap() {
+        countryMap().then(response=>{
+          const res = response.data;
+          if (res.status > 0) {
+            this.countryCodeArr = res.data;
+          }
+        });
+      },
       getList() {
         this.listLoading = true;
         modelList(this.listQuery).then(response => {
@@ -180,7 +192,7 @@
               Message({
                 message: '更新成功',
                 type: 'success',
-                duration: 0,
+                duration: _const.messageDuration,
                 showClose: true
               });
               this.dialogUpdateVisible = false;

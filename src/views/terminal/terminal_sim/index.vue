@@ -10,15 +10,34 @@
           <el-input class="filter-item" :placeholder="$t('terminal_sim.imsi')"
                     v-model="listQuery.q.imsi" clearable type="text"> </el-input>
         </el-col>
+        <el-col :span="8">
+          <el-date-picker style="width: 100%;"
+                          v-model="listQuery.q.date"
+                          type="daterange"
+                          :start-placeholder="$t('terminal_sim.date')" :end-placeholder="$t('terminal_sim.date')">
+          </el-date-picker>
+        </el-col>
         <el-col :span="4">
-          <el-select v-model="listQuery.q.vCountryCode" filterable clearable :placeholder="$t('terminal_sim.vCountryCode')">
-            <el-option v-for="i in countryCodeArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
+          <el-input class="filter-item" :placeholder="$t('terminal_sim.usergroup')"
+                    v-model="listQuery.q.usergroup" clearable type="text"> </el-input>
+        </el-col>
+        <!-- el-col :span="4">
+        <el-select v-model="listQuery.q.vCountryCode" filterable clearable :placeholder="$t('terminal_sim.vCountryCode')">
+          <el-option v-for="i in countryCodeArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
+        </el-select>
+      </el-col -->
+
+        <el-col :span="4">
+          <el-select v-model="listQuery.q.province" filterable clearable :placeholder="$t('terminal_sim.provinceCode')">
+            <el-option v-for="i in provinceCodeArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
           </el-select>
         </el-col>
 
         <el-col :span="12">
           <el-button style="margin-left: 26px" type="primary" icon="search" @click="handleFilter">搜索</el-button>
           <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="handelBatchUnbind()" icon="delete" style="left: 10px">批量释放主卡</el-button>
+          <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="handelBatchReboot()" icon="delete" style="left: 10px">批量重启</el-button>
+          <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="handelBatchShutdown()" icon="delete" style="left: 10px">批量关机</el-button>
         </el-col>
       </el-row>
     </div>
@@ -68,11 +87,33 @@
         v-bind:label="$t('terminal_sim.beatTime')"
         width="160">
       </el-table-column>
+
       <el-table-column
-        prop="vcountryCodeCn"
-        v-bind:label="$t('terminal_sim.vCountryCode')"
+        prop="usergroup"
+        v-bind:label="$t('terminal_sim.usergroup')"
         width="120">
       </el-table-column>
+
+      <el-table-column
+        prop="provinceName"
+        v-bind:label="$t('terminal_sim.provinceName')"
+        width="140">
+      </el-table-column>
+
+      <el-table-column
+        prop="dayFlow"
+        align="right"
+        v-bind:label="$t('terminal_sim.dayFlow')"
+        width="100">
+      </el-table-column>
+
+      <el-table-column
+        prop="monthFlow"
+        align="right"
+        v-bind:label="$t('terminal_sim.monthFlow')"
+        width="100">
+      </el-table-column>
+
       <el-table-column
         label="操作"
         align="center"
@@ -83,12 +124,9 @@
         </template>
       </el-table-column>
     </el-table>
-
-    <div v-show="!listLoading && total > 0" class="pagination-container">
-      <el-pagination @current-change="handleCurrentChange" :current-page.sync="listQuery.page"
-                     :page-size="listQuery.perPage" layout="total, prev, pager, next" :total="total">
-      </el-pagination>
-    </div>
+    
+    <!-- 分页全局组件 -->
+    <my-pagination :listQuery="listQuery" :total="total" :listLoading="listLoading" @get="getList()"></my-pagination>
     <!-- 列表-end -->
   </div>
 </template>
@@ -96,7 +134,8 @@
 
 <script>
   import { countryMap } from 'api/operation/country';
-  import { modelList, modelUnbind, modelBatchUnbind } from 'api/terminal/terminal_sim';
+  import { provinceMap } from 'api/operation/province';
+  import { modelList, modelUnbind, modelBatchUnbind,modelBatchReboot,modelBatchShutdown } from 'api/terminal/terminal_sim';
   import * as moment from 'moment';
   import { Message } from 'element-ui';
 
@@ -108,7 +147,7 @@
         listLoading: true,
         listQuery: {
           page: 1,
-          perPage: 20,
+          perPage: 100,
           q: {
             tsid: '',
             imsi: '',
@@ -118,11 +157,13 @@
         modelDelete: true,
         modelIds: [],
         countryCodeArr: [],
+        provinceCodeArr: [],
       }
     },
     created() {
       this.getList();
       this.getCountryMap();
+      this.getProvinceMap();
     },
     methods: {
       getList() {
@@ -146,6 +187,14 @@
           const res = response.data;
           if (res.status > 0) {
             this.countryCodeArr = res.data;
+          }
+        });
+      },
+      getProvinceMap() {
+        provinceMap().then(response=>{
+          const res = response.data;
+          if (res.status > 0) {
+            this.provinceCodeArr = res.data;
           }
         });
       },
@@ -220,7 +269,7 @@
                     Message({
                       message: '释放主卡成功',
                       type: 'success',
-                      duration: 0,
+                      duration: _const.messageDuration,
                       showClose: true
                     });
                     this.listQuery.q.tsid = strNull;
@@ -239,13 +288,153 @@
               this.$message({
                 type: 'info',
                 message: '已取消释放主卡',
-                duration: 0,
+                duration: _const.messageDuration,
                 showClose: true
               });
             }
           }
         });
       },
+
+      handelBatchReboot() {
+        var x;
+        const noModelIds = this.modelIds.length === 0;
+        if (noModelIds) {
+          x = this.total;
+
+        } else {
+          x = this.modelIds.length;
+        }
+        const h = this.$createElement;
+        this.$msgbox({
+          title: '提示',
+          message: h('p', null, [
+            h('span', null, '重启设备，终端在下一次心跳重启 '),
+            h('span', { style: 'color: red' }, x),
+            h('span', null, '条 ')
+          ]),
+          showCancelButton: true,
+          type: 'warning',
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          beforeClose: (action, instance, done) => {
+            if (action === 'confirm') {
+              instance.confirmButtonLoading = true;
+              instance.confirmButtonText = '设备下发重启指令中...';
+              setTimeout(() => {
+                this.listLoading = true;
+                done();
+                var strNull = '';
+                if (!noModelIds) {
+                  this.listQuery.q.tsid = strNull;
+                  this.listQuery.q.imsi = strNull;
+                  this.listQuery.q.vCountryCode = strNull;
+                }
+                console.log("this.modelIds = " + this.modelIds)
+                console.log("this.listQuery.q = " + this.listQuery.q)
+                modelBatchReboot(this.modelIds, this.listQuery.q).then(response=>{
+                  const res = response.data;
+                  if (res.status > 0) {
+                    Message({
+                      message: '下发重启指令成功',
+                      type: 'success',
+                      duration: _const.messageDuration,
+                      showClose: true
+                    });
+                    this.listQuery.q.tsid = strNull;
+                    this.listQuery.q.imsi = strNull;
+                    this.listQuery.q.vCountryCode = strNull;
+                    this.getList();
+                  }
+                });
+                setTimeout(() => {
+                  instance.confirmButtonLoading = false;
+                }, 300);
+              }, 1000);
+            } else {
+              console.log("else ------- done()");
+              done();
+              this.$message({
+                type: 'info',
+                message: '已取消重启指令',
+                duration: _const.messageDuration,
+                showClose: true
+              });
+            }
+          }
+        });
+      },
+
+      handelBatchShutdown() {
+        var x;
+        const noModelIds = this.modelIds.length === 0;
+        if (noModelIds) {
+          x = this.total;
+
+        } else {
+          x = this.modelIds.length;
+        }
+        const h = this.$createElement;
+        this.$msgbox({
+          title: '提示',
+          message: h('p', null, [
+            h('span', null, '给终端下发关机指令 '),
+            h('span', { style: 'color: red' }, x),
+            h('span', null, '条 ')
+          ]),
+          showCancelButton: true,
+          type: 'warning',
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          beforeClose: (action, instance, done) => {
+            if (action === 'confirm') {
+              instance.confirmButtonLoading = true;
+              instance.confirmButtonText = '关机指令下发中...';
+              setTimeout(() => {
+                this.listLoading = true;
+                done();
+                var strNull = '';
+                if (!noModelIds) {
+                  this.listQuery.q.tsid = strNull;
+                  this.listQuery.q.imsi = strNull;
+                  this.listQuery.q.vCountryCode = strNull;
+                }
+                console.log("this.modelIds = " + this.modelIds)
+                console.log("this.listQuery.q = " + this.listQuery.q)
+                modelBatchShutdown(this.modelIds, this.listQuery.q).then(response=>{
+                  const res = response.data;
+                  if (res.status > 0) {
+                    Message({
+                      message: '下发关机指令成功',
+                      type: 'success',
+                      duration: _const.messageDuration,
+                      showClose: true
+                    });
+                    this.listQuery.q.tsid = strNull;
+                    this.listQuery.q.imsi = strNull;
+                    this.listQuery.q.vCountryCode = strNull;
+                    this.getList();
+                  }
+                });
+                setTimeout(() => {
+                  instance.confirmButtonLoading = false;
+                }, 300);
+              }, 1000);
+            } else {
+              console.log("else ------- done()");
+              done();
+              this.$message({
+                type: 'info',
+                message: '已取消释下发关机指令',
+                duration: _const.messageDuration,
+                showClose: true
+              });
+            }
+          }
+        });
+      },
+
+
       handelUnbind(id) {
         this.$confirm('此操作将永久释放主卡, 是否继续?', '提示', {
           confirmButtonText: '确定',
@@ -260,7 +449,7 @@
               Message({
                 message: '释放主卡成功',
                 type: 'success',
-                duration: 0,
+                duration: _const.messageDuration,
                 showClose: true
               });
               this.getList();
@@ -270,7 +459,7 @@
           this.$message({
             type: 'info',
             message: '已取消释放主卡',
-            duration: 0,
+            duration: _const.messageDuration,
             showClose: true
           });
         });

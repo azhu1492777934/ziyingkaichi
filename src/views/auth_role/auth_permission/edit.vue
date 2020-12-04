@@ -42,7 +42,7 @@
       </el-form-item>
 
       <el-form-item v-bind:label="$t('auth_permission.createTime')"  prop="createTime">
-        <el-date-picker type="datetime" v-model="ruleForm.createTime" disabled="false"></el-date-picker>
+        <el-date-picker type="datetime" v-model="ruleForm.createTime" :disabled="true"></el-date-picker>
       </el-form-item>
 
       <el-form-item>
@@ -111,7 +111,7 @@
                 Message({
                   message: '更新成功',
                   type: 'success',
-                  duration: 0,
+                  duration: _const.messageDuration,
                   showClose: true
                 });
                 this.$router.push('/auth_role/auth_permission');

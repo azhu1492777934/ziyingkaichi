@@ -16,6 +16,13 @@ export function modelCreate(model) {
   })
 }
 
+export function cancelDelete(id) {
+  return request({
+    url: '/simcard/delete/' + id,
+    method: 'post'
+  })
+}
+
 export function modelUpdate(model) {
   return request({
     url: '/simcard/update',
@@ -86,3 +93,10 @@ export function simcardMap(imsi) {
   })
 }
 
+export function uploadSimImeiFile(file) {
+  return request({
+    url: '/simcard/uploadimei/',
+    method: 'post',
+    data: file
+  })
+}

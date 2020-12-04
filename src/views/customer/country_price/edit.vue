@@ -14,14 +14,15 @@
         </el-select>
       </el-form-item>
 
-      <el-form-item v-bind:label="$t('country_price.customerRealName')" prop="countryCode">
-        <el-select :remote-method="remoteMethod" remote filterable clearable v-model="ruleForm.customerId" placeholder="" class="permission-input">
+      <el-form-item v-bind:label="$t('country_price.customerRealName')" prop="customerId">
+        <el-select :remote-method="remoteMethod" remote filterable clearable v-model="ruleForm.customerId"
+                   placeholder="" class="permission-input" :onchange="selectCustomerRealName(ruleForm)">
           <el-option v-for="i in customerArr" :key="i.id" :label="i.name" :value="i.id"></el-option>
         </el-select>
       </el-form-item>
 
-      <el-form-item v-bind:label="$t('country_price.currency')" prop="countryCode">
-        <el-radio-group v-model="ruleForm.currency">
+      <el-form-item v-bind:label="$t('country_price.currency')" prop="currency">
+        <el-radio-group v-model="ruleForm.currency" :disabled="true">
           <el-radio v-for="i in currencyArr" :key="i.id" :label="i.id" :value="i.id">{{ i.name }}</el-radio>
         </el-radio-group>
       </el-form-item>
@@ -141,6 +142,14 @@
           }
         })
       },
+      selectCustomerRealName(item) {
+        for (var i = 0; i < this.customerArr.length; i++){
+          var cus = this.customerArr[i];
+          if (cus.id == item.customerId) {
+            this.ruleForm.currency = cus.code
+          }
+        }
+      },
       remoteMethod(query) {
         if (query !== '') {
           this.queryCustomers(query);
@@ -162,7 +171,7 @@
                 Message({
                   message: '更新成功',
                   type: 'success',
-                  duration: 0,
+                  duration: _const.messageDuration,
                   showClose: true
                 });
                 this.$router.push('/customer/country_price');

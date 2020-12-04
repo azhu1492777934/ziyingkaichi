@@ -46,54 +46,81 @@
         width="170">
       </el-table-column>
       <el-table-column
+        align="right"
         prop="flowincrement"
         v-bind:label="$t('terminal_tsid.flowincrement')"
-        width="80">
+        width="120">
       </el-table-column>
       <el-table-column
-        prop="type"
+        prop="typeCn"
         v-bind:label="$t('terminal_tsid.type')"
         width="80">
       </el-table-column>
       <el-table-column
-        prop="location"
+        prop="locationCn"
         v-bind:label="$t('terminal_tsid.location')"
         width="80">
       </el-table-column>
-      <el-table-column
-        prop="resultDesc"
+      <!--el-table-column
+        prop="resultdesc"
         v-bind:label="$t('terminal_tsid.resultDesc')"
         width="80">
-      </el-table-column>
+      </el-table-column-->
       <el-table-column
         prop="signaly"
         v-bind:label="$t('terminal_tsid.signaly')"
         width="80">
       </el-table-column>
       <el-table-column
-        prop="signalType"
+        prop="signaltype"
         v-bind:label="$t('terminal_tsid.signalType')"
         width="80">
       </el-table-column>
       <el-table-column
-        prop="userCount"
+        prop="usercount"
+        align="right"
         v-bind:label="$t('terminal_tsid.userCount')"
         width="80">
       </el-table-column>
       <el-table-column
         prop="spid"
         v-bind:label="$t('terminal_tsid.spid')"
-        width="80">
+        width="50">
       </el-table-column>
       <el-table-column
-        prop="channelId"
-        v-bind:label="$t('terminal_tsid.channelId')"
-        width="80">
+        prop="spip"
+        v-bind:label="$t('terminal_tsid.spip')"
+        width="100">
       </el-table-column>
       <el-table-column
         prop="apn"
         v-bind:label="$t('terminal_tsid.apn')"
-        width="160">
+        width="80">
+      </el-table-column>
+      <el-table-column
+        prop="longitude"
+        v-bind:label="$t('terminal_tsid.longitude')"
+        width="60">
+      </el-table-column>
+      <el-table-column
+      prop="latitude"
+      v-bind:label="$t('terminal_tsid.latitude')"
+      width="60">
+    </el-table-column>
+      <el-table-column
+        prop="power"
+        v-bind:label="$t('terminal_tsid.power')"
+        width="50">
+      </el-table-column>
+      <el-table-column
+        prop="operatorcode"
+        v-bind:label="$t('terminal_tsid.operatorcode')"
+        width="50">
+      </el-table-column>
+      <el-table-column
+        prop="operatorcn"
+        v-bind:label="$t('terminal_tsid.operatorcn')"
+        width="100">
       </el-table-column>
     </el-table>
 
@@ -113,7 +140,7 @@
         listQuery: {
           q: {
             tsid: this.$route.query.tsid,
-            date: this.$route.query.date,
+            date: new Date(),
             fromDate: undefined,
             toDate: undefined,
           }
@@ -125,10 +152,15 @@
     },
     methods: {
       getList() {
-        if (this.listQuery.q.tsid != undefined && this.listQuery.q.date != undefined ) {
-          this.listQuery.q.date = moment(this.listQuery.q.date).format('YYYY-MM-DD');
-          this.listQuery.q.fromDate = this.listQuery.q.date + ' 00:00:00';
-          this.listQuery.q.toDate = this.listQuery.q.date + ' 23:59:59';
+        if (this.listQuery.q.tsid != undefined) {
+          if (this.listQuery.q.date != undefined ) {
+            this.listQuery.q.date = moment(this.listQuery.q.date).format('YYYY-MM-DD');
+            this.listQuery.q.fromDate = this.listQuery.q.date + ' 00:00:00';
+            this.listQuery.q.toDate = this.listQuery.q.date + ' 23:59:59';
+          } else {
+            this.listQuery.q.fromDate = '';
+            this.listQuery.q.toDate = '';
+          }
           this.listLoading = true;
           modelTsidList(this.listQuery.q).then(response => {
             const res = response.data;

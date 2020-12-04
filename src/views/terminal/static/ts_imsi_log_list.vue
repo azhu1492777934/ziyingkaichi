@@ -1,0 +1,111 @@
+<template>
+  <div class="app-container calendar-list-container" id="basicData_search_index">
+    <div class="filter-container search">
+      <el-row>
+        <el-col :span="4">
+          <el-input class="filter-item" :placeholder="$t('terminal_sim_log.imsi')"
+                    v-model="listQuery.q.imsi" clearable type="text"> </el-input>
+        </el-col>
+
+        <el-col :span="12">
+          <el-button style="margin-left: 26px" type="primary" icon="search" @click="handleFilter">搜索</el-button>
+        </el-col>
+      </el-row>
+    </div>
+
+    <br/>
+
+    <!-- 列表-start -->
+    <el-table
+      ref="multipleTable"
+      v-loading="listLoading"
+      :data="list"
+      border
+      tooltip-effect="dark"
+      style="width: 100%">
+      <el-table-column
+        prop="tsid"
+        v-bind:label="$t('terminal_sim_log.tsid')"
+        width="120">
+        <template slot-scope="scope">
+          <a style="text-decoration: underline" :href="'#/terminal/static/tsid_list?tsid=' + scope.row.tsid" target="_blank">{{ scope.row.tsid }}</a>
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="imsi"
+        v-bind:label="$t('terminal_sim_log.imsi')"
+        width="140">
+      </el-table-column>
+      <el-table-column
+        prop="dateCn"
+        v-bind:label="$t('terminal_sim_log.dateCn')"
+        width="180">
+      </el-table-column>
+      <el-table-column
+        prop="beatTimeCn"
+        v-bind:label="$t('terminal_sim_log.beatTimeCn')"
+        width="180">
+      </el-table-column>
+      <el-table-column
+        prop="result"
+        v-bind:label="$t('terminal_sim_log.result')"
+        width="120">
+      </el-table-column>
+    </el-table>
+
+  </div>
+</template>
+
+
+<script>
+  import { logList } from 'api/terminal/terminal_sim';
+  import * as moment from 'moment';
+
+  export default {
+    data() {
+      return {
+        list: [],
+        listLoading: false,
+        listQuery: {
+          q: {
+            imsi: this.$route.query.imsi,
+          }
+        },
+      }
+    },
+    created() {
+      this.getList();
+    },
+    methods: {
+      getList() {
+        if (this.listQuery.q.imsi != undefined) {
+          this.listLoading = true;
+          logList(this.listQuery.q).then(response => {
+            const res = response.data;
+            if (res.status > 0) {
+              const data = res.data;
+              this.list = data;
+            }
+            this.listLoading = false
+          })
+        }
+      },
+
+      handleCurrentChange(val) {
+        this.getList()
+      },
+      handleFilter() {
+        this.getList();
+      },
+    }
+  }
+</script>
+
+<style rel="stylesheet/scss" lang="scss" scoped>
+  #basicData_search_index {
+    font-size: 12px;
+    .buttonStyle{
+      display: inline-block;
+    }
+  }
+</style>

@@ -55,7 +55,7 @@
         width="80">
       </el-table-column>
       <el-table-column
-        prop="type"
+        prop="typeCn"
         v-bind:label="$t('order.type')"
         width="80">
       </el-table-column>
@@ -63,6 +63,11 @@
         prop="countryCode"
         v-bind:label="$t('order.countryCode')"
         width="120">
+      </el-table-column>
+      <el-table-column
+        prop="countryCn"
+        v-bind:label="$t('order.countryCn')"
+        width="140">
       </el-table-column>
       <el-table-column
         prop="beginDateCn"
@@ -100,11 +105,8 @@
       </el-table-column>
     </el-table>
 
-    <div v-show="!listLoading && total > 0" class="pagination-container">
-      <el-pagination @current-change="handleCurrentChange" :current-page.sync="listQuery.page"
-                     :page-size="listQuery.perPage" layout="total, prev, pager, next" :total="total">
-      </el-pagination>
-    </div>
+    <!-- 分页全局组件 -->
+    <my-pagination :listQuery="listQuery" :total="total" :listLoading="listLoading" @get="getList()"></my-pagination>
     <!-- 列表-end -->
 
     <!-- 批量修改-start -->
@@ -175,7 +177,7 @@
         listLoading: true,
         listQuery: {
           page: 1,
-          perPage: 20,
+          perPage: 100,
           q: {
             identifier: '',
             customerRealName: '',
@@ -250,7 +252,7 @@
               Message({
                 message: '更新成功',
                 type: 'success',
-                duration: 0,
+                duration: this.getters.messageDuration,
                 showClose: true
               });
               this.dialogUpdateVisible = false;
@@ -270,7 +272,7 @@
               Message({
                 message: '绑定成功',
                 type: 'success',
-                duration: 0,
+                duration: _const.messageDuration,
                 showClose: true
               });
               this.dialogBindVisible = false;
@@ -288,7 +290,7 @@
             Message({
               message: '退订成功',
               type: 'success',
-              duration: 0,
+              duration: _const.messageDuration,
               showClose: true
             });
             this.dialogRefundVisible = false;

@@ -58,13 +58,13 @@
       <el-table-column
         prop="operatorNameEn"
         v-bind:label="$t('operator.operatorNameEn')"
-        width="120">
+        width="140">
       </el-table-column>
-      <el-table-column
+      <!-- el-table-column
         prop="operatorNameCn"
         v-bind:label="$t('operator.operatorNameCn')"
-        width="120">
-      </el-table-column>
+        width="140">
+      </el-table-column -->
       <el-table-column
         prop="countryCodeCn"
         v-bind:label="$t('operator.countryCode')"
@@ -73,17 +73,17 @@
       <el-table-column
         prop="mcc"
         v-bind:label="$t('operator.mcc')"
-        width="120">
+        width="60">
       </el-table-column>
       <el-table-column
         prop="mnc"
         v-bind:label="$t('operator.mnc')"
-        width="140">
+        width="60">
       </el-table-column>
       <el-table-column
         prop="apn"
         v-bind:label="$t('operator.apn')"
-        width="80">
+        width="500">
       </el-table-column>
       <el-table-column
         prop="level"
@@ -103,7 +103,7 @@
       <el-table-column
         label="操作"
         align="center"
-        width=""
+        width="140"
       >
         <template slot-scope="scope">
           <a :href="'#/operation/operator/edit/' + scope.row.id" target="_self"><el-button size="small">编辑</el-button></a>
@@ -112,11 +112,8 @@
       </el-table-column>
     </el-table>
 
-    <div v-show="!listLoading && total > 0" class="pagination-container">
-      <el-pagination @current-change="handleCurrentChange" :current-page.sync="listQuery.page"
-                     :page-size="listQuery.perPage" layout="total, prev, pager, next" :total="total">
-      </el-pagination>
-    </div>
+    <!-- 分页全局组件 -->
+    <my-pagination :listQuery="listQuery" :total="total" :listLoading="listLoading" @get="getList()"></my-pagination>
     <!-- 列表-end -->
   </div>
 </template>
@@ -135,7 +132,7 @@
         listLoading: true,
         listQuery: {
           page: 1,
-          perPage: 20,
+          perPage: 100,
           q: {
           }
         },
@@ -194,7 +191,7 @@
               Message({
                 message: '删除成功',
                 type: 'success',
-                duration: 0,
+                duration: _const.messageDuration,
                 showClose: true
               });
               this.getList();
@@ -204,7 +201,7 @@
           this.$message({
             type: 'info',
             message: '已取消删除',
-            duration: 0,
+            duration: _const.messageDuration,
             showClose: true
           });
         });

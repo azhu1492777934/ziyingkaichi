@@ -26,9 +26,9 @@
           <!--<el-input v-model="domain.lastStatus"></el-input>-->
         <!--</el-form-item>-->
 
-        <el-form-item v-bind:label="$t('ready_terminal_sim.insertDate')" :prop="'modelCondition.' + index + '.insertDate'" :rules="rules.insertDate">
+        <!-- el-form-item v-bind:label="$t('ready_terminal_sim.insertDate')" :prop="'modelCondition.' + index + '.insertDate'" :rules="rules.insertDate">
           <el-date-picker type="date" v-model="domain.insertDate"></el-date-picker>
-        </el-form-item>
+        </el-form-item -->
 
         <el-form-item v-bind:label="$t('ready_terminal_sim.type')" :prop="'modelCondition.' + index + '.type'" :rules="rules.type">
           <el-radio-group v-model="domain.type" @change="checkTerminalList(domain)">
@@ -78,9 +78,6 @@
           lastStatus: [
             { required: true, message: this.$t('ready_terminal_sim.lastStatus') + '不能为空' }
           ],
-          insertDate: [
-            { required: true, message: this.$t('ready_terminal_sim.insertDate') + '不能为空' }
-          ],
           type: [
             { required: true, message: this.$t('ready_terminal_sim.type') + '不能为空' }
           ],
@@ -113,7 +110,7 @@
           Message({
             message: '默认项不能删除',
             type: 'error',
-            duration: 0,
+            duration: _const.messageDuration,
             showClose: true
           });
         }
@@ -135,7 +132,7 @@
                 Message({
                   message: '更新成功',
                   type: 'success',
-                  duration: 0,
+                  duration: _const.messageDuration,
                   showClose: true
                 });
                 this.$router.push('/sim_card/ready_terminal_sim');

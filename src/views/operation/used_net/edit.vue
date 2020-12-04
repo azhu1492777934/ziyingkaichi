@@ -24,7 +24,9 @@
       </el-form-item>
 
       <el-form-item v-bind:label="$t('used_net.usedNet')" prop="usedNet">
-        <el-input type="number" v-model="ruleForm.usedNet"></el-input>
+        <el-select v-model="ruleForm.usedNet" filterable clearable :placeholder="$t('used_net.usedNet')">
+          <el-option v-for="i in usedNetArr" :key="i.id" :label="i.name" :value="i.id">{{ i.name }}</el-option>
+        </el-select>
       </el-form-item>
 
       <el-form-item>
@@ -68,6 +70,12 @@
             { required: true, message: this.$t('used_net.usedNet') + '不能为空' }
           ],
         },
+        usedNetArr: [{ id: 0, name: 'NETWORK_MODE_WCDMA_PREF' }, { id: 1, name: 'NETWORK_MODE_GSM_ONLY' }, { id: 2, name: 'NETWORK_MODE_WCDMA_ONLY' },
+          { id: 3, name: 'NETWORK_MODE_GSM_UMTS' }, { id: 4, name: 'NETWORK_MODE_CDMA' }, { id: 5, name: 'NETWORK_MODE_CDMA_NO_EVDO' },
+          { id: 6, name: 'NETWORK_MODE_EVDO_NO_CDMA' }, { id: 7, name: 'NETWORK_MODE_GLOBAL' }, { id: 8, name: 'NETWORK_MODE_LTE_CDMA_EVDO' },
+          { id: 9, name: 'NETWORK_MODE_LTE_GSM_WCDMA' }, { id: 10, name: 'NETWORK_MODE_LTE_CMDA_EVDO_GSM_WCDMA' }, { id: 11, name: 'NETWORK_MODE_LTE_ONLY' },
+          { id: 12, name: 'NETWORK_MODE_LTE_WCDMA' }, { id: 13, name: 'NETWORK_MODE_TD_SCDMA_ONLY' }, { id: 14, name: 'NETWORK_MODE_TD_SCDMA_WCDMA' },
+          { id: 15, name: 'NETWORK_MODE_TD_SCDMA_LTE' }, { id: 16, name: 'NETWORK_MODE_TD_SCDMA_GSM' }, ],
         operatorCodeArr: []
       }
     },
@@ -112,7 +120,7 @@
                 Message({
                   message: '更新成功',
                   type: 'success',
-                  duration: 0,
+                  duration: _const.messageDuration,
                   showClose: true
                 });
                 this.$router.push('/operation/used_net');

@@ -45,11 +45,13 @@
       </el-table-column>
       <el-table-column
         prop="flow"
+        align="right"
         v-bind:label="$t('flow_day.flow')"
         width="160">
       </el-table-column>
       <el-table-column
         prop="roamFlow"
+        align="right"
         v-bind:label="$t('flow_day.roamFlow')"
         width="160">
       </el-table-column>

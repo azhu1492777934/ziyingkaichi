@@ -27,7 +27,8 @@ export const constantRouterMap = [
     name: '终端业务',
     icon: 'table',
     children: [
-      { path: 'terminal_sim', component: () => import('@/views/terminal/terminal_sim/index'), name: '活跃终端管理' },
+      { path: 'terminal_sim', component: () => import('@/views/terminal/terminal_sim/index'), name: '在线终端管理' },
+      { path: 'select_sim', component: () => import('@/views/terminal/select_sim/index'), name: '24H活跃终端管理' },
 
       { path: 'terminal', component: () => import('@/views/terminal/terminal/index'), name: '终端信息管理' },
 
@@ -37,6 +38,9 @@ export const constantRouterMap = [
       { path: 'flow_balance', component: () => import('@/views/terminal/flow_balance/index'), name: '终端流量管理' },
       { path: 'flow_balance/new', component: () => import('@/views/terminal/flow_balance/new'), name: '终端流量新增', hidden: true  },
       { path: 'flow_balance/edit/:id', component: () =>import('@/views/terminal/flow_balance/edit'), name: '终端流量编辑', hidden: true  },
+
+      { path: 'cost_month', component: () => import('@/views/terminal/cost_month/index'), name: '终端月流量查询' },
+      { path: 'cost_day', component: () => import('@/views/terminal/cost_day/index'), name: '终端日流量查询' },
     ]
   },
 
@@ -65,6 +69,20 @@ export const constantRouterMap = [
       { path: 'used_net', component: () => import('@/views/operation/used_net/index'), name: '接入网络配置管理' },
       { path: 'used_net/new', component: () => import('@/views/operation/used_net/new'), name: '接入网络配置新增', hidden: true  },
       { path: 'used_net/edit/:id', component: () =>import('@/views/operation/used_net/edit'), name: '接入网络配置编辑', hidden: true  },
+
+      { path: 'province', component: () => import('@/views/operation/province/index'), name: '省市管理'},
+      { path: 'province/new', component: () => import('@/views/operation/province/new'), name: '省市新增',hidden:true },
+      { path: 'province/edit/:id', component: () => import('@/views/operation/province/edit'), name: '省市编辑',hidden:true },
+
+      { path: 'lac_province', component: () => import('@/views/operation/lac_province/index'), name: '省市LAC管理' },
+      { path: 'lac_province/new', component: () => import('@/views/operation/lac_province/new'), name: '省市LAC新增',hidden:true },
+      { path: 'lac_province/edit/:id', component: () => import('@/views/operation/lac_province/edit'), name: '省市LAC编辑',hidden:true },
+
+      { path: 'forbid_province', component: () => import('@/views/operation/forbid_province/index'), name: '禁止接入省市配置' },
+      { path: 'forbid_province/new', component: () => import('@/views/operation/forbid_province/new'), name: '禁止接入省市新增',hidden:true },
+      { path: 'forbid_province/edit/:id', component: () => import('@/views/operation/forbid_province/edit'), name: '禁止接入省市编辑',hidden:true },
+
+
     ]
   },
 
@@ -72,22 +90,26 @@ export const constantRouterMap = [
     path: '/sim_card',
     component: Layout,
     redirect: 'noredirect',
-    name: '主卡业务',
+    name: '远程卡业务',
     icon: 'table',
     children: [
       { path: 'simpool', component: () => import('@/views/sim_card/simpool/index'), name: '卡池管理' },
-      { path: 'simpool/show/:id', component: () =>import('@/views/sim_card/simpool/show'), name: '卡池查看', hidden: true  },
 
-      { path: 'sim_card', component: () => import('@/views/sim_card/sim_card/index'), name: '主卡信息管理' },
-      { path: 'sim_card/new', component: () => import('@/views/sim_card/sim_card/new'), name: '主卡信息新增', hidden: true  },
-      { path: 'sim_card/edit/:id', component: () => import('@/views/sim_card/sim_card/edit'), name: '主卡信息编辑', hidden: true  },
+      { path: 'sim_card', component: () => import('@/views/sim_card/sim_card/index'), name: '远程卡信息管理' },
+      { path: 'sim_card/new', component: () => import('@/views/sim_card/sim_card/new'), name: '远程卡信息新增', hidden: true  },
+      { path: 'sim_card/edit/:id', component: () => import('@/views/sim_card/sim_card/edit'), name: '远程卡信息编辑', hidden: true  },
 
       { path: 'simpackage', component: () => import('@/views/sim_card/simpackage/index'), name: '流量套餐管理' },
       { path: 'simpackage/new', component: () => import('@/views/sim_card/simpackage/new'), name: '流量套餐新增', hidden: true  },
       { path: 'simpackage/edit/:id', component: () =>import('@/views/sim_card/simpackage/edit'), name: '流量套餐编辑', hidden: true  },
 
-      { path: 'ready_terminal_sim', component: () => import('@/views/sim_card/ready_terminal_sim/index'), name: '预置主卡管理' },
-      { path: 'ready_terminal_sim/new', component: () => import('@/views/sim_card/ready_terminal_sim/new'), name: '预置主卡新增', hidden: true  },
+      { path: 'ready_terminal_sim', component: () => import('@/views/sim_card/ready_terminal_sim/index'), name: '预置远程卡管理' },
+      { path: 'ready_terminal_sim/new', component: () => import('@/views/sim_card/ready_terminal_sim/new'), name: '预置远程卡新增', hidden: true  },
+
+      { path: 'simcard_log', component: () => import('@/views/sim_card/simcard_log/index'), name: 'SIM故障日志' },
+
+      { path: 'cost_day_sim', component: () => import('@/views/sim_card/cost_day_sim/index'), name: '卡日流量' },
+      { path: 'cost_month_sim', component: () => import('@/views/sim_card/cost_month_sim/index'), name: '卡月流量' },
     ]
   },
 
@@ -159,6 +181,12 @@ export const constantRouterMap = [
   { path: '/terminal/static/imsi_list', component: () => import('@/views/terminal/static/imsi_list'), hidden: true },
 
   { path: '/terminal/static/imsi_date_list', component: () => import('@/views/terminal/static/imsi_date_list'), hidden: true },
+
+  { path: '/terminal/static/cost_day_list', component: () => import('@/views/terminal/cost_day/index'),hidden: true },
+
+  { path: '/terminal/static/ts_imsi_log_list', component: () => import('@/views/terminal/static/ts_imsi_log_list'), hidden: true },
+
+  { path: '/terminal/static/simpool_show/:id', component: () =>import('@/views/sim_card/simpool/show'), name: '卡池查看', hidden: true  },
 
   { path: '*', redirect: '/404', hidden: true }
 ]

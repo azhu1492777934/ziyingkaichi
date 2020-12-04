@@ -79,7 +79,7 @@
           Message({
             message: '默认项不能删除',
             type: 'error',
-            duration: 0,
+            duration: _const.messageDuration,
             showClose: true
           });
         }
@@ -103,7 +103,7 @@
                 Message({
                   message: '更新成功',
                   type: 'success',
-                  duration: 0,
+                  duration: _const.messageDuration,
                   showClose: true
                 });
                 this.$router.push('/channel_card/terminal_channel');

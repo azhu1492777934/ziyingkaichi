@@ -18,7 +18,7 @@
         </el-col>
         <el-col :span="4">
           <el-select v-model="listQuery.q.operatorCode" filterable clearable :placeholder="$t('simcard.operatorCode')">
-            <el-option v-for="i in operatorCodeArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
+            <el-option v-for="i in operatorCodeArr" :key="i.id" :label="i.name" :value="i.id">{{i.code}} {{i.name}}</el-option>
           </el-select>
         </el-col>
       </el-row>
@@ -40,7 +40,7 @@
         </el-col>
         <el-col :span="4">
           <el-select v-model="listQuery.q.offPeriod" filterable clearable :placeholder="$t('simcard.offPeriod')">
-            <el-option v-for="i in offPeriodArr" :key="i" :label="i" :value="i.id">{{i}}</el-option>
+            <el-option v-for="i in offPeriodArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
           </el-select>
         </el-col>
       </el-row>
@@ -49,6 +49,7 @@
           <el-date-picker style="width: 100%;"
                           v-model="listQuery.q.insertDateRange"
                           type="daterange"
+                          value-format="yyyy-MM-dd"
                           :start-placeholder="$t('simcard.insertDate')" :end-placeholder="$t('simcard.insertDate')">
           </el-date-picker>
         </el-col>
@@ -62,10 +63,10 @@
 
         <el-col :span="8">
           <el-button style="margin-left: 26px" type="primary" icon="search" @click="handleFilter">搜索</el-button>
+          <el-button style="margin-left: 10px" type="primary" icon="search" @click="resetFilter">重置</el-button>
           <a :href="'#/sim_card/sim_card/new'" target="_self" style="margin-left: 10px;">
             <el-button class="filter-item el-icon-plus" type="primary">新建</el-button>
           </a>
-          <el-button type="primary" @click="handleDownload">下载当前结果</el-button>
         </el-col>
       </el-row>
       <el-row style="margin-top: 10px;">
@@ -74,6 +75,11 @@
         <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="dialogUpdateExpiryDateVisible = true">批量更新卡有效期</el-button>
         <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="dialogUpdateAPNVisible = true">批量更新APN</el-button>
         <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="dialogUpdateStatusVisible = true">批量更新状态</el-button>
+        <el-button type="primary" @click="handleDownload">下载当前结果</el-button>
+        <a :href="'/simImei.xlsx'" target="_self">
+          <el-button style="margin-left: 20px" icon="search" @click="importTeminal">导入IMEI模板</el-button>
+        </a>
+        <el-button type="primary" style="margin-left: 10px" @click="dialogVisibleUpload = true">导入IMEI<i class="el-icon-upload el-icon--right"></i></el-button>
       </el-row>
     </div>
 
@@ -94,12 +100,12 @@
       <el-table-column
         prop="id"
         v-bind:label="$t('simcard.id')"
-        width="80">
+        width="60">
       </el-table-column>
       <el-table-column
-        prop="cpIP"
+        prop="cpId"
         v-bind:label="$t('simcard.cpIP')"
-        width="120">
+        width="80">
       </el-table-column>
       <el-table-column
         prop="cpChannelId"
@@ -119,6 +125,13 @@
         v-bind:label="$t('simcard.iccid')"
         width="180">
       </el-table-column>
+
+      <el-table-column
+        prop="tempImei"
+        v-bind:label="$t('simcard.tempImei')"
+        width="180">
+      </el-table-column>
+
       <el-table-column
         prop="countryCodeCn"
         v-bind:label="$t('simcard.countryCode')"
@@ -152,7 +165,7 @@
       <el-table-column
         label="操作"
         align="center"
-        width=""
+        width="140"
       >
         <template slot-scope="scope">
           <a :href="'#/sim_card/sim_card/edit/' + scope.row.id" target="_self"><el-button size="small">编辑</el-button></a>
@@ -161,11 +174,8 @@
       </el-table-column>
     </el-table>
 
-    <div v-show="!listLoading && total > 0" class="pagination-container">
-      <el-pagination @current-change="handleCurrentChange" :current-page.sync="listQuery.page"
-                     :page-size="listQuery.perPage" layout="total, prev, pager, next" :total="total">
-      </el-pagination>
-    </div>
+    <!-- 分页全局组件 -->
+    <my-pagination :listQuery="listQuery" :total="total" :listLoading="listLoading" @get="getList()"></my-pagination>
     <!-- 列表-end -->
 
     <!-- 批量修改套餐-start -->
@@ -244,6 +254,29 @@
       </div>
     </el-dialog>
     <!-- 批量更新状态-end -->
+
+    <!-- 上传文件 -->
+    <el-dialog title="文件上传" :visible.sync="dialogVisibleUpload"   size="tiny" @close="dialogVisibleUpload=false">
+      <!--el-dialog title="文件上传" :visible.sync="dialogVisibleUpload"  @close="dialogVisibleUpload = false"-->
+      <el-upload
+        ref="uploadExcel"
+        class="upload-demo"
+        :auto-upload="false"
+        accept=".xlsx"
+        action=""
+        :before-upload="beforeUpload"
+        :limit="1"
+        :file-list="fileList">
+        <i class="el-icon-upload"></i>
+        <div class="el-upload__text"><em>点击上传</em></div>
+        <div class="el-upload__tip" slot="tip">只能上传xlsx文件，且不超过10MB</div>
+      </el-upload>
+      <div slot="footer" class="dialog-footer">
+        <!--el-button v-on:click="closedialog">取 消</el-button-->
+        <el-button type="primary" @click="uploadFile">确 定</el-button>
+      </div>
+    </el-dialog>
+
   </div>
 </template>
 
@@ -252,7 +285,7 @@
   import { countryMap } from 'api/operation/country';
   import { operatorMap } from 'api/operation/operator';
   import { simpackageMap } from 'api/sim_card/simpackage';
-  import { modelList, batchUpdatePackage, batchUpdateOffPeriod, batchUpdateExpiryDate, batchUpdateAPN, batchUpdateStatus, download, } from 'api/sim_card/sim_card';
+  import { modelList,cancelDelete, batchUpdatePackage, batchUpdateOffPeriod, batchUpdateExpiryDate, batchUpdateAPN, batchUpdateStatus, download,uploadSimImeiFile } from 'api/sim_card/sim_card';
   import { Message } from 'element-ui';
   import * as moment from 'moment';
 
@@ -264,7 +297,7 @@
         listLoading: true,
         listQuery: {
           page: 1,
-          perPage: 20,
+          perPage: 100,
           q: {
             cpIP: undefined,
             imsi: undefined,
@@ -297,9 +330,16 @@
         packageArr: [],
         modelIds: [],
         customerArr: [],
-        statusArr: [{ id: 0, name: '正常' }, { id: 1, name: '停用' }, { id: 2, name: '指定' }, { id: 3, name: '待激活' }, { id: 4, name: '作废' }, { id: 5, name: '冻结' }],
+        statusArr: [{ id: 0, name: '正常' }, { id: 1, name: '停用' }, { id: 2, name: '指定' }, { id: 3, name: '待激活' }, { id: 4, name: '作废' }, { id: 5, name: '冻结' },{ id: 6, name: '失败' }],
         cpStatusArr: [{ id: 0, name: '正常' }, { id: 1, name: '待激活' }, { id: 2, name: '拔出' }, { id: 8, name: '超时' },],
-        offPeriodArr: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,''],
+        offPeriodArr: [{id:0,name:'0'},{id:1,name:'1'},{id:2,name:'2'},{id:3,name:'3'},{id:4,name:'4'},{id:5,name:'5'},{id:6,name:'6'},
+          {id:7,name:'7'},{id:8,name:'8'},{id:9,name:'9'},{id:10,name:'10'},{id:11,name:'11'},{id:12,name:'12'},{id:13,name:'13'},
+          {id:14,name:'14'},{id:15,name:'15'},{id:16,name:'16'},{id:17,name:'17'},{id:18,name:'18'},{id:19,name:'19'},{id:20,name:'20'},
+          {id:21,name:'21'},{id:22,name:'22'},{id:23,name:'23'},{id:24,name:'24'},{id:25,name:'25'},{id:26,name:'26'},{id:27,name:'27'},
+          {id:28,name:'28'},{id:29,name:'29'},{id:30,name:'30'},{id:31,name:'31'}],
+        fileList: [],
+        dialogVisibleUpload: false,
+        uploadForm: new FormData(),
       }
     },
     created() {
@@ -332,6 +372,19 @@
             this.packageArr = res.data;
           }
         });
+      },
+      resetFilter() {
+        this.listQuery.q.cpIP = ''
+        this.listQuery.q.imsi = ''
+        this.listQuery.q.iccid = ''
+        this.listQuery.q.countryCode = ''
+        this.listQuery.q.operatorCode = ''
+        this.listQuery.q.packageId = ''
+        this.listQuery.q.status = ''
+        this.listQuery.q.cpStatus = ''
+        this.listQuery.q.offPeriod = ''
+        this.listQuery.q.insertDateRange = ''
+        this.listQuery.q.expiryDateRange = ''
       },
       handleFilter() {
         this.listQuery.page = 1;
@@ -405,7 +458,7 @@
               Message({
                 message: '更新成功',
                 type: 'success',
-                duration: 0,
+                duration: _const.messageDuration,
                 showClose: true
               });
               this.handleCancel();
@@ -425,7 +478,7 @@
               Message({
                 message: '更新成功',
                 type: 'success',
-                duration: 0,
+                duration: _const.messageDuration,
                 showClose: true
               });
               this.handleCancel();
@@ -446,7 +499,7 @@
               Message({
                 message: '更新成功',
                 type: 'success',
-                duration: 0,
+                duration: _const.messageDuration,
                 showClose: true
               });
               this.handleCancel();
@@ -466,7 +519,7 @@
               Message({
                 message: '更新成功',
                 type: 'success',
-                duration: 0,
+                duration: _const.messageDuration,
                 showClose: true
               });
               this.handleCancel();
@@ -486,7 +539,7 @@
               Message({
                 message: '更新成功',
                 type: 'success',
-                duration: 0,
+                duration: _const.messageDuration,
                 showClose: true
               });
               this.handleCancel();
@@ -509,6 +562,67 @@
           })
         });
       },
+      handelDelete(id) {
+        this.$confirm('此操作将SIM卡删除, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+          center: true
+        }).then(() => {
+          this.listLoading = true;
+          cancelDelete(id).then(response => {
+            const res = response.data;
+            if (res.status > 0) {
+              Message({
+                message: '删除成功',
+                type: 'success',
+                duration: _const.messageDuration,
+                showClose: true
+              });
+              this.getList();
+            }
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除',
+            duration: _const.messageDuration,
+            showClose: true
+          });
+        });
+      },
+
+      opendialog(){
+        this.dialogVisibleUpload = true;
+      },
+      closedialog(){
+        this.dialogVisibleUpload = false;
+      },
+      beforeUpload (file) {
+        this.uploadForm.append('file', file);
+        return false;
+      },
+      uploadFile() {
+        //uploadTerminalFile
+        this.listLoading = true;
+        uploadSimImeiFile(this.uploadForm).then(response => {
+          const res = response.data;
+          if (res.status > 0) {
+            Message({
+              message: '上传成功',
+              type: 'success',
+              duration: _const.messageDuration,
+              showClose: true
+            });
+          }
+
+          this.listLoading = false;
+          this.closedialog();
+          this.getList();
+        })
+        this.$refs.uploadExcel.submit()
+        //this.$refs.uploadExcel.submit()
+      }
     }
   }
 </script>

@@ -41,7 +41,17 @@ module.exports = {
     // https://vue-loader.vuejs.org/en/options.html#cachebusting
     cacheBusting: true,
 
-    cssSourceMap: true
+    cssSourceMap: true,
+    proxyTable: {
+      '/api': {
+       target: 'http://120.79.28.71/nvt/api',  //正式目标接口域名
+      //target: 'http://134.175.178.206/nvt/api/' //测试目标接口域名
+       changeOrigin: true,  //是否跨域
+       pathRewrite: {
+        '^/api': ''   //重写接口
+       }
+      }
+    }
   },
 
   build: {
@@ -53,7 +63,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: './', //请根据自己路径配置更改
+    assetsPublicPath: '/', //请根据自己路径配置更改
 
     /**
      * Source Maps

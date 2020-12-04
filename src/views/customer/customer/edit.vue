@@ -30,6 +30,12 @@
         </el-select>
       </el-form-item>
 
+      <el-form-item label="币种" prop="currency">
+        <el-radio-group v-model="ruleForm.currency" :disabled="true">
+          <el-radio v-for="i in currencyArr" :key="i.id" :label="i.id" :value="i.id">{{ i.name }}</el-radio>
+        </el-radio-group>
+      </el-form-item>
+
       <el-form-item label="状态" prop="status">
         <el-radio-group v-model="ruleForm.status">
           <el-radio v-for="i in statusArr" :key="i.id" :label="i.id" :value="i.id">{{ i.name }}</el-radio>
@@ -63,6 +69,7 @@
           realName: undefined,
           email: undefined,
           countryCode: undefined,
+          currency: undefined,
           status: undefined,
         },
         rules: {
@@ -86,6 +93,7 @@
             { required: true, message: '状态不能为空' }
           ],
         },
+        currencyArr: [{ id: 0, name: '人民币' }, { id: 1, name: '美元' }, { id: 2, name: '台币' }],
         statusArr: [{ id: 0, name: '正常' }, { id: 1, name: '停用' }],
         countryCodeArr: [],
       }
@@ -114,6 +122,7 @@
             this.ruleForm.realName = data.realName;
             this.ruleForm.email = data.email;
             this.ruleForm.countryCode = data.countryCode;
+            this.ruleForm.currency = data.currency;
             this.ruleForm.status = data.status;
 
             console.log(this.ruleForm);
@@ -134,7 +143,7 @@
                 Message({
                   message: '更新成功',
                   type: 'success',
-                  duration: 0,
+                  duration: _const.messageDuration,
                   showClose: true
                 });
                 this.$router.push('/customer/customer');

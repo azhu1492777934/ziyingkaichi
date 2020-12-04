@@ -70,7 +70,7 @@
             { required: true, message: this.$t('flow_balance.allowFlow') + '不能为空' }
           ],
           validityDate: [
-            { required: true, message: this.$t('flow_balance.validityDate') + '不能为空' }
+            // { required: true, message: this.$t('flow_balance.validityDate') + '不能为空' }
           ],
           note: [
             { required: true, message: this.$t('flow_balance.note') + '不能为空' }
@@ -87,7 +87,7 @@
           Message({
             message: '默认项不能删除',
             type: 'error',
-            duration: 0,
+            duration: _const.messageDuration,
             showClose: true
           });
         }
@@ -114,7 +114,7 @@
                 Message({
                   message: '更新成功',
                   type: 'success',
-                  duration: 0,
+                  duration: _const.messageDuration,
                   showClose: true
                 });
                 this.$router.push('/terminal/flow_balance');

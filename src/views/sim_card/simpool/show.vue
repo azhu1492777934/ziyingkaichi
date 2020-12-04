@@ -1,13 +1,34 @@
 <template>
   <div class="app-container calendar-list-container">
     <el-form v-loading.body="listLoading">
-      <el-form-item v-bind:label="$t('simpool.id')"> <div class="item"> {{ detail.id}}</div> </el-form-item>
+      <el-row>
+        <el-col :span="4">
       <el-form-item v-bind:label="$t('simpool.spid')"> <div class="item">{{ detail.spid }}</div> </el-form-item>
+        </el-col>
+        <el-col :span="4">
       <el-form-item v-bind:label="$t('simpool.ip')"> <div class="item">{{ detail.ip }}</div> </el-form-item>
+        </el-col>
+        <el-col :span="4">
       <el-form-item v-bind:label="$t('simpool.port')"> <div class="item">{{ detail.port }}</div> </el-form-item>
-      <el-form-item v-bind:label="$t('simpool.sumIp')"> <div class="item">{{ detail.sumIp }}</div> </el-form-item>
+        </el-col>
+        <el-col :span="4">
       <el-form-item v-bind:label="$t('simpool.webPort')"> <div class="item">{{ detail.webPort }}</div> </el-form-item>
-      <el-form-item v-bind:label="$t('simpool.version')"> <div class="item">{{ detail.version }}</div> </el-form-item>
+        </el-col>
+      </el-row>
+      <!--<el-row>-->
+        <!--<el-col :span="4">-->
+        <el-form-item v-bind:label="$t('simpool.noCardCount')"> <div class="item">{{ detail.noCardCount }}</div> </el-form-item>
+      <!--</el-col>-->
+        <!--<el-col :span="4">-->
+          <el-form-item v-bind:label="$t('simpool.offlineCount')"> <div class="item">{{ detail.offlineCount }}</div> </el-form-item>
+        <!--</el-col>-->
+        <!--<el-col :span="4">-->
+          <el-form-item v-bind:label="$t('simpool.usedCount')"> <div class="item">{{ detail.usedCount }}</div> </el-form-item>
+        <!--</el-col>-->
+        <!--<el-col :span="4">-->
+          <el-form-item v-bind:label="$t('simpool.freeCount')"> <div class="item">{{ detail.freeCount }}</div> </el-form-item>
+        <!--</el-col>-->
+      <!--</el-row>-->
     </el-form>
     <el-table
       ref="multipleTable"
@@ -17,29 +38,57 @@
       style="width: 100%">
       <el-table-column
         prop="cpId"
-        v-bind:label="$t('simcard.cpId')"
-        width="140">
+        v-bind:label="$t('simpool_card.cpId')"
+        width="100">
       </el-table-column>
       <el-table-column
         prop="cpChannelId"
-        v-bind:label="$t('simcard.cpChannelId')"
-        width="140">
+        v-bind:label="$t('simpool_card.cpChannelId')"
+        width="100">
       </el-table-column>
       <el-table-column
-        prop="cpStatus"
-        v-bind:label="$t('simcard.cpStatus')"
-        width="140">
+        prop="cpStatusCn"
+        v-bind:label="$t('simpool_card.cpStatusCn')"
+        width="100">
       </el-table-column>
       <el-table-column
         prop="imsi"
-        v-bind:label="$t('simcard.imsi')"
+        v-bind:label="$t('simpool_card.imsi')"
         width="180">
+        <template slot-scope="scope">
+          <a style="text-decoration: underline" :href="'#/terminal/static/imsi_list?imsi=' + scope.row.imsi" target="_blank">{{ scope.row.imsi }}</a>
+        </template>
       </el-table-column>
       <el-table-column
         prop="iccid"
-        v-bind:label="$t('simcard.iccid')"
+        v-bind:label="$t('simpool_card.iccid')"
         width="180">
       </el-table-column>
+      <el-table-column
+        prop="statusCn"
+        v-bind:label="$t('simpool_card.statusCn')"
+        width="100">
+      </el-table-column>
+      <el-table-column
+        prop="tsid"
+        v-bind:label="$t('simpool_card.tsid')"
+        width="120">
+        <template slot-scope="scope">
+          <a style="text-decoration: underline" :href="'#/terminal/static/tsid_list?tsid=' + scope.row.tsid" target="_blank">{{ scope.row.tsid }}</a>
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="dateCn"
+        v-bind:label="$t('simpool_card.dateCn')"
+        width="180">
+      </el-table-column>
+      <el-table-column
+        prop="beatTimeCn"
+        v-bind:label="$t('simpool_card.beatTimeCn')"
+        width="180">
+      </el-table-column>
+
+
     </el-table>
 
   </div>

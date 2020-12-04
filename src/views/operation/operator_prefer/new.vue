@@ -17,9 +17,16 @@
           </el-select>
         </el-form-item>
 
+
         <el-form-item v-bind:label="$t('operator_prefer.roamMcc')"  :prop="'modelCondition.' + index + '.roamMcc'" :rules="rules.roamMcc">
-          <el-input v-model="domain.roamMcc"></el-input>
+          <el-select v-model="domain.roamMcc" filterable clearable :placeholder="$t('operator_prefer.roamMcc')">
+            <el-option v-for="i in mccArr" :key="i.id" :label="i.name" :value="i.name">{{i.name}}</el-option>
+          </el-select>
         </el-form-item>
+
+        <!--el-form-item v-bind:label="$t('operator_prefer.roamMcc')"  :prop="'modelCondition.' + index + '.roamMcc'" :rules="rules.roamMcc">
+          <el-input v-model="domain.roamMcc"></el-input>
+        </el-form-item-->
 
         <el-form-item v-bind:label="$t('operator_prefer.pPlmn')"  :prop="'modelCondition.' + index + '.pPlmn'" :rules="rules.pPlmn">
           <el-input v-model="domain.pPlmn"></el-input>
@@ -46,7 +53,7 @@
 </template>
 
 <script>
-  import { operatorMap } from 'api/operation/operator';
+  import { operatorMap,mccMap } from 'api/operation/operator';
   import { modelCreate } from 'api/operation/operator_prefer';
   import { Message } from 'element-ui';
 
@@ -74,10 +81,12 @@
           ],
         },
         operatorCodeArr: [],
+        mccArr:[],
       }
     },
     created() {
       this.getOperatorMap();
+      this.getMccMap();
     },
     methods: {
       getOperatorMap() {
@@ -85,6 +94,14 @@
           const res = response.data;
           if (res.status > 0) {
             this.operatorCodeArr = res.data;
+          }
+        });
+      },
+      getMccMap() {
+        mccMap().then(response=>{
+          const res = response.data;
+          if (res.status > 0) {
+            this.mccArr = res.data;
           }
         });
       },
@@ -111,7 +128,7 @@
                 Message({
                   message: '更新成功',
                   type: 'success',
-                  duration: 0,
+                  duration: _const.messageDuration,
                   showClose: true
                 });
                 this.$router.push('/operation/operator_prefer');

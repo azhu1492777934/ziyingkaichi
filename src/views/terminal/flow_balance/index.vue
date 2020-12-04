@@ -7,6 +7,7 @@
                     v-model="listQuery.q.tsid" clearable type="text"> </el-input>
         </el-col>
 
+
         <el-col :span="8">
           <el-button style="margin-left: 26px" type="primary" icon="search" @click="handleFilter">搜索</el-button>
           <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="dialogUpdateVisible = true">批量修改</el-button>
@@ -43,6 +44,7 @@
       </el-table-column>
       <el-table-column
         prop="allowFlow"
+        align="right"
         v-bind:label="$t('flow_balance.allowFlow')"
         width="140">
       </el-table-column>
@@ -67,11 +69,8 @@
       </el-table-column>
     </el-table>
 
-    <div v-show="!listLoading && total > 0" class="pagination-container">
-      <el-pagination @current-change="handleCurrentChange" :current-page.sync="listQuery.page"
-                     :page-size="listQuery.perPage" layout="total, prev, pager, next" :total="total">
-      </el-pagination>
-    </div>
+    <!-- 分页全局组件 -->
+    <my-pagination :listQuery="listQuery" :total="total" :listLoading="listLoading" @get="getList()"></my-pagination>
     <!-- 列表-end -->
 
     <!-- 批量修改-start -->
@@ -102,6 +101,7 @@
 <script>
   import { modelList, batchUpdate } from 'api/terminal/flow_balance';
   import { Message } from 'element-ui';
+  import * as moment from 'moment';
 
   export default {
     data() {
@@ -111,7 +111,7 @@
         listLoading: true,
         listQuery: {
           page: 1,
-          perPage: 20,
+          perPage: 100,
           q: {
             tsid: '',
           }
@@ -153,6 +153,7 @@
         const noColumn = this.batchUpdateForm.allowFlow == ''
           && this.batchUpdateForm.validityDate == ''
           && this.batchUpdateForm.note == '';
+        this.batchUpdateForm.validityDate = moment(this.listQuery.q.validityDate).format('YYYY-MM-DD');
         if (!noColumn) {
           batchUpdate(this.modelIds, this.listQuery.q, this.batchUpdateForm).then(response=>{
             const res = response.data;
@@ -160,7 +161,7 @@
               Message({
                 message: '更新成功',
                 type: 'success',
-                duration: 0,
+                duration: _const.messageDuration,
                 showClose: true
               });
               this.dialogUpdateVisible = false;

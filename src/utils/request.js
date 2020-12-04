@@ -5,7 +5,8 @@ import { getUserToken } from '@/utils/auth'
 
 // 创建axios实例
 const service = axios.create({
-  baseURL: process.env.BASE_API, // api的base_url
+  // baseURL: process.env.BASE_API, // api的base_url
+  baseURL: '/api', 
   timeout: 36000 // 请求超时时间
 })
 
@@ -35,7 +36,7 @@ service.interceptors.response.use(
       Message({
         message: res.msg,
         type: 'error',
-        duration: 0,
+        duration: _const.messageDuration,
         showClose: true,
         onClose() {
           if (res.status === -8) {
@@ -57,7 +58,7 @@ service.interceptors.response.use(
     Message({
       message: error.message,
       type: 'error',
-      duration: 0,
+      duration: _const.messageDuration,
       showClose: true
     });
     return Promise.reject(error);

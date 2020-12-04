@@ -32,6 +32,12 @@
           </el-select>
         </el-form-item>
 
+        <el-form-item label="币种" :prop="'modelCondition.' + index + '.currency'" :rules="rules.currency">
+          <el-radio-group v-model="domain.currency">
+            <el-radio v-for="i in currencyArr" :key="i.id" :label="i.id" :value="i.id">{{ i.name }}</el-radio>
+          </el-radio-group>
+        </el-form-item>
+
         <el-form-item label="状态" :prop="'modelCondition.' + index + '.status'" :rules="rules.status">
           <el-radio-group v-model="domain.status">
             <el-radio v-for="i in statusArr" :key="i.id" :label="i.id" :value="i.id">{{ i.name }}</el-radio>
@@ -76,6 +82,7 @@
               realName: undefined,
               email: undefined,
               countryCode: undefined,
+              currency: 0,
               status: 0,
               password: undefined,
             }
@@ -98,6 +105,9 @@
           countryCode: [
             { required: true, message: '所属国家不能为空' }
           ],
+          currency: [
+            { required: true, message: '币种不能为空' }
+          ],
           status: [
             { required: true, message: '状态不能为空' }
           ],
@@ -106,6 +116,7 @@
           ],
         },
         statusArr: [{ id: 0, name: '正常' }, { id: 1, name: '停用' }],
+        currencyArr: [{ id: 0, name: '人民币' }, { id: 1, name: '美元' }, { id: 2, name: '台币' }],
         countryCodeArr: [],
       }
     },
@@ -129,7 +140,7 @@
           Message({
             message: '默认项不能删除',
             type: 'error',
-            duration: 0,
+            duration: _const.messageDuration,
             showClose: true
           });
         }
@@ -156,7 +167,7 @@
                 Message({
                   message: '更新成功',
                   type: 'success',
-                  duration: 0,
+                  duration: _const.messageDuration,
                   showClose: true
                 });
                 this.$router.push('/customer/customer');

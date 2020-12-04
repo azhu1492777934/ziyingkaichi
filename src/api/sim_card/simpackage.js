@@ -45,6 +45,14 @@ export function modelDetail(id) {
     method: 'get'
   })
 }
+
+export function modelSimPackageProvinceDetail(id) {
+  return request({
+    url: '/simpackage_province/show/' + id,
+    method: 'get'
+  })
+}
+
 export function batchUpdate(ids, query, model) {
   return request({
     url: '/simpackage/batchUpdate',

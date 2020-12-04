@@ -16,6 +16,11 @@
       <el-form-item v-bind:label="$t('simcard.number')" prop="number">
         <el-input v-model="ruleForm.number"></el-input>
       </el-form-item>
+
+      <el-form-item v-bind:label="$t('simcard.tempImei')" prop="tempImei">
+        <el-input  v-model="ruleForm.tempImei"></el-input>
+      </el-form-item>
+
       <el-form-item v-bind:label="$t('simcard.iccid')" prop="iccid">
         <el-input v-model="ruleForm.iccid"  :disabled="false"></el-input>
       </el-form-item>
@@ -169,7 +174,7 @@
             { required: true, message: this.$t('simcard.softType') + '不能为空' }
           ],
         },
-        statusArr: [{ id: 0, name: '正常' }, { id: 1, name: '停用' }, { id: 2, name: '指定' }, { id: 3, name: '待激活' }, { id: 4, name: '作废' }, { id: 5, name: '冻结' }],
+        statusArr: [{ id: 0, name: '正常' }, { id: 1, name: '停用' }, { id: 2, name: '指定' }, { id: 3, name: '待激活' }, { id: 4, name: '作废' }, { id: 5, name: '冻结' }, { id: 6, name: '失败' }],
         cpStatusArr: [{ id: 0, name: '正常' }, { id: 1, name: '待激活' }, { id: 2, name: '拔出' }, { id: 8, name: '超时' },],
         softTypeArr: [{ id: 0, name: '实卡' }, { id: 1, name: '软卡' }, ],
         offPeriodArr: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,''],
@@ -258,7 +263,7 @@
                 Message({
                   message: '更新成功',
                   type: 'success',
-                  duration: 0,
+                  duration: _const.messageDuration,
                   showClose: true
                 });
                 this.$router.push('/sim_card/sim_card');

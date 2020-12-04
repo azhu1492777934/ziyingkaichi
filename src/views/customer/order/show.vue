@@ -148,7 +148,7 @@
             Message({
               message: '修改成功',
               type: 'success',
-              duration: 0,
+              duration: _const.messageDuration,
               showClose: true
             });
           }

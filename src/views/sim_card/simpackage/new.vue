@@ -37,11 +37,34 @@
           <el-input v-model="domain.mccs"></el-input>
         </el-form-item>
 
+        <el-form-item v-bind:label="$t('simpackage.whiteProvinces')"  :prop="'modelCondition.' + index + '.whiteProvinceCodeList'"  >
+          <el-select v-model="domain.whiteProvinceCodeList" multiple filterable placeholder="请选择">
+            <el-option
+              v-for="i in whiteProvincesArr"
+              :key="i.id"
+              :label="i.name"
+              :value="i.id">{{i.name}}
+            </el-option>
+          </el-select>
+        </el-form-item>
+
+        <el-form-item v-bind:label="$t('simpackage.blackProvinces')"  :prop="'modelCondition.' + index + '.blackProvinceCodeList'"  >
+          <el-select v-model="domain.blackProvinceCodeList" multiple filterable placeholder="请选择">
+            <el-option
+              v-for="i in blackProvincesArr"
+              :key="i.id"
+              :label="i.name"
+              :value="i.id">{{i.name}}
+            </el-option>
+          </el-select>
+        </el-form-item>
+
         <el-form-item v-bind:label="$t('simpackage.status')" :prop="'modelCondition.' + index + '.status'" :rules="rules.status">
           <el-radio-group v-model="domain.status">
             <el-radio v-for="i in statusArr" :key="i.id" :label="i.id" :value="i.id">{{ i.name }}</el-radio>
           </el-radio-group>
         </el-form-item>
+
 
         <el-form-item :class=" index == 0 ? 'is-default-hidden' : ''">
           <el-button @click.prevent="removeModelCondition(domain)">删除条件</el-button>
@@ -61,6 +84,7 @@
 
 <script>
   import { operatorMap } from 'api/operation/operator';
+  import { provinceMap } from 'api/operation/province';
   import { modelCreate } from 'api/sim_card/simpackage';
   import { Message } from 'element-ui';
 
@@ -98,12 +122,17 @@
           ],
         },
         statusArr: [{ id: 0, name: '正常' }, { id: 1, name: '删除' }],
-        operatorCodeArr: []
+        operatorCodeArr: [],
+        whiteProvincesArr: [],
+        blackProvincesArr: []
+
       }
     },
     created() {
       this.getOperatorMap();
+      this.getProvinceMap();
     },
+
     methods: {
       getOperatorMap() {
         operatorMap().then(response=>{
@@ -113,6 +142,17 @@
           }
         });
       },
+
+      getProvinceMap() {
+        provinceMap().then(response=>{
+          const res = response.data;
+          if (res.status > 0) {
+            this.whiteProvincesArr = res.data;
+            this.blackProvincesArr = res.data;
+          }
+        });
+      },
+
       addModelForm() {
         this.ruleForm.modelCondition.push({});
       },
@@ -136,7 +176,7 @@
                 Message({
                   message: '更新成功',
                   type: 'success',
-                  duration: 0,
+                  duration: _const.messageDuration,
                   showClose: true
                 });
                 this.$router.push('/sim_card/simpackage');

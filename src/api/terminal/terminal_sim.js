@@ -16,10 +16,35 @@ export function modelBatchUnbind(ids, query) {
   })
 }
 
+export function modelBatchReboot(ids, query) {
+  return request({
+    url: '/terminal_sim/batchReboot',
+    method: 'post',
+    data: {ids: ids, query: query}
+  })
+}
+
+export function modelBatchShutdown(ids, query) {
+  return request({
+    url: '/terminal_sim/batchShutdown',
+    method: 'post',
+    data: {ids: ids, query: query}
+  })
+}
+
 export function modelUnbind(id) {
   return request({
     url: '/terminal_sim/unbind/' + id,
     method: 'post'
+  })
+}
+
+
+export function logList(query) {
+  return request({
+    url: '/terminal_sim/logList/' + query.imsi,
+    method: 'post',
+    data: query
   })
 }
 

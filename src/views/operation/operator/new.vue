@@ -104,9 +104,6 @@
           mnc: [
             { required: true, message: this.$t('operator.mnc') + '不能为空' }
           ],
-          apn: [
-            { required: true, message: this.$t('operator.apn') + '不能为空' }
-          ],
           level: [
             { required: true, message: this.$t('operator.level') + '不能为空' }
           ],
@@ -156,7 +153,7 @@
                 Message({
                   message: '更新成功',
                   type: 'success',
-                  duration: 0,
+                  duration: _const.messageDuration,
                   showClose: true
                 });
                 this.$router.push('/operation/operator');

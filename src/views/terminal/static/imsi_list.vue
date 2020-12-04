@@ -38,33 +38,39 @@
       </el-table-column>
       <el-table-column
         prop="maxFlow"
+        align="right"
         v-bind:label="$t('flow_month.maxFlow')"
         width="120">
       </el-table-column>
       <el-table-column
         prop="usedFlow"
+        align="right"
         v-bind:label="$t('flow_month.usedFlow')"
         width="80">
       </el-table-column>
       <el-table-column
         prop="residueFlow"
+        align="right"
         v-bind:label="$t('flow_month.residueFlow')"
         width="120">
       </el-table-column>
       <el-table-column
         prop="maxRoamFlow"
+        align="right"
         v-bind:label="$t('flow_month.maxRoamFlow')"
         width="120">
       </el-table-column>
       <el-table-column
         prop="usedRoamFlow"
+        align="right"
         v-bind:label="$t('flow_month.usedRoamFlow')"
-        width="80">
+        width="120">
       </el-table-column>
       <el-table-column
         prop="residueRoamFlow"
+        align="right"
         v-bind:label="$t('flow_month.residueRoamFlow')"
-        width="80">
+        width="120">
       </el-table-column>
       <el-table-column
         prop="accountPeriodStartDateCn"

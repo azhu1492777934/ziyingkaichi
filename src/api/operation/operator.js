@@ -7,6 +7,13 @@ export function operatorMap() {
   })
 }
 
+export function mccMap() {
+  return request({
+    url: '/operator/mcc',
+    method: 'get'
+  })
+}
+
 export function modelList(query) {
   return request({
     url: '/operator/list',

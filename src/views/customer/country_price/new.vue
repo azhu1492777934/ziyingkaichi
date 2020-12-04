@@ -17,13 +17,14 @@
         </el-form-item>
 
         <el-form-item v-bind:label="$t('country_price.customerRealName')" :prop="'modelCondition.' + index + '.customerId'" :rules="rules.customerId">
-          <el-select :remote-method="remoteMethod" remote filterable clearable v-model="domain.customerId" placeholder="" class="permission-input">
+          <el-select :remote-method="remoteMethod" remote filterable clearable v-model="domain.customerId"
+                     placeholder="" class="permission-input" :onchange="selectCustomerRealName(domain)">
             <el-option v-for="i in customerArr" :key="i.id" :label="i.name" :value="i.id"></el-option>
           </el-select>
         </el-form-item>
 
         <el-form-item v-bind:label="$t('country_price.currency')" :prop="'modelCondition.' + index + '.currency'" :rules="rules.currency">
-          <el-radio-group v-model="domain.currency">
+          <el-radio-group v-model="domain.currency" :disabled="true">
             <el-radio v-for="i in currencyArr" :key="i.id" :label="i.id" :value="i.id">{{ i.name }}</el-radio>
           </el-radio-group>
         </el-form-item>
@@ -65,6 +66,7 @@
   import { modelCreate } from 'api/customer/country_price';
   import { queryCustomer } from 'api/customer/customer';
   import { Message } from 'element-ui';
+  import index from "../../../router";
 
   export default {
     data() {
@@ -138,6 +140,15 @@
           this.customerArr = [];
         }
       },
+      selectCustomerRealName(item) {
+        const index = this.ruleForm.modelCondition.indexOf(item);
+        for (var i = 0; i < this.customerArr.length; i++){
+          var cus = this.customerArr[i];
+          if (cus.id == item.customerId) {
+            this.ruleForm.modelCondition[index].currency = cus.code
+          }
+        }
+      },
       removeModelCondition(item) {
         const index = this.ruleForm.modelCondition.indexOf(item);
         if (index !== 0) {
@@ -146,7 +157,7 @@
           Message({
             message: '默认项不能删除',
             type: 'error',
-            duration: 0,
+            duration: _const.messageDuration,
             showClose: true
           });
         }
@@ -173,7 +184,7 @@
                 Message({
                   message: '更新成功',
                   type: 'success',
-                  duration: 0,
+                  duration: _const.messageDuration,
                   showClose: true
                 });
                 this.$router.push('/customer/country_price');

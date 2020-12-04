@@ -18,7 +18,9 @@
       </el-form-item>
 
       <el-form-item v-bind:label="$t('country.continentCode')" prop="continentCode">
-        <el-input type="number" v-model="ruleForm.continentCode"></el-input>
+        <el-radio-group v-model="ruleForm.continentCode">
+          <el-radio v-for="i in continentCodeArr" :key="i.id" :label="i.id" :value="i.id">{{ i.name }}</el-radio>
+        </el-radio-group>
       </el-form-item>
 
       <el-form-item v-bind:label="$t('country.timeZone')" prop="timeZone">
@@ -99,7 +101,9 @@
             { required: true, message: this.$t('country.status') + '不能为空' }
           ],
         },
-        statusArr: [{ id: '0', name: '不可用' }, { id: '1', name: '可用' }],
+        statusArr: [{ id: 0, name: '不可用' }, { id: 1, name: '可用' }],
+        continentCodeArr: [{ id: 1, name: '州' }, { id: 2, name: '欧洲' }, { id: 3, name: '非洲' },
+          { id: 4, name: '南美洲' }, { id: 5, name: '北美洲' }, { id: 6, name: '大洋洲' }],
       }
     },
     created() {
@@ -138,7 +142,7 @@
                 Message({
                   message: '更新成功',
                   type: 'success',
-                  duration: 0,
+                  duration: _const.messageDuration,
                   showClose: true
                 });
                 this.$router.push('/operation/country');

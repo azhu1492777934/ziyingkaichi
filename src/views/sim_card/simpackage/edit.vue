@@ -35,6 +35,30 @@
         <el-input v-model="ruleForm.mccs"></el-input>
       </el-form-item>
 
+      <el-form-item v-bind:label="$t('simpackage.whiteProvinces')"  :prop="whiteProvinceCodeList"  >
+        <el-select v-model="ruleForm.whiteProvinceCodeList" multiple filterable placeholder="请选择">
+          <el-option
+            v-for="i in whiteProvincesArr"
+            :key="i.id"
+            :label="i.name"
+            :value="i.id">{{i.name}}
+          </el-option>
+        </el-select>
+      </el-form-item>
+
+      <el-form-item v-bind:label="$t('simpackage.blackProvinces')"  :prop="blackProvinceCodeList"  >
+        <el-select v-model="ruleForm.blackProvinceCodeList" multiple filterable placeholder="请选择">
+          <el-option
+            v-for="i in blackProvincesArr"
+            :key="i.id"
+            :label="i.name"
+            :value="i.id">{{i.name}}
+          </el-option>
+        </el-select>
+      </el-form-item>
+
+
+
       <el-form-item v-bind:label="$t('simpackage.status')" prop="status">
         <el-radio-group v-model="ruleForm.status">
           <el-radio v-for="i in statusArr" :key="i.id" :label="i.id" :value="i.id">{{ i.name }}</el-radio>
@@ -53,6 +77,7 @@
 
 <script>
   import { operatorMap } from 'api/operation/operator';
+  import { provinceMap } from 'api/operation/province';
   import { modelDetail, modelUpdate } from 'api/sim_card/simpackage';
   import { Message } from 'element-ui';
 
@@ -62,6 +87,16 @@
         id: this.$route.params.id,
         listLoading: true,
         ruleForm: {
+          id: this.$route.params.id,
+          name: undefined,
+          operatorCode: undefined,
+          maxFlow: undefined,
+          maxRoamFlow: undefined,
+          level: undefined,
+          mccs: undefined,
+          status: undefined,
+          whiteProvinceCodeList: undefined,
+          blackProvinceCodeList: undefined,
         },
         rules: {
           name: [
@@ -85,13 +120,20 @@
           status: [
             { required: true, message: this.$t('simpackage.status') + '不能为空' }
           ],
+          whiteProvinceCodeList: [
+          ],
+          blackProvinceCodeList: [
+          ],
         },
         statusArr: [{ id: 0, name: '正常' }, { id: 1, name: '删除' }],
-        operatorCodeArr: []
+        operatorCodeArr: [],
+        whiteProvincesArr: [],
+        blackProvincesArr: []
       }
     },
     created() {
       this.getDetail();
+      this.getProvinceMap();
       this.getOperatorMap();
     },
     methods: {
@@ -103,12 +145,34 @@
           }
         });
       },
+      getProvinceMap() {
+        provinceMap().then(response=>{
+          const res = response.data;
+          if (res.status > 0) {
+            this.whiteProvincesArr = res.data;
+            this.blackProvincesArr = res.data;
+          }
+        });
+      },
       getDetail() {
         modelDetail(this.id).then(response => {
           const res = response.data;
           if (res.status > 0) {
             var data = res.data;
             this.ruleForm = data;
+            this.ruleForm.name = data.name;
+            this.operatorCode = data.operatorCode;
+            this.maxFlow = data.maxFlow;
+              this.maxRoamFlow = data.maxRoamFlow;
+              this.level = data.level;
+              this.mccs = data.mccs;
+              this.status = data.status;
+            this.ruleForm.whiteProvinceCodeList = data.whiteProvinceCodeList.map(item=> {
+              return item
+            });
+            this.ruleForm.blackProvinceCodeList = data.blackProvinceCodeList.map(item=> {
+              return item
+            });
           }
         })
       },
@@ -126,7 +190,7 @@
                 Message({
                   message: '更新成功',
                   type: 'success',
-                  duration: 0,
+                  duration: _const.messageDuration,
                   showClose: true
                 });
                 this.$router.push('/sim_card/simpackage');

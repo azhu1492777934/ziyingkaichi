@@ -38,7 +38,7 @@
       <el-table-column
         prop="operatorCodeCn"
         v-bind:label="$t('used_net.operatorCodeCn')"
-        width="140">
+        width="150">
       </el-table-column>
       <el-table-column
         prop="packageId"
@@ -48,7 +48,7 @@
       <el-table-column
         prop="packageCn"
         v-bind:label="$t('used_net.packageCn')"
-        width="100">
+        width="150">
       </el-table-column>
       <el-table-column
         prop="mcc"
@@ -56,9 +56,15 @@
         width="100">
       </el-table-column>
       <el-table-column
-        prop="usedNet"
+        prop="countryCn"
+        v-bind:label="$t('used_net.countryCn')"
+        width="150">
+      </el-table-column>
+
+      <el-table-column
+        prop="usedNetCn"
         v-bind:label="$t('used_net.usedNet')"
-        width="120">
+        width="260">
       </el-table-column>
       <el-table-column
         label="操作"
@@ -72,11 +78,8 @@
       </el-table-column>
     </el-table>
 
-    <div v-show="!listLoading && total > 0" class="pagination-container">
-      <el-pagination @current-change="handleCurrentChange" :current-page.sync="listQuery.page"
-                     :page-size="listQuery.perPage" layout="total, prev, pager, next" :total="total">
-      </el-pagination>
-    </div>
+    <!-- 分页全局组件 -->
+    <my-pagination :listQuery="listQuery" :total="total" :listLoading="listLoading" @get="getList()"></my-pagination>
     <!-- 列表-end -->
   </div>
 </template>
@@ -94,7 +97,7 @@
         listLoading: true,
         listQuery: {
           page: 1,
-          perPage: 20,
+          perPage: 100,
           q: {
             countryCode: '',
             customerRealName: '',
@@ -144,7 +147,7 @@
               Message({
                 message: '删除成功',
                 type: 'success',
-                duration: 0,
+                duration: _const.messageDuration,
                 showClose: true
               });
               this.getList();
@@ -154,7 +157,7 @@
           this.$message({
             type: 'info',
             message: '已取消删除',
-            duration: 0,
+            duration: _const.messageDuration,
             showClose: true
           });
         });

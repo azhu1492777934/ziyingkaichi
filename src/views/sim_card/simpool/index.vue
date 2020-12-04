@@ -54,29 +54,48 @@
       <el-table-column
         prop="webPort"
         v-bind:label="$t('simpool.webPort')"
-        width="120">
+        width="100">
       </el-table-column>
       <el-table-column
         prop="version"
         v-bind:label="$t('simpool.version')"
-        width="120">
+        width="100">
       </el-table-column>
+      <el-table-column
+        prop="isActiveCn"
+        v-bind:label="$t('simpool.isActiveCn')"
+        width="100">
+      </el-table-column>
+      <el-table-column
+        prop="freeCount"
+        v-bind:label="$t('simpool.freeCount')"
+        width="100">
+      </el-table-column>
+      <el-table-column
+        prop="offlineCount"
+        v-bind:label="$t('simpool.offlineCount')"
+        width="100">
+      </el-table-column>
+      <el-table-column
+        prop="usedCount"
+        v-bind:label="$t('simpool.usedCount')"
+        width="100">
+      </el-table-column>
+
+
       <el-table-column
         label="操作"
         align="center"
         width=""
       >
         <template slot-scope="scope">
-          <a :href="'#/sim_card/simpool/show/' + scope.row.id" target="_self"><el-button size="small">查看</el-button></a>
+          <a style="text-decoration: underline"  :href="'#/terminal/static/simpool_show/' + scope.row.id" target="_blank"><el-button size="small">查看</el-button></a>
         </template>
       </el-table-column>
     </el-table>
 
-    <div v-show="!listLoading && total > 0" class="pagination-container">
-      <el-pagination @current-change="handleCurrentChange" :current-page.sync="listQuery.page"
-                     :page-size="listQuery.perPage" layout="total, prev, pager, next" :total="total">
-      </el-pagination>
-    </div>
+    <!-- 分页全局组件 -->
+    <my-pagination :listQuery="listQuery" :total="total" :listLoading="listLoading" @get="getList()"></my-pagination>
     <!-- 列表-end -->
 
   </div>
@@ -96,7 +115,7 @@
         listLoading: true,
         listQuery: {
           page: 1,
-          perPage: 20,
+          perPage: 100,
           q: {
             spid: '',
             customerRealName: '',
