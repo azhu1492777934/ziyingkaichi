@@ -129,11 +129,6 @@
         })
 
       },
-
-      handleCurrentChange(val) {
-        this.listQuery.page = val;
-        this.getList()
-      },
       handleDownload() {
         download(this.modelIds, this.listQuery.q, {}).then(response=>{
           const res = response.data;

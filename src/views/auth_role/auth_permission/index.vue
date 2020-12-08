@@ -74,6 +74,7 @@
         label="操作"
         align="center"
         width=""
+        fixed="right"
       >
         <template slot-scope="scope">
           <a :href="'#/auth_role/auth_permission/edit/' + scope.row.id" target="_self"><el-button size="small">编辑</el-button></a>
@@ -85,7 +86,7 @@
 
     <!-- 分页全局组件 -->
     <my-pagination :listQuery="listQuery" :total="total" :listLoading="listLoading" @get="getList()"></my-pagination>
-    
+
   </div>
 </template>
 
@@ -128,10 +129,7 @@
         //   this.getList()
         // }
       },
-      handleCurrentChange(val) {
-        this.listQuery.page = val;
-        this.getList()
-      },
+      
       handleFilter() {
         this.listQuery.page = 1;
         this.getList();

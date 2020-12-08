@@ -104,6 +104,7 @@
         label="操作"
         align="center"
         width="140"
+        fixed="right"
       >
         <template slot-scope="scope">
           <a :href="'#/operation/operator/edit/' + scope.row.id" target="_self"><el-button size="small">编辑</el-button></a>
@@ -112,7 +113,7 @@
       </el-table-column>
     </el-table>
 
-    <!-- 分页全局组件 -->
+   <!-- 分页全局组件 -->
     <my-pagination :listQuery="listQuery" :total="total" :listLoading="listLoading" @get="getList()"></my-pagination>
     <!-- 列表-end -->
   </div>
@@ -169,10 +170,7 @@
         //   this.getList()
         // }
       },
-      handleCurrentChange(val) {
-        this.listQuery.page = val;
-        this.getList()
-      },
+      
       handleFilter() {
         this.listQuery.page = 1;
         this.getList();

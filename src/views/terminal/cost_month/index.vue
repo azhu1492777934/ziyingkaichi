@@ -87,7 +87,7 @@
       </el-table-column>
 
     </el-table>
-    
+
     <!-- 分页全局组件 -->
     <my-pagination :listQuery="listQuery" :total="total" :listLoading="listLoading" @get="getList()"></my-pagination>
     <!-- 列表-end -->
@@ -133,10 +133,6 @@
 
       },
 
-      handleCurrentChange(val) {
-        this.listQuery.page = val;
-        this.getList()
-      },
       handleDownload() {
         download(this.modelIds, this.listQuery.q, {}).then(response=>{
           const res = response.data;

@@ -1,23 +1,18 @@
 <template>
    <div v-show="!listLoading && total > 0" class="pagination-container">
-      
-    <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page.sync="listQuery.page"
-        :page-sizes="[25, 50, 100, 200]"
-        :page-size="listQuery.perPage"
-        layout="sizes, prev, pager, next"
-        :total="total">
-      </el-pagination>
-
+        <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page.sync="listQuery.page"
+            :page-sizes="[25, 50, 100, 200]"
+            :page-size="listQuery.perPage"
+            layout="sizes, prev, pager, next"
+            :total="total">
+        </el-pagination>
     </div>
 </template>
 <script>
-import { modelList,download } from 'api/sim_card/cost_day_sim';
-
 export default {
-    
     props: ['listLoading','total','listQuery'],
     methods: {
          handleSizeChange(val) {
@@ -27,7 +22,6 @@ export default {
           handleCurrentChange(val) {
             this.listQuery.page = val;
             this.$emit("get",'')
-
           },
     }
 }

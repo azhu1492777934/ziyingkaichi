@@ -77,7 +77,7 @@
         <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="dialogUpdateStatusVisible = true">批量更新状态</el-button>
         <el-button type="primary" @click="handleDownload">下载当前结果</el-button>
         <a :href="'/simImei.xlsx'" target="_self">
-          <el-button style="margin-left: 20px" icon="search" @click="importTeminal">导入IMEI模板</el-button>
+          <!-- <el-button style="margin-left: 20px" icon="search" @click="importTeminal">导入IMEI模板</el-button> -->
         </a>
         <el-button type="primary" style="margin-left: 10px" @click="dialogVisibleUpload = true">导入IMEI<i class="el-icon-upload el-icon--right"></i></el-button>
       </el-row>
@@ -166,6 +166,7 @@
         label="操作"
         align="center"
         width="140"
+        fixed="right"
       >
         <template slot-scope="scope">
           <a :href="'#/sim_card/sim_card/edit/' + scope.row.id" target="_self"><el-button size="small">编辑</el-button></a>
@@ -406,10 +407,6 @@
           this.modelDelete = false;
         }
       },
-      handleCurrentChange(val) {
-        this.listQuery.page = val;
-        this.getList()
-      },
       handleSelectionChange(val) {
         this.modelIds = this.getModelIds(val);
         console.log("modelIds: " + this.modelIds )
@@ -553,6 +550,7 @@
       handleDownload() {
         download(this.modelIds, this.listQuery.q, {}).then(response=>{
           const res = response.data;
+          console.log(res)
           require.ensure([], () => {
             const { export_json_to_excel } = require('vendor/Export2Excel');
             const tHeader = res.data.headList;

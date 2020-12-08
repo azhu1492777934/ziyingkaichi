@@ -87,6 +87,7 @@
         label="操作"
         align="center"
         width=""
+        fixed="right"
       >
         <template slot-scope="scope">
           <a style="text-decoration: underline"  :href="'#/terminal/static/simpool_show/' + scope.row.id" target="_blank"><el-button size="small">查看</el-button></a>
@@ -146,10 +147,6 @@
       handleFilter() {
         this.listQuery.page = 1;
         this.getList();
-      },
-      handleCurrentChange(val) {
-        this.listQuery.page = val;
-        this.getList()
       },
     }
   }

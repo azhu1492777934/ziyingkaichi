@@ -59,6 +59,7 @@
         label="操作"
         align="center"
         width=""
+        fixed="right"
       >
         <template slot-scope="scope">
           <a :href="'#/customer/balance/edit/' + scope.row.id" target="_self"><el-button size="small">编辑</el-button></a>
@@ -116,10 +117,6 @@
       handleFilter() {
         this.listQuery.page = 1;
         this.getList();
-      },
-      handleCurrentChange(val) {
-        this.listQuery.page = val;
-        this.getList()
       },
     }
   }

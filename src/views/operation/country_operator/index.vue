@@ -76,6 +76,7 @@
         label="操作"
         align="center"
         width=""
+        fixed="right"
       >
         <template slot-scope="scope">
           <el-button size="small" @click="handelUpdateStatus(scope.row.id, scope.row.status == 0 ? 1 : 0, scope.row.status == 0 ? '停用' : '可用')">{{scope.row.status == 0 ? '停用' : '可用'}}</el-button>
@@ -140,10 +141,6 @@
         // if (!this.list) {
         //   this.getList()
         // }
-      },
-      handleCurrentChange(val) {
-        this.listQuery.page = val;
-        this.getList()
       },
       handleFilter() {
         this.listQuery.page = 1;

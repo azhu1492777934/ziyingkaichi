@@ -98,6 +98,7 @@
         label="操作"
         align="center"
         width=""
+        fixed="right"
       >
         <template slot-scope="scope">
           <a :href="'#/customer/order/show/' + scope.row.id" target="_self"><el-button size="small">查看</el-button></a>
@@ -302,10 +303,6 @@
         this.dialogUpdateVisible = false;
         this.dialogBindVisible = false;
         this.dialogRefundVisible = false;
-      },
-      handleCurrentChange(val) {
-        this.listQuery.page = val;
-        this.getList()
       },
       handleSelectionChange(val) {
         this.modelIds = this.getModelIds(val);

@@ -118,15 +118,6 @@ import { simpackageMap } from 'api/sim_card/simpackage';
               this.listLoading = false
             })
           },
-
-          handleCurrentChange(val) {
-            this.listQuery.page = val;
-            this.getList()
-          },
-          handleSizeChange(val) {
-            this.listQuery.perPage = val;
-            this.getList()
-          },
           handleDownload() {
             download(this.modelIds, this.listQuery.q, {}).then(response=>{
               const res = response.data;

@@ -105,11 +105,6 @@ import { modelList,download } from 'api/sim_card/cost_day_sim';
               this.listLoading = false
             })
           },
-
-          handleCurrentChange(val) {
-            this.listQuery.page = val;
-            this.getList()
-          },
           handleDownload() {
             download(this.modelIds, this.listQuery.q, {}).then(response=>{
               const res = response.data;

@@ -87,6 +87,7 @@
         label="操作"
         align="center"
         width="140"
+        fixed="right"
       >
         <template slot-scope="scope">
           <el-button size="small" v-show="scope.row.canRecover" @click="handelRecover(scope.row.imsi,scope.row.beforeStatus,scope.row.beforeStatusCn)">恢复</el-button>
@@ -137,10 +138,6 @@
       handleFilter() {
         this.listQuery.page = 1;
         this.getList();
-      },
-      handleCurrentChange(val) {
-        this.listQuery.page = val;
-        this.getList()
       },
 
       handelRecover(imsi,afterStatus,afterStatusCn) {

@@ -154,10 +154,6 @@
         //   this.getList()
         // }
       },
-      handleCurrentChange(val) {
-        this.listQuery.page = val;
-        this.getList()
-      },
       handleSelectionChange(val) {
         this.modelIds = this.getModelIds(val);
         console.log("modelIds: " + this.modelIds )

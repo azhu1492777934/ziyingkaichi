@@ -62,6 +62,7 @@
         label="操作"
         align="center"
         width=""
+        fixed="right"
       >
         <template slot-scope="scope">
           <a :href="'#/terminal/flow_balance/edit/' + scope.row.id" target="_self"><el-button size="small">编辑</el-button></a>
@@ -172,10 +173,7 @@
           this.dialogUpdateVisible = false;
         }
       },
-      handleCurrentChange(val) {
-        this.listQuery.page = val;
-        this.getList()
-      },
+      
       handleSelectionChange(val) {
         this.modelIds = this.getModelIds(val);
         console.log("modelIds: " + this.modelIds )

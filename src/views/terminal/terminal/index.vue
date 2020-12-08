@@ -28,17 +28,27 @@
             <el-option v-for="i in statusArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
           </el-select>
         </el-col>
-
-        <el-col :span="12">
-         <el-button type="primary" icon="search" @click="handleFilter">搜索</el-button>
-          <el-button type="primary" @click="handleDownload">下载当前结果</el-button>
-          <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="dialogUpdateVisible = true">批量修改</el-button>
-          <a :href="'/template1.xlsx'" target="_self">
-            <el-button style="margin-left: 20px" icon="search" @click="importTeminal">模版</el-button>
-          </a>
-          <el-button type="primary" style="margin-left: 10px" @click="opendialog">导入<i class="el-icon-upload el-icon--right"></i></el-button>
-        </el-col>
       </el-row>
+        <el-row>
+          <el-col :span="4">
+            <el-select v-model="listQuery.q.province" filterable clearable :placeholder="$t('terminal.provinceCode')">
+              <el-option v-for="i in provinceCodeArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
+            </el-select>
+          </el-col>
+          <el-col :span="12">
+            <el-button type="primary" icon="search" @click="handleFilter">搜索</el-button>
+              <el-button type="primary" @click="handleDownload">下载当前结果</el-button>
+              <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="dialogUpdateVisible = true">批量修改</el-button>
+              <a :href="'/template1.xlsx'" target="_self">
+                <el-button style="margin-left: 20px" icon="search" @click="importTeminal">模版</el-button>
+              </a>
+            <el-button type="primary" style="margin-left: 10px" @click="opendialog">导入<i class="el-icon-upload el-icon--right"></i></el-button>
+          </el-col>
+        </el-row>
+        
+
+        
+      
     </div>
 
     <br/>
@@ -120,7 +130,11 @@
         v-bind:label="$t('terminal.timedShutoff')"
         width="40">
       </el-table-column>
-
+      <el-table-column
+        prop="provinceName"
+        v-bind:label="$t('terminal.provinceName')"
+        width="140">
+      </el-table-column>
       <el-table-column
         prop="mac"    v-if="show"
         v-bind:label="$t('terminal.mac')"
@@ -141,6 +155,7 @@
         v-bind:label="$t('terminal.androidVersion')"
         width="80">
       </el-table-column>
+      
       <el-table-column
         prop="statusCn"
         v-bind:label="$t('terminal.status')"
@@ -155,6 +170,7 @@
         label="操作"
         align="center"
         width="160"
+        fixed="right"
       >
         <template slot-scope="scope">
           <el-button size="small" @click="handelStop(scope.row.id)" v-if="scope.row.status != 2">停用</el-button>
@@ -185,7 +201,6 @@
         </el-form-item>
         <el-form-item v-bind:label="$t('terminal.usergroup')" :label-width="formLabelWidth" prop="usergroup" :rules="rules.usergroup">
           <el-input v-model="batchUpdateForm.usergroup"></el-input>
-        </el-form-item>
         </el-form-item>
         <el-form-item v-bind:label="$t('terminal.maxDayData')" :label-width="formLabelWidth" prop="maxDayData" :rules="rules.maxDayData">
           <el-input type="text" placeholder="请输入数字" v-model="batchUpdateForm.maxDayData"></el-input>
@@ -236,6 +251,7 @@
 <script>
   import { modelList, modelStop,modelDelete, batchUpdate,uploadTerminalFile,download } from 'api/terminal/terminal';
   import { Message } from 'element-ui';
+  import { provinceMap } from 'api/operation/province';
 
   export default {
     data() {
@@ -252,6 +268,7 @@
             ssid: '',
             batch: '',
             status: '',
+            province: [],
           }
         },
         rules: {
@@ -275,11 +292,13 @@
         fileList: [],
         dialogVisibleUpload: false,
         uploadForm: new FormData(),
+        provinceCodeArr: [],
       }
     },
 
     created() {
       this.getList();
+      this.getProvinceMap();
     },
     methods: {
       getList() {
@@ -298,9 +317,13 @@
         //   this.getList()
         // }
       },
-      handleCurrentChange(val) {
-        this.listQuery.page = val;
-        this.getList()
+      getProvinceMap() {
+        provinceMap().then(response=>{
+          const res = response.data;
+          if (res.status > 0) {
+            this.provinceCodeArr = res.data;
+          }
+        });
       },
 
       handleDownload() {
@@ -482,7 +505,8 @@
         this.$refs.upload.submit();
         //this.$refs.upload.submit()
       }
-    }
+    },
+    
   }
 </script>
 

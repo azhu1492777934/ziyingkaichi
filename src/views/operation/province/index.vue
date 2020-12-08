@@ -70,6 +70,7 @@
         label="操作"
         align="center"
         width=""
+        fixed="right"
       >
         <template slot-scope="scope">
           <a :href="'#/operation/province/edit/' + scope.row.id" target="_self"><el-button size="small">编辑</el-button></a>
@@ -123,10 +124,6 @@
         // if (!this.list) {
         //   this.getList()
         // }
-      },
-      handleCurrentChange(val) {
-        this.listQuery.page = val;
-        this.getList()
       },
       handleFilter() {
         this.listQuery.page = 1;

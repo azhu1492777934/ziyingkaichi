@@ -117,14 +117,15 @@
       <el-table-column
         label="操作"
         align="center"
-        width=""
+        width="120"
+        fixed="right"
       >
         <template slot-scope="scope">
           <el-button size="small" @click="handelUnbind(scope.row.tsid)">释放主卡</el-button>
         </template>
       </el-table-column>
     </el-table>
-    
+
     <!-- 分页全局组件 -->
     <my-pagination :listQuery="listQuery" :total="total" :listLoading="listLoading" @get="getList()"></my-pagination>
     <!-- 列表-end -->
@@ -197,10 +198,6 @@
             this.provinceCodeArr = res.data;
           }
         });
-      },
-      handleCurrentChange(val) {
-        this.listQuery.page = val;
-        this.getList()
       },
       handleSelectionChange(val) {
         this.modelIds = this.getModelIds(val);

@@ -72,7 +72,8 @@
       <el-table-column
         label="操作"
         align="center"
-        width=""
+        width="160"
+        fixed="right"
       >
         <template slot-scope="scope">
           <el-button size="small" @click="handelDelete(scope.row.id)">删除</el-button>
@@ -81,7 +82,7 @@
       </el-table-column>
     </el-table>
 
-    <!-- 分页全局组件 -->
+     <!-- 分页全局组件 -->
     <my-pagination :listQuery="listQuery" :total="total" :listLoading="listLoading" @get="getList()"></my-pagination>
     <!-- 列表-end -->
   </div>
@@ -128,10 +129,7 @@
         //   this.getList()
         // }
       },
-      handleCurrentChange(val) {
-        this.listQuery.page = val;
-        this.getList()
-      },
+      
       handleFilter() {
         this.listQuery.page = 1;
         this.getList();

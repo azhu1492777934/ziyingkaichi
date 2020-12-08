@@ -281,6 +281,8 @@ export default {
     maxDayData:"每日限额(KB)",
     androidVersion:"Android版本",
     timedShutoff:"无连接等待",
+    provinceCode:"地区",
+    provinceName: '所在地'
   },
 
   terminal_version: {
