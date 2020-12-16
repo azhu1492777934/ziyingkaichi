@@ -150,6 +150,7 @@ export default {
   terminal_sim: {
     id: "ID",
     tsid: "终端",
+    imei: "IMEI",
     imsi: "IMSI",
     date: "开机时间",
     beatTime: "最后一次心跳时间",
@@ -164,6 +165,7 @@ export default {
   terminal_sim_log: {
     id: "ID",
     tsid: "终端",
+    imei: "IMEI",
     imsi: "IMSI",
     date: "开机时间",
     dateCn: "开机时间",
@@ -176,6 +178,7 @@ export default {
 
   cost_month: {
     tsid: "终端",
+    imei: "IMEI",
     startDate: "第一天",
     startDateCn: "第一天",
     endDate: "最后一天",
@@ -188,6 +191,7 @@ export default {
 
   cost_day: {
     tsid: "终端",
+    imei: "IMEI",
     date: "日期",
     dateCn: "日期",
     startDate: "开始日期",
@@ -201,6 +205,7 @@ export default {
 
   select_sim: {
     tsid: "终端",
+    imei: "IMEI",
     imsi: "IMSI",
     date: "开机时间",
     vCountryCode: "使用国家",
@@ -216,6 +221,7 @@ export default {
   terminal_tsid: {
     num: "序号",
     tsid: "TSID",
+    imei: "IMEI",
     imsi: "IMSI",
     time: "时间",
     flowincrement: "流量增量(KB)",
@@ -252,6 +258,44 @@ export default {
     lastUpDateTime: "更新时间",
   },
 
+  sim_flow_month: {
+     cpIP: "卡池IP",
+     packageCn: "套餐",
+     statusCn: "状态",
+     accountPeriodStartDateCn: "账期开始日",
+     accountPeriodEndDateCn: "账期结束日",
+     operatorName: "运营商",
+     operatorCode: "运营商编码",
+     imsi: "IMSI",
+     iccid: "ICCID",
+     status: "状态",
+     cpId: "卡池编号",
+     packageId: "套餐",
+     date: "月份",
+     accountPeriodStartDate: "账期开始日",
+     accountPeriodEndDate: "账期结束日",
+     usedFlow: "使用流量(GB)",
+     maxFlow: "套餐流量(GB)",
+  },
+
+  sim_flow_day: {
+     cpIP:"卡池IP",
+     packageCn:"套餐",
+     statusCn:"状态",
+     dateCn:"日期",
+     operatorCodeCn:"运营商",
+     operatorCode:"运营商编码",
+     imsi:"IMSI",
+     iccid:"ICCID",
+     status:"状态",
+     packageId:"套餐",
+     cpId:"卡池编号",
+     date:"日期",
+     flow:"使用流量(MB)",
+    startDate:"开始日期",
+    endDate:"结束日期",
+  },
+
   flow_day: {
     id: "ID",
     startDate: "起始日期",
@@ -277,12 +321,15 @@ export default {
     model:"型号",
     usergroup:"分组",
     ciccid:"ICCID",
-    dayspeedlimit:"限速速率(KB)",
+    dayspeedlimit:"限速速率(Kbps)",
     maxDayData:"每日限额(KB)",
     androidVersion:"Android版本",
     timedShutoff:"无连接等待",
-    provinceCode:"地区",
-    provinceName: '所在地'
+    monthSpeedlimit:"每月限速速率(Kbps)",
+    maxMonthData:"每月限额(GB)",
+    ota:"OTA",
+    provinceCode: '地区',
+    provinceName: '地区',
   },
 
   terminal_version: {
@@ -314,6 +361,7 @@ export default {
     version: "版本号",
     isActive: "状态",
     isActiveCn:"状态",
+
     noCardCount: "无卡",
     offlineCount:"离线",
     usedCount: "使用中",
@@ -336,27 +384,6 @@ export default {
     dateCn:"选卡时间",
     beatTime: "心跳时间",
     beatTimeCn: "心跳时间",
-  },
-
-  cost_day_sim: {
-    iccid: "ICCID",
-    packageId: "流量套餐",
-    startDate: "开始时间",
-    startDateCn: "开始时间",
-    endDate: "结束时间",
-    endDateCn: "结束时间",
-    days: "使用天数",
-    duration: "使用时长(小时)",
-    flow: "使用流量(GB)"
-  },
-  
-  cost_month_sim: {
-    iccid: "ICCID",
-    packageId: "流量套餐",
-    month: "选择月",
-    days: "使用天数",
-    duration: "使用时长(小时)",
-    flow: "使用流量(GB)"
   },
 
 
@@ -477,6 +504,8 @@ export default {
     phonenumber: "手机号",
     password: "密码",
     describe: "描述",
+    newpassword: "新密码",
+    reenter: "再次输入",
   },
   auth_role: {
     id: "ID",
@@ -541,3 +570,4 @@ export default {
     tips: 'Tips: 它区别于 navbar 上的 theme-pick, 是两种不同的换肤方法，各自有不同的应用场景，具体请参考文档。'
   }
 }
+ 

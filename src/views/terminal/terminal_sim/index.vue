@@ -34,7 +34,7 @@
         </el-col>
 
         <el-col :span="12">
-          <el-button style="margin-left: 26px" type="primary" icon="search" @click="handleFilter">搜索</el-button>
+          <el-button style="margin-top: 10px" type="primary" icon="search" @click="handleFilter">搜索</el-button>
           <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="handelBatchUnbind()" icon="delete" style="left: 10px">批量释放主卡</el-button>
           <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="handelBatchReboot()" icon="delete" style="left: 10px">批量重启</el-button>
           <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="handelBatchShutdown()" icon="delete" style="left: 10px">批量关机</el-button>

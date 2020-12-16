@@ -90,7 +90,7 @@
         fixed="right"
       >
         <template slot-scope="scope">
-          <a style="text-decoration: underline"  :href="'#/terminal/static/simpool_show/' + scope.row.id" target="_blank"><el-button size="small">查看</el-button></a>
+          <a style="text-decoration: underline"  :href="'#/terminal/static/simpool_show/' + scope.row.id" ><el-button size="small">查看</el-button></a>
         </template>
       </el-table-column>
     </el-table>

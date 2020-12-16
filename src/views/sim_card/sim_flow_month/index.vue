@@ -2,20 +2,28 @@
   <div class="app-container calendar-list-container" id="basicData_search_index">
     <div class="filter-container search">
       <el-row>
+
         <el-col :span="4">
-        <el-input class="filter-item" :placeholder="$t('cost_day.tsid')"
-                  v-model="listQuery.q.tsid" clearable type="text"> </el-input>
-      </el-col>
-        <el-col :span="4">
-          <el-input class="filter-item" :placeholder="$t('cost_day.userGroup')"
-                    v-model="listQuery.q.userGroup" clearable type="text"> </el-input>
+          <el-select v-model="listQuery.q.operatorCode" filterable clearable :placeholder="$t('sim_flow_month.operatorCode')">
+            <el-option v-for="i in operatorCodeArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
+          </el-select>
         </el-col>
-        <el-col :span="4">
-          <el-date-picker clearable :placeholder="$t('cost_day.startDate')" type="date" v-model="listQuery.q.startDate"></el-date-picker>
-        </el-col>
-        <el-col :span="4">
-          <el-date-picker clearable :placeholder="$t('cost_day.endDate')" type="date" v-model="listQuery.q.endDate"></el-date-picker>
-        </el-col>
+          <el-col :span="4">
+            <el-select v-model="listQuery.q.packageId" filterable clearable :placeholder="$t('sim_flow_month.packageId')">
+              <el-option v-for="i in packageArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
+            </el-select>
+          </el-col>
+          <el-col :span="4">
+            <el-select v-model="listQuery.q.cpId" filterable clearable :placeholder="$t('sim_flow_month.cpId')">
+              <el-option v-for="i in simpoolArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
+            </el-select>
+          </el-col>
+          <el-col :span="4">
+            <el-input class="filter-item" :placeholder="$t('sim_flow_month.iccid')" v-model="listQuery.q.iccid" clearable type="text"> </el-input>
+          </el-col>
+          <el-col :span="4">
+            <el-date-picker clearable :placeholder="$t('sim_flow_month.date')" type="month"  value-format="yyyy-MM" v-model="listQuery.q.date"></el-date-picker>
+          </el-col>
 
         <el-col :span="12">
           <el-button style="margin-top: 10px" type="primary" icon="search" @click="handleFilter">搜索</el-button>
@@ -40,49 +48,77 @@
       </el-table-column>
 
       <el-table-column
-        prop="tsid"
-        v-bind:label="$t('cost_day.tsid')"
+        prop="iccid"
+        v-bind:label="$t('sim_flow_month.iccid')"
+        width="200">
+      </el-table-column>
+
+      <el-table-column
+        prop="imsi"
+        v-bind:label="$t('sim_flow_month.imsi')"
+        width="160">
+      </el-table-column>
+
+      <el-table-column
+        prop="cpId"
+        v-bind:label="$t('sim_flow_month.cpId')"
         width="100">
-        <template slot-scope="scope">
-          <a style="text-decoration: underline" :href="'#/terminal/static/tsid_list?tsid=' + scope.row.tsid" target="_blank">{{ scope.row.tsid }}</a>
-        </template>
       </el-table-column>
 
       <el-table-column
-        prop="userGroup"
-        v-bind:label="$t('cost_day.userGroup')"
-        width="140">
-      </el-table-column>
-
-      <el-table-column
-        prop="dateCn"
-        v-bind:label="$t('cost_day.dateCn')"
+        prop="packageCn"
+        v-bind:label="$t('sim_flow_month.packageCn')"
         width="160">
       </el-table-column>
 
       <el-table-column
-        prop="duration"
-        align="right"
-        v-bind:label="$t('cost_day.duration')"
-        width="120">
-      </el-table-column>
-
-      <el-table-column
-        prop="flow"
-        align="right"
-        v-bind:label="$t('cost_day.flow')"
-        width="120">
-      </el-table-column>
-
-      <el-table-column
-        prop="countryCn"
-        v-bind:label="$t('cost_day.countryCn')"
+        prop="operatorName"
+        v-bind:label="$t('sim_flow_month.operatorName')"
         width="160">
+      </el-table-column>
+
+      <el-table-column
+        prop="date"
+        v-bind:label="$t('sim_flow_month.date')"
+        width="120">
+      </el-table-column>
+
+      <el-table-column
+        prop="maxFlow"
+        align="right"
+        v-bind:label="$t('sim_flow_month.maxFlow')"
+        width="120">
+      </el-table-column>
+
+      <el-table-column
+        prop="usedFlow"
+        align="right"
+        v-bind:label="$t('sim_flow_month.usedFlow')"
+        width="120">
+      </el-table-column>
+
+      <!-- el-table-column
+        prop="accountPeriodStartDateCn"
+        v-bind:label="$t('sim_flow_month.accountPeriodStartDateCn')"
+        width="120">
+      </el-table-column>
+
+      <el-table-column
+        prop="accountPeriodEndDateCn"
+        v-bind:label="$t('sim_flow_month.accountPeriodEndDateCn')"
+        width="120">
+      </el-table-column -->
+
+      <el-table-column
+        prop="statusCn"
+        v-bind:label="$t('sim_flow_month.statusCn')"
+        width="60">
       </el-table-column>
 
     </el-table>
 
-     <el-row>
+    <!-- 分页全局组件 -->
+    <el-row>
       <el-col :span="4" v-show="totalFlow > 0 && !listLoading">
         <span class="totalFlow">{{`总流量: ${totalFlow.toFixed(2)}TB`}}</span>
       </el-col>
@@ -90,13 +126,19 @@
          <my-pagination :listQuery="listQuery" :total="total" :listLoading="listLoading" @get="getList()"></my-pagination>
       </el-col>
     </el-row>
+    
+   
     <!-- 列表-end -->
   </div>
 </template>
 
 
 <script>
-  import { modelList,download,totalFlow} from 'api/terminal/cost_day';
+  import { modelList,download,totalFlow} from 'api/sim_card/sim_flow_month';
+  import { simpackageMap } from 'api/sim_card/simpackage';
+  import { operatorMap } from 'api/operation/operator';
+  import { simpoolMap } from 'api/sim_card/simpool';
+
   import { Message } from 'element-ui';
   import * as moment from 'moment';
 
@@ -105,7 +147,6 @@
       return {
         list: [],
         listLoading: false,
-        total: null,
         listQuery: {
           page: 1,
           perPage: 100,
@@ -116,6 +157,10 @@
             insertDateRange: undefined,
           }
         },
+        packageArr:[],
+        operatorCodeArr:[],
+        simpoolArr:[],
+        total: 0,
         totalFlow: 0,
         download: null,
       }
@@ -123,6 +168,9 @@
     created() {
       this.getList();
       this.getTotalFlow();
+      this.getSimPackageMap();
+      this.getOperatorMap();
+      this.getSimpoolMap();
     },
 
     methods: {
@@ -140,14 +188,42 @@
 
       },
 
-      getTotalFlow() {
+       getTotalFlow() {
         totalFlow(this.listQuery).then(response => {
           const res = response.data
           if(res.status > 0) {
            const data = res.data;
+           console.log(data.totalFlow)
            this.totalFlow = (data.totalFlow) / (1024)
           }
         })
+      },
+
+      getSimPackageMap() {
+        simpackageMap().then(response=>{
+          const res = response.data;
+          if (res.status > 0) {
+            this.packageArr = res.data;
+          }
+        });
+      },
+
+      getOperatorMap() {
+        operatorMap().then(response=>{
+          const res = response.data;
+          if (res.status > 0) {
+            this.operatorCodeArr = res.data;
+          }
+        });
+      },
+
+      getSimpoolMap() {
+        simpoolMap().then(response=>{
+          const res = response.data;
+          if (res.status > 0) {
+            this.simpoolArr = res.data;
+          }
+        });
       },
 
       handleDownload() {

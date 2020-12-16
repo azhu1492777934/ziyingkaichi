@@ -68,7 +68,7 @@
       <el-table-column
         prop="email"
         v-bind:label="$t('customer.email')"
-        width="140">
+        width="200">
       </el-table-column>
       <el-table-column
         prop="countryCodeCn"

@@ -20,7 +20,7 @@
         </el-col>
 
         <el-col :span="12">
-          <el-button style="margin-left: 26px" type="primary" icon="search" @click="handleFilter">搜索</el-button>
+          <el-button style="margin-top: 10px" type="primary" icon="search" @click="handleFilter">搜索</el-button>
           <el-button type="primary" @click="handleDownload">下载当前结果</el-button>
         </el-col>
       </el-row>
@@ -35,7 +35,7 @@
       border
       tooltip-effect="dark"
       style="width: 100%"
-      @selection-change="handleSelectionChange">
+     >
       <el-table-column
         type="selection"
         width="55">
@@ -48,6 +48,11 @@
         <template slot-scope="scope">
           <a style="text-decoration: underline" :href="'#/terminal/static/cost_day_list?tsid=' + scope.row.tsid + '&startDate=' + scope.row.startDateCn + '&endDate=' + scope.row.endDateCn" target="_blank">{{ scope.row.tsid }}</a>
         </template>
+      </el-table-column>
+      <el-table-column
+        prop="imei"
+        v-bind:label="$t('cost_month.imei')"
+        width="140">
       </el-table-column>
       <el-table-column
         prop="userGroup"
@@ -88,15 +93,21 @@
 
     </el-table>
 
-    <!-- 分页全局组件 -->
-    <my-pagination :listQuery="listQuery" :total="total" :listLoading="listLoading" @get="getList()"></my-pagination>
+    <el-row>
+      <el-col :span="4" v-show="totalFlow > 0 && !listLoading">
+        <span class="totalFlow">{{`总流量: ${totalFlow.toFixed(2)}TB`}}</span>
+      </el-col>
+      <el-col :span="16">
+         <my-pagination :listQuery="listQuery" :total="total" :listLoading="listLoading" @get="getList()"></my-pagination>
+      </el-col>
+    </el-row>
     <!-- 列表-end -->
   </div>
 </template>
 
 
 <script>
-  import { modelList,download} from 'api/terminal/cost_month';
+  import { modelList,download,totalFlow } from 'api/terminal/cost_month';
   import { Message } from 'element-ui';
 
   export default {
@@ -113,10 +124,13 @@
             insertDateRange: undefined,
           }
         },
+        totalFlow: 0,
+        download: null,
       }
     },
     created() {
       this.getList();
+      this.getTotalFlow();
     },
     methods: {
       getList() {
@@ -133,22 +147,39 @@
 
       },
 
-      handleDownload() {
-        download(this.modelIds, this.listQuery.q, {}).then(response=>{
-          const res = response.data;
-          require.ensure([], () => {
-            const { export_json_to_excel } = require('vendor/Export2Excel');
-            const tHeader = res.data.headList;
-            const data = res.data.dataList;
-            const fileName = res.data.fileName;
-            export_json_to_excel(tHeader, data, fileName);
-          })
-        });
+      getTotalFlow() {
+        totalFlow(this.listQuery).then(response => {
+          const res = response.data
+          if(res.status > 0) {
+           const data = res.data;
+           console.log(data.totalFlow);
+           this.totalFlow = (data.totalFlow) / (1024)
+          }
+        })
       },
+      
+      handleDownload() {
+        if(this.download) {
+          clearTimeout(this.download)
+        }
+        this.download = setTimeout( () => {
+          download(this.modelIds, this.listQuery.q, {}).then(response=>{
+            const res = response.data;
+            require.ensure([], () => {
+              const { export_json_to_excel } = require('vendor/Export2Excel');
+              const tHeader = res.data.headList;
+              const data = res.data.dataList;
+              const fileName = res.data.fileName;
+              export_json_to_excel(tHeader, data, fileName);
+            })
+          });
+      },600)
+    },
 
       handleFilter() {
         this.listQuery.page = 1;
         this.getList();
+        this.getTotalFlow();
       },
     }
   }
@@ -159,6 +190,12 @@
     font-size: 12px;
     .buttonStyle{
       display: inline-block;
+    }
+    .totalFlow {
+      display: inline-block;
+      font-size: 14px;
+      color: #444;
+      margin-top: 9px;
     }
   }
 </style>

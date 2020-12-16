@@ -120,6 +120,7 @@
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')">立即更新</el-button>
         <el-button @click="cancelForm">取消</el-button>
+        <el-button @click="cardDisable" type="danger">禁用</el-button>
       </el-form-item>
 
     </el-form>
@@ -192,6 +193,10 @@
       this.getSimpoolMap();
     },
     methods: {
+      cardDisable() {
+        console.log(this.id);
+      },
+
       getCountryMap() {
         countryMap().then(response=>{
           const res = response.data;
@@ -230,7 +235,7 @@
           if (res.status > 0) {
             var data = res.data;
             this.ruleForm = data;
-            console.log(this.ruleForm);
+            // console.log(this.ruleForm);
           }
         })
       },

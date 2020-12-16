@@ -34,7 +34,7 @@
       border
       tooltip-effect="dark"
       style="width: 100%"
-      @selection-change="handleSelectionChange">
+     >
       <el-table-column
         type="selection"
         width="55">
@@ -176,6 +176,7 @@
           if (res.status > 0) {
             const data = res.data;
             this.list = data.list;
+            console.log(this.list)
             this.total = data.extra.totalCount;
           }
           this.listLoading = false

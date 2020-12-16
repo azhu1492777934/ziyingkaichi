@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function modelList(query) {
   return request({
-    url: '/cost_month/list',
+    url: '/sim_month/list',
     method: 'post',
     data: query
   })
@@ -10,7 +10,7 @@ export function modelList(query) {
 
 export function download(ids, query, model) {
   return request({
-    url: '/cost_month/download',
+    url: '/sim_month/download',
     method: 'post',
     data: {ids: ids, query: query, model: model}
   })
@@ -18,7 +18,7 @@ export function download(ids, query, model) {
 
 export function totalFlow(query) {
   return request({
-    url: '/cost_month/total',
+    url: '/sim_month/total',
     method: 'post',
     data: query
   })

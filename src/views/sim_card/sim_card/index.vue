@@ -22,7 +22,7 @@
           </el-select>
         </el-col>
       </el-row>
-      <el-row>
+      <el-row class="filter-item">
         <el-col :span="4">
           <el-select v-model="listQuery.q.packageId" filterable clearable :placeholder="$t('simcard.packageId')">
             <el-option v-for="i in packageArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
@@ -69,7 +69,7 @@
           </a>
         </el-col>
       </el-row>
-      <el-row style="margin-top: 10px;">
+      <el-row>
         <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="dialogUpdatePackageVisible = true">批量修改套餐</el-button>
         <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="dialogUpdateMonthVisible = true">批量修改月流量账期</el-button>
         <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="dialogUpdateExpiryDateVisible = true">批量更新卡有效期</el-button>
@@ -331,7 +331,7 @@
         packageArr: [],
         modelIds: [],
         customerArr: [],
-        statusArr: [{ id: 0, name: '正常' }, { id: 1, name: '停用' }, { id: 2, name: '指定' }, { id: 3, name: '待激活' }, { id: 4, name: '作废' }, { id: 5, name: '冻结' },{ id: 6, name: '失败' }],
+        statusArr: [{ id: 0, name: '正常' }, { id: 1, name: '停用' }, { id: 2, name: '指定' }, { id: 3, name: '待激活' }, { id: 4, name: '作废' }, { id: 5, name: '冻结' },{ id: 6, name: '失败' },{ id: 7, name: '使用中' },{ id: 8, name: '空闲' },{ id: 9, name: '禁用' },{ id: 10, name: '流量低' },{ id: 11, name: '无流量' },],
         cpStatusArr: [{ id: 0, name: '正常' }, { id: 1, name: '待激活' }, { id: 2, name: '拔出' }, { id: 8, name: '超时' },],
         offPeriodArr: [{id:0,name:'0'},{id:1,name:'1'},{id:2,name:'2'},{id:3,name:'3'},{id:4,name:'4'},{id:5,name:'5'},{id:6,name:'6'},
           {id:7,name:'7'},{id:8,name:'8'},{id:9,name:'9'},{id:10,name:'10'},{id:11,name:'11'},{id:12,name:'12'},{id:13,name:'13'},
@@ -341,6 +341,7 @@
         fileList: [],
         dialogVisibleUpload: false,
         uploadForm: new FormData(),
+        download: null,
       }
     },
     created() {
@@ -409,7 +410,6 @@
       },
       handleSelectionChange(val) {
         this.modelIds = this.getModelIds(val);
-        console.log("modelIds: " + this.modelIds )
         if (this.modelIds.length !== 0) {
           this.modelDelete = false;
         } else {
@@ -547,19 +547,25 @@
           this.handleCancel();
         }
       },
+
       handleDownload() {
-        download(this.modelIds, this.listQuery.q, {}).then(response=>{
-          const res = response.data;
-          console.log(res)
-          require.ensure([], () => {
-            const { export_json_to_excel } = require('vendor/Export2Excel');
-            const tHeader = res.data.headList;
-            const data = res.data.dataList;
-            const fileName = res.data.fileName;
-            export_json_to_excel(tHeader, data, fileName);
-          })
-        });
+        if(this.download) {
+          clearTimeout(this.download)
+        }
+        this.download = setTimeout( () => {
+          download(this.modelIds, this.listQuery.q, {}).then(response=>{
+            const res = response.data;
+            require.ensure([], () => {
+              const { export_json_to_excel } = require('vendor/Export2Excel');
+              const tHeader = res.data.headList;
+              const data = res.data.dataList;
+              const fileName = res.data.fileName;
+              export_json_to_excel(tHeader, data, fileName);
+            })
+          });
+        },600)
       },
+
       handelDelete(id) {
         this.$confirm('此操作将SIM卡删除, 是否继续?', '提示', {
           confirmButtonText: '确定',
@@ -628,6 +634,9 @@
 <style rel="stylesheet/scss" lang="scss" scoped>
   #basicData_search_index {
     font-size: 12px;
+    .filter-item {
+      margin-bottom: 10px;
+    }
     .buttonStyle{
       display: inline-block;
     }

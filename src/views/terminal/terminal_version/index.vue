@@ -16,6 +16,8 @@
           <a :href="'#/terminal/terminal_version/new'" target="_self" style="margin-left: 10px;">
             <el-button class="filter-item el-icon-plus" type="primary" style="margin-right: 10px;">新建</el-button>
           </a>
+        
+          <el-button type="primary" style="margin-right: 10px;" @click="Unfold(terminalListShow = !terminalListShow)">展开终端列表数据</el-button>
         </el-col>
       </el-row>
     </div>
@@ -37,7 +39,7 @@
       <el-table-column
         prop="describe"
         v-bind:label="$t('terminal_version.describe')"
-        width="100">
+        width="200">
       </el-table-column>
       <el-table-column
         prop="oversion"
@@ -66,6 +68,7 @@
       </el-table-column>
       <el-table-column
         prop="terminalList"
+        :show-overflow-tooltip='terminalListShow'
         v-bind:label="$t('terminal_version.terminalList')"
         width="120">
       </el-table-column>
@@ -107,12 +110,14 @@
             tVersion: '',
           }
         },
+        terminalListShow: true
       }
     },
     created() {
       this.getList();
     },
     methods: {
+      
       getList() {
         this.listLoading = true;
         modelList(this.listQuery).then(response => {
@@ -124,10 +129,6 @@
           }
           this.listLoading = false
         })
-
-        // if (!this.list) {
-        //   this.getList()
-        // }
       },
       
       handleFilter() {
@@ -199,6 +200,11 @@
 <style rel="stylesheet/scss" lang="scss" scoped>
   #basicData_search_index {
     font-size: 12px;
+    .el-table .cell {
+      background-color: pink;
+      padding: 0;
+      height: 40px;
+    }
     .buttonStyle{
       display: inline-block;
     }

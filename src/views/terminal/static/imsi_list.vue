@@ -88,6 +88,8 @@
         width="160">
       </el-table-column>
     </el-table>
+     <!-- 分页全局组件 -->
+    <my-pagination :listQuery="listQuery" :total="total" :listLoading="listLoading" @get="getList()"></my-pagination>
 
   </div>
 </template>
@@ -103,6 +105,8 @@
         list: [],
         listLoading: false,
         listQuery: {
+          page:1,
+          perPage: 100,
           q: {
             imsi: this.$route.query.imsi,
           }

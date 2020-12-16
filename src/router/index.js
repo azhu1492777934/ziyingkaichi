@@ -39,7 +39,7 @@ export const constantRouterMap = [
       { path: 'flow_balance/new', component: () => import('@/views/terminal/flow_balance/new'), name: '终端流量新增', hidden: true  },
       { path: 'flow_balance/edit/:id', component: () =>import('@/views/terminal/flow_balance/edit'), name: '终端流量编辑', hidden: true  },
 
-      { path: 'cost_month', component: () => import('@/views/terminal/cost_month/index'), name: '终端月流量查询' },
+      { path: 'cost_month', component: () => import('@/views/terminal/cost_month/index'), name: '月活跃终端查询' },
       { path: 'cost_day', component: () => import('@/views/terminal/cost_day/index'), name: '终端日流量查询' },
     ]
   },
@@ -87,7 +87,7 @@ export const constantRouterMap = [
   },
 
   {
-    path: '/sim_card',
+    path: '/sim_card',   
     component: Layout,
     redirect: 'noredirect',
     name: '远程卡业务',
@@ -108,8 +108,8 @@ export const constantRouterMap = [
 
       { path: 'simcard_log', component: () => import('@/views/sim_card/simcard_log/index'), name: 'SIM故障日志' },
 
-      { path: 'cost_day_sim', component: () => import('@/views/sim_card/cost_day_sim/index'), name: '卡日流量' },
-      { path: 'cost_month_sim', component: () => import('@/views/sim_card/cost_month_sim/index'), name: '卡月流量' },
+      { path: 'sim_flow_month', component: () => import('@/views/sim_card/sim_flow_month/index'), name: '卡月流量查询' },
+      { path: 'sim_flow_day', component: () => import('@/views/sim_card/sim_flow_day/index'), name: '卡日流量查询' },
     ]
   },
 

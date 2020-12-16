@@ -15,6 +15,14 @@ export function batchUpdate(ids, query, model) {
   })
 }
 
+export function batchUpdateByUserGroup(ids, query, model) {
+  return request({
+    url: '/terminal/batchUpdateByUserGroup',
+    method: 'post',
+    data: {ids: ids, query: query, model: model}
+  })
+}
+
 export function modelStop(id) {
   return request({
     url: '/terminal/stop/' + id,
@@ -44,3 +52,11 @@ export function download(ids, query, model) {
     data: {ids: ids, query: query, model: model}
   })
 }
+
+export function groupMap() {
+  return request({
+    url: '/terminal/groupmap',
+    method: 'get'
+  })
+}
+

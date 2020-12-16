@@ -50,7 +50,7 @@
             <el-button type="primary" style="margin-left: 10px" @click="opendialog">导入<i class="el-icon-upload el-icon--right"></i></el-button>
           </el-col>
           <el-col :span="4" >
-            <FileButton :tableLabel="tableLabel" :tableLabelCopy="tableLabel"></FileButton>
+            <el-button type="primary">列表</el-button>
           </el-col>
         </el-row>
     </div>
@@ -60,7 +60,7 @@
 
 
     <!-- 列表-start -->
-     <el-table
+    <el-table
       ref="multipleTable"
       v-loading="listLoading"
       :data="list"
@@ -68,24 +68,131 @@
       tooltip-effect="dark"
       style="width: 100%"
       @selection-change="handleSelectionChange">
-      
+      <el-table-column
+        type="selection"
+        width="55">
+      </el-table-column>
+      <el-table-column
+        prop="id" v-if="show"
+        v-bind:label="$t('terminal.id')"
+        width="80">
+      </el-table-column>
       <el-table-column
         prop="tsid"
         v-bind:label="$t('terminal.tsid')"
         width="100"
-        fixed
         >
         <template slot-scope="scope">
           <a style="text-decoration: underline" :href="'#/terminal/static/cost_day_list?tsid=' + scope.row.tsid" target="_blank">{{ scope.row.tsid }}</a>
         </template>
       </el-table-column>
+      <el-table-column
+        prop="imei"
+        v-bind:label="$t('terminal.imei')"
+        width="160">
+      </el-table-column>
+      <el-table-column
+        prop="ssid"
+        v-bind:label="$t('terminal.ssid')"
+        width="140">
+      </el-table-column>
+      <el-table-column
+        prop="wifiPassword"
+        v-bind:label="$t('terminal.wifiPassword')"
+        width="100">
+      </el-table-column>
+      <el-table-column
+        prop="usergroup"
+        v-bind:label="$t('terminal.usergroup')"
+        width="100">
+      </el-table-column>
+      <el-table-column
+        prop="model"
+        v-bind:label="$t('terminal.model')"
+        width="80">
+      </el-table-column>
+      <el-table-column
+        prop="ciccid"
+        v-bind:label="$t('terminal.ciccid')"
+        width="180">
+      </el-table-column>
+      <el-table-column
+        prop="statusCn"
+        v-bind:label="$t('terminal.status')"
+        width="80">
+      </el-table-column>
+      <el-table-column
+        prop="maxDayData"
+        v-bind:label="$t('terminal.maxDayData')"
+        width="130">
+      </el-table-column>
+      <el-table-column
+        prop="dayspeedlimit"
+        v-bind:label="$t('terminal.dayspeedlimit')"
+        width="130">
+      </el-table-column>
+
+      <el-table-column
+        prop="maxMonthData"
+        v-bind:label="$t('terminal.maxMonthData')"
+        width="140">
+      </el-table-column>
+      <el-table-column
+        prop="monthSpeedlimit"
+        v-bind:label="$t('terminal.monthSpeedlimit')"
+        width="150">
+      </el-table-column>
+
+      <el-table-column
+        prop="timedShutoff"
+        v-bind:label="$t('terminal.timedShutoff')"
+        width="100">
+      </el-table-column>
+
+      <el-table-column
+        prop="mac"    v-if="show"
+        v-bind:label="$t('terminal.mac')"
+        width="140">
+      </el-table-column>
+
+      <el-table-column
+        prop="provinceName"
+        v-bind:label="$t('terminal.provinceName')"
+        width="140">
+      </el-table-column>
       
-        
-      <FileTable :tableLabel='tableLabel'></FileTable>
+      <el-table-column
+        prop="batch"  v-if="show"
+        v-bind:label="$t('terminal.batch')"
+        width="80">
+      </el-table-column>
+      <el-table-column
+      prop="sversion"
+      v-bind:label="$t('terminal.sversion')"
+      width="80">
+    </el-table-column>
+
+      <el-table-column
+        prop="otaCn"
+        v-bind:label="$t('terminal.ota')"
+        width="80">
+      </el-table-column>
+
+      <el-table-column
+        prop="androidVersion"
+        v-bind:label="$t('terminal.androidVersion')"
+        width="120">
+      </el-table-column>
+
+      <el-table-column
+        prop="upLogCn"   v-if="show"
+        v-bind:label="$t('terminal.upLog')"
+        width="80">
+      </el-table-column>
       <el-table-column
         label="操作"
         align="center"
-        min-width="160"
+        width="160"
         fixed="right"
       >
         <template slot-scope="scope">
@@ -94,8 +201,6 @@
         </template>
       </el-table-column>
     </el-table>
-
-
 
      <!-- 分页全局组件 -->
     <my-pagination :listQuery="listQuery" :total="total" :listLoading="listLoading" @get="getList()"></my-pagination>
@@ -240,13 +345,10 @@
 
 
 <script>
-  import FileTable from '@/components/FileTable/FileTable'
-  import FileButton from '@/components/FileButton/FileButton'
   import { modelList, modelStop,modelDelete, batchUpdate,batchUpdateByUserGroup,uploadTerminalFile,download,groupMap } from 'api/terminal/terminal';
   import { Message } from 'element-ui';
   import { provinceMap } from 'api/operation/province';
   export default {
-    components: { FileTable ,FileButton },
     data() {
       return {
         show:false,
@@ -301,28 +403,6 @@
         groupCodeArr:[],
         provinceCodeArr: [],
         download: null,
-        tableLabel: [
-          { label: 'ID', width: '80', prop: 'id', show: true },
-          { label: 'IMEI', width: '160', prop: 'imei', show: true },
-          { label: 'SSID', width: '140', prop: 'ssid', show: true },
-          { label: '密码', width: '100', prop: 'wifiPassword', show: true },
-          { label: '分组', width: '100', prop: 'usergroup', show: true },
-          { label: '型号', width: '80', prop: 'model', show: true },
-          { label: 'ICCID', width: '180', prop: 'ciccid', show: true },
-          { label: '状态', width: '80', prop: 'statusCn', show: true },
-          { label: '每日限额(KB)', width: '130', prop: 'maxDayData', show: true },
-          { label: '限速速率(Kbps)', width: '130', prop: 'dayspeedlimit', show: true },
-          { label: '每月限额(GB)', width: '140', prop: 'maxMonthData', show: true },
-          { label: '每月限速速率(Kbps)', width: '150', prop: 'monthSpeedlimit', show: true },
-          { label: '无连接等待', width: '100', prop: 'timedShutoff', show: true },
-          { label: 'MAC', width: '140', prop: 'mac', show: false },
-          { label: '地区', width: '140', prop: 'provinceName', show: true },
-          { label: '批次', width: '80', prop: 'batch', show: false },
-          { label: '版本', width: '80', prop: 'sversion', show: true },
-          { label: 'OTA', width: '80', prop: 'otaCn', show: true },
-          { label: 'Android版本', width: '120', prop: 'androidVersion', show: true },
-          { label: '上传日志', width: '80', prop: 'upLogCn', show: false },
-        ]
       }
     },
 
@@ -339,14 +419,12 @@
           if (res.status > 0) {
             const data = res.data;
             this.list = data.list;
+            console.log(this.list);
             this.total = data.extra.totalCount;
           }
           this.listLoading = false
         })
 
-        // if (!this.list) {
-        //   this.getList()
-        // }
       },
       getGroupMap() {
         groupMap().then(response=>{

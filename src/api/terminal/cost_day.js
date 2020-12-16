@@ -16,3 +16,10 @@ export function download(ids, query, model) {
   })
 }
 
+export function totalFlow(query) {
+  return request({
+    url: '/cost_day/total',
+    method: 'post',
+    data: query
+  })
+}

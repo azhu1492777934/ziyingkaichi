@@ -85,7 +85,7 @@
       <el-table-column
         prop="spid"
         v-bind:label="$t('terminal_tsid.spid')"
-        width="50">
+        width="70">
       </el-table-column>
       <el-table-column
         prop="spip"
@@ -95,6 +95,7 @@
       <el-table-column
         prop="apn"
         v-bind:label="$t('terminal_tsid.apn')"
+        show-overflow-tooltip
         width="80">
       </el-table-column>
       <el-table-column
@@ -115,7 +116,7 @@
       <el-table-column
         prop="operatorcode"
         v-bind:label="$t('terminal_tsid.operatorcode')"
-        width="50">
+        width="100">
       </el-table-column>
       <el-table-column
         prop="operatorcn"
@@ -123,7 +124,8 @@
         width="100">
       </el-table-column>
     </el-table>
-
+    <!-- 分页全局组件 -->
+    <my-pagination :listQuery="listQuery" :total="total" :listLoading="listLoading" @get="getList()"></my-pagination>
   </div>
 </template>
 
@@ -138,6 +140,8 @@
         list: [],
         listLoading: false,
         listQuery: {
+          page: 1,
+          perPage: 100,
           q: {
             tsid: this.$route.query.tsid,
             date: new Date(),
@@ -167,6 +171,7 @@
             if (res.status > 0) {
               const data = res.data;
               this.list = data;
+              console.log(this.list);
             }
             this.listLoading = false
           })

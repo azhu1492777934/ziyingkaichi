@@ -21,7 +21,6 @@
             <el-option v-for="i in countryCodeArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
           </el-select>
         </el-col>
-
         <el-col :span="4">
           <el-input class="filter-item" :placeholder="$t('operator.apn')"
                     v-model="listQuery.q.apn" clearable type="text"> </el-input>
@@ -211,6 +210,9 @@
 <style rel="stylesheet/scss" lang="scss" scoped>
   #basicData_search_index {
     font-size: 12px;
+    .filter-item {
+      margin-bottom: 10px;
+    }
     .buttonStyle{
       display: inline-block;
     }

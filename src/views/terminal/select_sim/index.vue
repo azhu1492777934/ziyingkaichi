@@ -24,7 +24,7 @@
 
 
         <el-col :span="12">
-          <el-button style="margin-left: 26px" type="primary" icon="search" @click="handleFilter">搜索</el-button>
+          <el-button style="margin-top: 10px" type="primary" icon="search" @click="handleFilter">搜索</el-button>
         </el-col>
       </el-row>
     </div>

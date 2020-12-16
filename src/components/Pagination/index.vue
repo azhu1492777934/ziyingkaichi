@@ -13,6 +13,7 @@
 </template>
 <script>
 export default {
+    name: 'pagination',
     props: ['listLoading','total','listQuery'],
     methods: {
          handleSizeChange(val) {
