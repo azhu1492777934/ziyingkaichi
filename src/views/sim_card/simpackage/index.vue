@@ -2,19 +2,26 @@
   <div class="app-container calendar-list-container" id="basicData_search_index">
     <div class="filter-container search">
       <el-row>
-        <el-col :span="4">
-          <el-input class="filter-item" :placeholder="$t('simpackage.name')"
-                    v-model="listQuery.q.name" clearable type="text"> </el-input>
+        <el-col :span="4" >
+          <el-select  v-model="listQuery.q.name" filterable clearable :placeholder="$t('simpackage.name')">
+            <el-option v-for="i in packageAll" :key="i.id" :label="i.name" :value="i.name"></el-option>
+          </el-select>
         </el-col>
-        <el-col :span="4">
+        <!-- <el-col :span="4">
           <el-input class="filter-item" :placeholder="$t('simpackage.operatorCode')"
                     v-model="listQuery.q.operatorCode" clearable type="text"> </el-input>
+        </el-col> -->
+        <el-col :span="4" >
+          <el-select  v-model="listQuery.q.operatorCode" filterable clearable :placeholder="$t('simpackage.operatorCode')">
+            <el-option v-for="i in operatorCodeAll" :key="i.id" :label="i.operatorCode" :value="i.operatorCode"></el-option>
+          </el-select>
         </el-col>
         <el-col :span="12">
           <el-button style="margin-left: 26px" type="primary" icon="search" @click="handleFilter">搜索</el-button>
           <a :href="'#/sim_card/simpackage/new'" target="_self" style="margin-left: 10px;">
             <el-button class="filter-item el-icon-plus" type="primary" style="margin-right: 10px;">新建</el-button>
           </a>
+          <el-button type="primary" style="margin-right: 10px;" @click="terminalListShow = !terminalListShow">展开省市列表数据</el-button>
         </el-col>
       </el-row>
     </div>
@@ -26,6 +33,7 @@
       v-loading="listLoading"
       :data="list"
       border
+      max-height="560"
       tooltip-effect="dark"
       style="width: 100%">
       <el-table-column
@@ -46,12 +54,12 @@
       <el-table-column
         prop="maxFlow"
         v-bind:label="$t('simpackage.maxFlow')"
-        width="130">
+        width="150">
       </el-table-column>
       <el-table-column
         prop="maxRoamFlow"
         v-bind:label="$t('simpackage.maxRoamFlow')"
-        width="130">
+        width="150">
       </el-table-column>
       <el-table-column
         prop="level"
@@ -66,12 +74,14 @@
       <el-table-column
         prop="blackProvincesCn"
         v-bind:label="$t('simpackage.blackProvinces')"
-        width="200">
+        width="200"
+        :show-overflow-tooltip="terminalListShow">
       </el-table-column>
       <el-table-column
         prop="whiteProvincesCn"
         v-bind:label="$t('simpackage.whiteProvinces')"
-        width="200">
+        width="200"
+        :show-overflow-tooltip="terminalListShow">
       </el-table-column>
 
 
@@ -87,8 +97,8 @@
         fixed="right"
       >
         <template slot-scope="scope">
-          <a :href="'#/sim_card/simpackage/edit/' + scope.row.id" target="_self"><el-button size="small">编辑</el-button></a>
-          <el-button size="small" v-show="scope.row.canDelete" @click="handelDelete(scope.row.id)">删除</el-button>
+          <a :href="'#/sim_card/simpackage/edit/' + scope.row.id" target="_self"><el-button size="small" type="primary" plain>编辑</el-button></a>
+          <el-button size="small" type="danger" plain v-show="scope.row.canDelete" @click="handelDelete(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -116,28 +126,40 @@
           q: {
           }
         },
+        terminalListShow: true,
+        packageAll: [],
+        operatorCodeAll: [],
       }
     },
-    created() {
-      this.getList();
+    async created() {
+      let data = await this.getList();
+      this.getPackage(data);
     },
     methods: {
       getList() {
-        this.listLoading = true;
-        modelList(this.listQuery).then(response => {
-          const res = response.data;
-          if (res.status > 0) {
-            const data = res.data;
-            this.list = data.list;
-            this.total = data.extra.totalCount;
-          }
-          this.listLoading = false
+        return new Promise((resolve, reject) => {
+          this.listLoading = true;
+          modelList(this.listQuery).then(response => {
+            const res = response.data;
+            if (res.status > 0) {
+              const data = res.data;
+              this.list = data.list;
+              this.total = data.extra.totalCount;
+            }
+            this.listLoading = false
+            resolve(this.list);
+          })
         })
-
-        // if (!this.list) {
-        //   this.getList()
-        // }
       },
+      getPackage(data) {
+        this.packageAll = data
+        var hash = {}
+        data = data.reduce(function (item, next) {
+            hash[next.operatorCode] ? '' : hash[next.operatorCode] = true && item.push(next);
+            return item;
+        }, []);
+       this.operatorCodeAll = data;
+      }, 
       handleFilter() {
         this.listQuery.page = 1;
         this.getList();
@@ -175,6 +197,14 @@
   }
 </script>
 
+<style>
+  .el-tooltip__popper,.el-tooltip__popper.is-dark{
+    max-width: 20% !important;
+    background:rgb(48, 65, 86) !important;
+    color: #fff !important;
+  }
+</style>
+
 <style rel="stylesheet/scss" lang="scss" scoped>
   #basicData_search_index {
     font-size: 12px;
@@ -183,3 +213,5 @@
     }
   }
 </style>
+
+

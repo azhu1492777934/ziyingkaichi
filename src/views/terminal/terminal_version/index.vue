@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container calendar-list-container" id="basicData_search_index">
+  <div class="app-container calendar-list-container " id="basicData_search_index">
     <div class="filter-container search">
       <el-row>
         <el-col :span="4">
@@ -17,7 +17,7 @@
             <el-button class="filter-item el-icon-plus" type="primary" style="margin-right: 10px;">新建</el-button>
           </a>
         
-          <el-button type="primary" style="margin-right: 10px;" @click="Unfold(terminalListShow = !terminalListShow)">展开终端列表数据</el-button>
+          <el-button type="primary" style="margin-right: 10px;" @click="terminalListShow = !terminalListShow">展开终端列表数据</el-button>
         </el-col>
       </el-row>
     </div>
@@ -29,6 +29,7 @@
       v-loading="listLoading"
       :data="list"
       border
+      max-height="570"
       tooltip-effect="dark"
       style="width: 100%">
       <el-table-column
@@ -79,8 +80,8 @@
         fixed="right"
       >
         <template slot-scope="scope">
-          <el-button size="small" @click="handelDelete(scope.row.id)">删除</el-button>
-          <el-button size="small" @click="handelUnbind(scope.row.id)">停用</el-button>
+          <el-button size="small" type="danger" plain @click="handelDelete(scope.row.id)">删除</el-button>
+          <el-button size="small" type="warning" plain @click="handelUnbind(scope.row.id)">停用</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -117,7 +118,6 @@
       this.getList();
     },
     methods: {
-      
       getList() {
         this.listLoading = true;
         modelList(this.listQuery).then(response => {
@@ -197,14 +197,22 @@
   }
 </script>
 
+<style>
+  .el-tooltip__popper,.el-tooltip__popper.is-dark{
+    max-width: 20% !important;
+    background:rgb(48, 65, 86) !important;
+    color: #fff !important;
+  }
+</style>
+
 <style rel="stylesheet/scss" lang="scss" scoped>
   #basicData_search_index {
     font-size: 12px;
-    .el-table .cell {
-      background-color: pink;
-      padding: 0;
-      height: 40px;
-    }
+    // .el-table .cell {
+    //   background-color: pink;
+    //   padding: 0;
+    //   height: 40px;
+    // }
     .buttonStyle{
       display: inline-block;
     }

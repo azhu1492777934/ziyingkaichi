@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function modelTsidList(query) {
   return request({
-    url: '/terminal_sim/tsidList',
+    url: '/terminal_sim/tsidListPage',
     method: 'post',
     data: query
   })

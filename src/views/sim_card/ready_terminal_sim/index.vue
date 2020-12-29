@@ -33,6 +33,7 @@
       v-loading="listLoading"
       :data="list"
       border
+      max-height="560"
       tooltip-effect="dark"
       style="width: 100%"
       @selection-change="handleSelectionChange">
@@ -68,7 +69,7 @@
       <el-table-column
         prop="typeCn"
         v-bind:label="$t('ready_terminal_sim.type')"
-        width="140">
+        width="">
       </el-table-column>
     </el-table>
 

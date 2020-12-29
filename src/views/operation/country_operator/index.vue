@@ -35,6 +35,7 @@
       v-loading="listLoading"
       :data="list"
       border
+      max-height="520"
       tooltip-effect="dark"
       style="width: 100%">
       <el-table-column
@@ -79,8 +80,8 @@
         fixed="right"
       >
         <template slot-scope="scope">
-          <el-button size="small" @click="handelUpdateStatus(scope.row.id, scope.row.status == 0 ? 1 : 0, scope.row.status == 0 ? '停用' : '可用')">{{scope.row.status == 0 ? '停用' : '可用'}}</el-button>
-          <el-button size="small" @click="handelDelete(scope.row.id)">删除</el-button>
+          <el-button size="small" :type="scope.row.status == 0 ? 'warning' : 'primary'" plain @click="handelUpdateStatus(scope.row.id, scope.row.status == 0 ? 1 : 0, scope.row.status == 0 ? '停用' : '可用')">{{scope.row.status == 0 ? '停用' : '可用'}}</el-button>
+          <el-button size="small" type="dangger" plain @click="handelDelete(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>

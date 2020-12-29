@@ -4,7 +4,7 @@
               slot="reference"
               type="primary"
               icon="el-icon-setting"
-              @click="dialogFormVisible= true; tableLabelClose()">
+              @click="dialogFormVisible= true">
               列表
         </el-button>
         <el-dialog ref="dialog__wrapper" v-dialogDrag title="表格字段定制" :visible.sync="dialogFormVisible" :close-on-click-modal="false" :close-on-press-escape="false">

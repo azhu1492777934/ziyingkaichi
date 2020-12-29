@@ -23,6 +23,7 @@
       v-loading="listLoading"
       :data="list"
       border
+      max-height="560"
       tooltip-effect="dark"
       style="width: 100%">
       <el-table-column
@@ -57,8 +58,8 @@
         fixed="right"
       >
         <template slot-scope="scope">
-          <a :href="'#/auth_role/auth_role/edit/' + scope.row.id" target="_self"><el-button size="small">编辑</el-button></a>
-          <el-button size="small" @click="handelDelete(scope.row.id)">删除</el-button>
+          <a :href="'#/auth_role/auth_role/edit/' + scope.row.id" target="_self"><el-button size="small" type="primary" plain>编辑</el-button></a>
+          <el-button size="small" type="danger" plain @click="handelDelete(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>

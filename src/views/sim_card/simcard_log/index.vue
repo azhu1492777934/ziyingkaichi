@@ -32,6 +32,7 @@
       v-loading="listLoading"
       :data="list"
       border
+      max-height="560"
       tooltip-effect="dark"
       style="width: 100%"
      >
@@ -90,7 +91,7 @@
         fixed="right"
       >
         <template slot-scope="scope">
-          <el-button size="small" v-show="scope.row.canRecover" @click="handelRecover(scope.row.imsi,scope.row.beforeStatus,scope.row.beforeStatusCn)">恢复</el-button>
+          <el-button size="small" v-show="scope.row.canRecover" @click="handelRecover(scope.row.imsi,scope.row.beforeStatus,scope.row.beforeStatusCn)" type="primary" plain>恢复</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -176,7 +177,6 @@
           if (res.status > 0) {
             const data = res.data;
             this.list = data.list;
-            console.log(this.list)
             this.total = data.extra.totalCount;
           }
           this.listLoading = false

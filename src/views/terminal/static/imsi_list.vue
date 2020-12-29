@@ -40,13 +40,13 @@
         prop="maxFlow"
         align="right"
         v-bind:label="$t('flow_month.maxFlow')"
-        width="120">
+        width="140">
       </el-table-column>
       <el-table-column
         prop="usedFlow"
         align="right"
         v-bind:label="$t('flow_month.usedFlow')"
-        width="80">
+        width="120">
       </el-table-column>
       <el-table-column
         prop="residueFlow"
@@ -58,7 +58,7 @@
         prop="maxRoamFlow"
         align="right"
         v-bind:label="$t('flow_month.maxRoamFlow')"
-        width="120">
+        width="140">
       </el-table-column>
       <el-table-column
         prop="usedRoamFlow"
@@ -85,7 +85,7 @@
       <el-table-column
         prop="lastUpDatetimeCn"
         v-bind:label="$t('flow_month.lastUpDateTime')"
-        width="160">
+        width="">
       </el-table-column>
     </el-table>
      <!-- 分页全局组件 -->
@@ -103,7 +103,8 @@
     data() {
       return {
         list: [],
-        listLoading: false,
+        listLoading: false, 
+        total: 0,
         listQuery: {
           page:1,
           perPage: 100,
@@ -113,6 +114,7 @@
         },
       }
     },
+   
     created() {
       this.getList();
     },

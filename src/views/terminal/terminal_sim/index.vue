@@ -8,7 +8,8 @@
         </el-col>
         <el-col :span="4">
           <el-input class="filter-item" :placeholder="$t('terminal_sim.imsi')"
-                    v-model="listQuery.q.imsi" clearable type="text"> </el-input>
+                    v-model="listQuery.q.imsi" clearable type="text"> 
+          </el-input>
         </el-col>
         <el-col :span="8">
           <el-date-picker style="width: 100%;"
@@ -17,29 +18,32 @@
                           :start-placeholder="$t('terminal_sim.date')" :end-placeholder="$t('terminal_sim.date')">
           </el-date-picker>
         </el-col>
-        <el-col :span="4">
-          <el-input class="filter-item" :placeholder="$t('terminal_sim.usergroup')"
-                    v-model="listQuery.q.usergroup" clearable type="text"> </el-input>
+        <el-col :span="4" >
+          <el-select  v-model="listQuery.q.usergroup" filterable clearable :placeholder="$t('terminal_sim.userGroup')">
+            <el-option v-for="i in groupCodeArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
+          </el-select>
         </el-col>
-        <!-- el-col :span="4">
+        <!-- <el-col :span="4">
         <el-select v-model="listQuery.q.vCountryCode" filterable clearable :placeholder="$t('terminal_sim.vCountryCode')">
           <el-option v-for="i in countryCodeArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
         </el-select>
-      </el-col -->
+      </el-col> -->
 
         <el-col :span="4">
-          <el-select v-model="listQuery.q.province" filterable clearable :placeholder="$t('terminal_sim.provinceCode')">
+          <el-select  v-model="listQuery.q.province" filterable clearable :placeholder="$t('terminal_sim.provinceCode')">
             <el-option v-for="i in provinceCodeArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
           </el-select>
         </el-col>
-
-        <el-col :span="12">
-          <el-button style="margin-top: 10px" type="primary" icon="search" @click="handleFilter">搜索</el-button>
-          <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="handelBatchUnbind()" icon="delete" style="left: 10px">批量释放主卡</el-button>
-          <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="handelBatchReboot()" icon="delete" style="left: 10px">批量重启</el-button>
-          <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="handelBatchShutdown()" icon="delete" style="left: 10px">批量关机</el-button>
-        </el-col>
       </el-row>
+
+       
+          <el-col :span="12">
+            <el-button style="margin: 10px 0;" type="primary" icon="search" @click="handleFilter">搜索</el-button>
+            <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="handelBatchUnbind()" icon="delete" style="left: 10px">批量释放主卡</el-button>
+            <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="handelBatchReboot()" icon="delete" style="left: 10px">批量重启</el-button>
+            <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="handelBatchShutdown()" icon="delete" style="left: 10px">批量关机</el-button>
+          </el-col>
+        
     </div>
 
     <br/>
@@ -49,6 +53,7 @@
       v-loading="listLoading"
       :data="list"
       border
+      max-height="520"
       tooltip-effect="dark"
       style="width: 100%"
       @selection-change="handleSelectionChange">
@@ -90,7 +95,7 @@
 
       <el-table-column
         prop="usergroup"
-        v-bind:label="$t('terminal_sim.usergroup')"
+        v-bind:label="$t('terminal_sim.userGroup')"
         width="120">
       </el-table-column>
 
@@ -121,7 +126,7 @@
         fixed="right"
       >
         <template slot-scope="scope">
-          <el-button size="small" @click="handelUnbind(scope.row.tsid)">释放主卡</el-button>
+          <el-button size="small" type="primary" plain @click="handelUnbind(scope.row.tsid)">释放主卡</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -136,6 +141,7 @@
 <script>
   import { countryMap } from 'api/operation/country';
   import { provinceMap } from 'api/operation/province';
+  import { groupMap } from 'api/terminal/terminal';
   import { modelList, modelUnbind, modelBatchUnbind,modelBatchReboot,modelBatchShutdown } from 'api/terminal/terminal_sim';
   import * as moment from 'moment';
   import { Message } from 'element-ui';
@@ -159,12 +165,14 @@
         modelIds: [],
         countryCodeArr: [],
         provinceCodeArr: [],
+        groupCodeArr: [],
       }
     },
     created() {
       this.getList();
       this.getCountryMap();
       this.getProvinceMap();
+      this.getGroupMap();
     },
     methods: {
       getList() {
@@ -196,6 +204,14 @@
           const res = response.data;
           if (res.status > 0) {
             this.provinceCodeArr = res.data;
+          }
+        });
+      },
+      getGroupMap() {
+        groupMap().then(response=>{
+          const res = response.data;
+          if (res.status > 0) {
+            this.groupCodeArr = res.data;
           }
         });
       },

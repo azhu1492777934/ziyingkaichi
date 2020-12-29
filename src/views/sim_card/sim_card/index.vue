@@ -83,13 +83,14 @@
       </el-row>
     </div>
 
-    <br/>
+    
     <!-- 列表-start -->
     <el-table
       ref="multipleTable"
       v-loading="listLoading"
       :data="list"
       border
+      max-height="420"
       tooltip-effect="dark"
       style="width: 100%"
       @selection-change="handleSelectionChange">
@@ -169,8 +170,8 @@
         fixed="right"
       >
         <template slot-scope="scope">
-          <a :href="'#/sim_card/sim_card/edit/' + scope.row.id" target="_self"><el-button size="small">编辑</el-button></a>
-          <el-button size="small" @click="handelDelete(scope.row.id)">删除</el-button>
+          <a :href="'#/sim_card/sim_card/edit/' + scope.row.id" target="_self"><el-button size="small" type="primary" plain>编辑</el-button></a>
+          <el-button size="small" @click="handelDelete(scope.row.id)" type="danger" plain>删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -331,7 +332,9 @@
         packageArr: [],
         modelIds: [],
         customerArr: [],
-        statusArr: [{ id: 0, name: '正常' }, { id: 1, name: '停用' }, { id: 2, name: '指定' }, { id: 3, name: '待激活' }, { id: 4, name: '作废' }, { id: 5, name: '冻结' },{ id: 6, name: '失败' },{ id: 7, name: '使用中' },{ id: 8, name: '空闲' },{ id: 9, name: '禁用' },{ id: 10, name: '流量低' },{ id: 11, name: '无流量' },],
+        statusArr: [{ id: 0, name: '正常' }, { id: 1, name: '停用' }, { id: 2, name: '指定' }, { id: 3, name: '待激活' }, { id: 4, name: '作废' }, { id: 5, name: '冻结' },{ id: 6, name: '失败' },{ id: 7, name: '使用中' },{ id: 8, name: '空闲' },
+        // { id: 10, name: '流量低' },{ id: 11, name: '无流量' },
+        ],
         cpStatusArr: [{ id: 0, name: '正常' }, { id: 1, name: '待激活' }, { id: 2, name: '拔出' }, { id: 8, name: '超时' },],
         offPeriodArr: [{id:0,name:'0'},{id:1,name:'1'},{id:2,name:'2'},{id:3,name:'3'},{id:4,name:'4'},{id:5,name:'5'},{id:6,name:'6'},
           {id:7,name:'7'},{id:8,name:'8'},{id:9,name:'9'},{id:10,name:'10'},{id:11,name:'11'},{id:12,name:'12'},{id:13,name:'13'},

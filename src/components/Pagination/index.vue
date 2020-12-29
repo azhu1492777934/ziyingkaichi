@@ -6,7 +6,7 @@
             :current-page.sync="listQuery.page"
             :page-sizes="[25, 50, 100, 200]"
             :page-size="listQuery.perPage"
-            layout="sizes, prev, pager, next"
+            layout="total, sizes, prev, pager, next"
             :total="total">
         </el-pagination>
     </div>

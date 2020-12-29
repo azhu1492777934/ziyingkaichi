@@ -38,6 +38,7 @@
       v-loading="listLoading"
       :data="list"
       border
+      max-height="560"
       tooltip-effect="dark"
       style="width: 100%"
       @selection-change="handleSelectionChange">
@@ -92,9 +93,9 @@
         fixed="right"
       >
         <template slot-scope="scope">
-          <a :href="'#/customer/customer/edit/' + scope.row.id" target="_self"><el-button size="small">编辑</el-button></a>
+          <a :href="'#/customer/customer/edit/' + scope.row.id" target="_self"><el-button size="small" type="primary" plain>编辑</el-button></a>
           <!--<router-link :to="'/customer/edit/' + scope.row.id"><el-button size="small">编辑</el-button> </router-link>-->
-          <el-button size="small" @click="handelDelete(scope.row.id)">删除</el-button>
+          <el-button size="small" type="danger" plain @click="handelDelete(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>

@@ -20,12 +20,21 @@ import '@/icons' // icon
 import '@/permission'
 import getters from "./store/getters"; // permission control
 
+// 全局组件
 import Pagination from './components/Pagination/index'
 Vue.component('my-pagination',Pagination)
 
+// 实例化 Echarts
+// import * as echarts from 'echarts’
+import * as echarts from 'echarts'
+Vue.prototype.$echarts = echarts
+import 'echarts-liquidfill' // 引入水行图
+
+import '../node_modules/echarts/map/js/china.js' // 引入中国地图
+
 // import './mock'
 
-Vue.use(ElementUI, {
+Vue.use(ElementUI,echarts, {
   i18n: (key, value) => i18n.t(key, value)
 })
 Vue.prototype.getters = getters

@@ -38,3 +38,12 @@ export function batchUpdate(ids, query, model) {
     data: {ids: ids, query: query, model: model}
   })
 }
+
+export function download(query) {
+  return request({
+    url: 'flow_balance/download ',
+    method: 'post',
+    data: query
+  })
+}
+

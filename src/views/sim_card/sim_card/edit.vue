@@ -120,7 +120,7 @@
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')">立即更新</el-button>
         <el-button @click="cancelForm">取消</el-button>
-        <el-button @click="cardDisable" type="danger">禁用</el-button>
+        <el-button @click="cardDisable" type="danger">停用</el-button>
       </el-form-item>
 
     </el-form>
@@ -175,7 +175,9 @@
             { required: true, message: this.$t('simcard.softType') + '不能为空' }
           ],
         },
-        statusArr: [{ id: 0, name: '正常' }, { id: 1, name: '停用' }, { id: 2, name: '指定' }, { id: 3, name: '待激活' }, { id: 4, name: '作废' }, { id: 5, name: '冻结' }, { id: 6, name: '失败' }],
+        statusArr: [{ id: 0, name: '正常' }, { id: 1, name: '停用' }, { id: 2, name: '指定' }, { id: 3, name: '待激活' }, { id: 4, name: '作废' }, { id: 5, name: '冻结' }, { id: 6, name: '失败' },{ id: 7, name: '使用中' },{ id: 8, name: '空闲' },
+        //{ id: 10, name: '流量低' },{ id: 11, name: '无流量' }
+        ],
         cpStatusArr: [{ id: 0, name: '正常' }, { id: 1, name: '待激活' }, { id: 2, name: '拔出' }, { id: 8, name: '超时' },],
         softTypeArr: [{ id: 0, name: '实卡' }, { id: 1, name: '软卡' }, ],
         offPeriodArr: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,''],
@@ -194,7 +196,8 @@
     },
     methods: {
       cardDisable() {
-        console.log(this.id);
+        this.ruleForm.status = 1;
+        this.submitForm('ruleForm')
       },
 
       getCountryMap() {
@@ -258,6 +261,7 @@
         this.$router.push('/sim_card/sim_card');
       },
       submitForm(formName) {
+        console.log(formName);
         this.$refs[formName].validate((valid) => {
           var ruleForm = this.ruleForm;
           console.log(ruleForm);
@@ -285,6 +289,9 @@
   #basicData_new {
     .permission-input {
       width: 200px;
+    }
+    .el-select {
+      width: 300px
     }
     .el-input {
       width: 300px;

@@ -7,14 +7,24 @@
                   v-model="listQuery.q.tsid" clearable type="text"> </el-input>
       </el-col>
         <el-col :span="4">
-          <el-input class="filter-item" :placeholder="$t('cost_day.userGroup')"
-                    v-model="listQuery.q.userGroup" clearable type="text"> </el-input>
+          <el-select v-model="listQuery.q.usergroup" filterable clearable :placeholder="$t('cost_day.userGroup')">
+            <el-option v-for="i in groupCodeArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
+          </el-select>
         </el-col>
-        <el-col :span="4">
+        <!-- <el-col :span="4">
           <el-date-picker clearable :placeholder="$t('cost_day.startDate')" type="date" v-model="listQuery.q.startDate"></el-date-picker>
         </el-col>
         <el-col :span="4">
           <el-date-picker clearable :placeholder="$t('cost_day.endDate')" type="date" v-model="listQuery.q.endDate"></el-date-picker>
+        </el-col> -->
+
+        <el-col :span="8">
+          <el-date-picker style="width: 100%;"
+                          v-model="listQuery.q.insertDateRange"
+                          type="daterange"
+                          value-format="yyyy-MM-dd"
+                          :start-placeholder="$t('cost_month.startDate')" :end-placeholder="$t('cost_month.endDate')">
+          </el-date-picker>
         </el-col>
 
         <el-col :span="12">
@@ -31,6 +41,7 @@
       v-loading="listLoading"
       :data="list"
       border
+      max-height="510"
       tooltip-effect="dark"
       style="width: 100%"
       >
@@ -77,12 +88,12 @@
       <el-table-column
         prop="countryCn"
         v-bind:label="$t('cost_day.countryCn')"
-        width="160">
+        width="">
       </el-table-column>
 
     </el-table>
 
-     <el-row>
+     <el-row style="margin-top: 10px;">
       <el-col :span="4" v-show="totalFlow > 0 && !listLoading">
         <span class="totalFlow">{{`总流量: ${totalFlow.toFixed(2)}TB`}}</span>
       </el-col>
@@ -99,6 +110,7 @@
   import { modelList,download,totalFlow} from 'api/terminal/cost_day';
   import { Message } from 'element-ui';
   import * as moment from 'moment';
+  import { groupMap } from 'api/terminal/terminal';
 
   export default {
     data() {
@@ -118,11 +130,13 @@
         },
         totalFlow: 0,
         download: null,
+        groupCodeArr: [],
       }
     },
     created() {
       this.getList();
       this.getTotalFlow();
+      this.getGroupMap();
     },
 
     methods: {
@@ -138,6 +152,15 @@
           this.listLoading = false
         })
 
+      },
+
+      getGroupMap() {
+        groupMap().then(response=>{
+          const res = response.data;
+          if (res.status > 0) {
+            this.groupCodeArr = res.data;
+          }
+        });
       },
 
       getTotalFlow() {
@@ -183,11 +206,20 @@
     .buttonStyle{
       display: inline-block;
     }
+    // .totalFlow {
+    //   display: inline-block;
+    //   font-size: 14px;
+    //   color: #444;
+    //   margin-top: 9px;
+    // }
     .totalFlow {
       display: inline-block;
-      font-size: 14px;
-      color: #444;
-      margin-top: 9px;
+      font-size: 13px;
+      color: #fff;
+      border-radius: 3px;
+      background-color: #3F9EFF;
+      margin-top: 4px;
+      padding: 6px 5px;
     }
   }
 </style>

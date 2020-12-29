@@ -16,7 +16,7 @@
         </el-col>
         
         <el-col :span="4">
-          <el-select v-model="listQuery.q.usergroup" filterable clearable :placeholder="$t('terminal.usergroup')">
+          <el-select v-model="listQuery.q.usergroup" filterable clearable :placeholder="$t('terminal.userGroup')">
             <el-option v-for="i in groupCodeArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
           </el-select>
         </el-col>
@@ -40,7 +40,7 @@
             </el-select>
           </el-col>
           <el-col :span="16">
-            <el-button type="primary" icon="search" @click="handleFilter">搜索</el-button>
+            <el-button style="margin-left: 26px;" type="primary" icon="search" @click="handleFilter">搜索</el-button>
               <el-button type="primary" @click="handleDownload">下载当前结果</el-button>
               <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="dialogUpdateVisible = true">批量修改</el-button>
               <el-button  class="filter-item" type="primary" @click="dialogGroupUpdateVisible = true">分组修改</el-button>
@@ -50,7 +50,7 @@
             <el-button type="primary" style="margin-left: 10px" @click="opendialog">导入<i class="el-icon-upload el-icon--right"></i></el-button>
           </el-col>
           <el-col :span="4" >
-            <FileButton :tableLabel="tableLabel" :tableLabelCopy="tableLabel"></FileButton>
+            <FileButton :tableLabel="tableLabel" ></FileButton>
           </el-col>
         </el-row>
     </div>
@@ -65,6 +65,7 @@
       v-loading="listLoading"
       :data="list"
       border
+      max-height="520"
       tooltip-effect="dark"
       style="width: 100%"
       @selection-change="handleSelectionChange">
@@ -89,8 +90,8 @@
         fixed="right"
       >
         <template slot-scope="scope">
-          <el-button size="small" @click="handelStop(scope.row.id)" v-if="scope.row.status != 2">停用</el-button>
-          <el-button size="small" @click="handelDelete(scope.row.id)">删除</el-button>
+          <el-button size="small" type="warning" plain @click="handelStop(scope.row.id)" v-if="scope.row.status != 2">停用</el-button>
+          <el-button size="small" type="danger" plain @click="handelDelete(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -102,7 +103,7 @@
     <!-- 列表-end -->
 
     <!-- 批量修改-start -->
-    <el-dialog title="批量修改" :visible.sync="dialogUpdateVisible"  v-if="dialogUpdateVisible"  size="tiny" @close="dialogUpdateVisible=false">
+    <el-dialog title="批量修改" :visible.sync="dialogUpdateVisible" top="2vh" v-if="dialogUpdateVisible"  size="tiny" @close="dialogUpdateVisible=false">
       <el-form :model="batchUpdateForm">
         <el-form-item v-bind:label="$t('terminal.status')" :label-width="formLabelWidth" prop="status" :rules="rules.status">
           <el-select v-model="batchUpdateForm.status" placeholder="请选择">
@@ -117,7 +118,12 @@
         <el-form-item v-bind:label="$t('terminal.model')" :label-width="formLabelWidth" prop="model" :rules="rules.model">
           <el-input v-model="batchUpdateForm.model"></el-input>
         </el-form-item>
-        <el-form-item v-bind:label="$t('terminal.usergroup')" :label-width="formLabelWidth" prop="usergroup" :rules="rules.usergroup">
+        <el-form-item v-bind:label="$t('terminal.networkChoose')" :label-width="formLabelWidth" prop="status" :rules="rules.status">
+          <el-select v-model="batchUpdateForm.networkChoose" placeholder="请选择">
+            <el-option v-for="i in networkChooseArr" :key="i.id" :label="i.name" :value="i.name">{{i.name}}</el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item v-bind:label="$t('terminal.userGroup')" :label-width="formLabelWidth" prop="usergroup" :rules="rules.usergroup">
           <el-input v-model="batchUpdateForm.usergroup"></el-input>
         </el-form-item>
         <el-form-item v-bind:label="$t('terminal.maxDayData')" :label-width="formLabelWidth" prop="maxDayData" :rules="rules.maxDayData">
@@ -151,11 +157,11 @@
     <!-- 批量修改-end -->
 
     <!-- 分组修改-start -->
-    <el-dialog title="分组修改 - 请选择一个分组" :visible.sync="dialogGroupUpdateVisible"  v-if="dialogGroupUpdateVisible"  size="tiny" @close="dialogGroupUpdateVisible=false">
+    <el-dialog title="分组修改 - 请选择一个分组" :visible.sync="dialogGroupUpdateVisible"  v-if="dialogGroupUpdateVisible" top="2vh"  size="tiny" @close="dialogGroupUpdateVisible=false">
       <div class="filter-container search">
       <el-row>
       <el-col  :span="8">
-        <el-select v-model="groupQuery.q.usergroup" filterable clearable :placeholder="$t('terminal.usergroup')">
+        <el-select v-model="groupQuery.q.usergroup" filterable clearable :placeholder="$t('terminal.userGroup')">
           <el-option v-for="i in groupCodeArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
         </el-select>
       </el-col>
@@ -178,8 +184,11 @@
         <el-form-item v-bind:label="$t('terminal.model')" :label-width="formLabelWidth" prop="model" :rules="rules.model">
           <el-input v-model="batchGroupUpdateForm.model"></el-input>
         </el-form-item>
-
-
+        <el-form-item v-bind:label="$t('terminal.networkChoose')" :label-width="formLabelWidth" prop="status" :rules="rules.status">
+          <el-select v-model="batchUpdateForm.networkChoose" placeholder="请选择">
+            <el-option v-for="i in networkChooseArr" :key="i.id" :label="i.name" :value="i.name">{{i.name}}</el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item v-bind:label="$t('terminal.maxDayData')" :label-width="formLabelWidth" prop="maxDayData" :rules="rules.maxDayData">
           <el-input type="text" placeholder="请输入数字" v-model="batchGroupUpdateForm.maxDayData"></el-input>
         </el-form-item>
@@ -262,6 +271,7 @@
             batch: '',
             status: '',
             province: [],
+            networkChoose: '',
           }
         },
         groupQuery: {
@@ -282,10 +292,12 @@
         batchUpdateForm: {
           status: -1,
           upLog: -1,
+          networkChoose: '自动'
         },
         batchGroupUpdateForm: {
           status: -1,
           upLog: -1,
+          networkChoose: '自动'
         },
         modelDelete: true,
         modelIds: [],
@@ -293,6 +305,7 @@
         dialogGroupUpdateVisible:false,
         formLabelWidth: '150px',
         statusArr: [{id: 0, name: '正常'},{id: 1, name: '未初始化'},{id: 2, name: '停用'},{id: 3, name: '注销'}],
+        networkChooseArr: [{id: 0, name: '自动'},{id: 1, name: '移动优先'},{id: 2, name: '联通优先'},{id: 3, name: '电信优先'}],
         otaArr: [{id: 0, name: '不支持'},{id: 1, name: '支持'}],
         upLogArr: [{id: 0, name: '否'},{id: 1, name: '是'}],
         fileList: [],
@@ -310,13 +323,13 @@
           { label: '型号', width: '80', prop: 'model', show: true },
           { label: 'ICCID', width: '180', prop: 'ciccid', show: true },
           { label: '状态', width: '80', prop: 'statusCn', show: true },
+          { label: '地区', width: '140', prop: 'provinceName', show: true },
           { label: '每日限额(KB)', width: '130', prop: 'maxDayData', show: true },
           { label: '限速速率(Kbps)', width: '130', prop: 'dayspeedlimit', show: true },
           { label: '每月限额(GB)', width: '140', prop: 'maxMonthData', show: true },
           { label: '每月限速速率(Kbps)', width: '150', prop: 'monthSpeedlimit', show: true },
           { label: '无连接等待', width: '100', prop: 'timedShutoff', show: true },
           { label: 'MAC', width: '140', prop: 'mac', show: false },
-          { label: '地区', width: '140', prop: 'provinceName', show: true },
           { label: '批次', width: '80', prop: 'batch', show: false },
           { label: '版本', width: '80', prop: 'sversion', show: true },
           { label: 'OTA', width: '80', prop: 'otaCn', show: true },

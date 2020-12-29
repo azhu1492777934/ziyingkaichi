@@ -116,7 +116,7 @@
     .permission-input {
       width: 200px;
     }
-    .el-input {
+    .el-input, .el-select {
       width: 300px;
     }
     .el-form-item {

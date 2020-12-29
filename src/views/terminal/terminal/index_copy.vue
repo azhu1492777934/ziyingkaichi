@@ -16,7 +16,7 @@
         </el-col>
         
         <el-col :span="4">
-          <el-select v-model="listQuery.q.usergroup" filterable clearable :placeholder="$t('terminal.usergroup')">
+          <el-select v-model="listQuery.q.usergroup" filterable clearable :placeholder="$t('terminal.userGroup')">
             <el-option v-for="i in groupCodeArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
           </el-select>
         </el-col>
@@ -40,7 +40,7 @@
             </el-select>
           </el-col>
           <el-col :span="16">
-            <el-button type="primary" icon="search" @click="handleFilter">搜索</el-button>
+            <el-button style="margin-left: 12px;" type="primary" icon="search" @click="handleFilter">搜索</el-button>
               <el-button type="primary" @click="handleDownload">下载当前结果</el-button>
               <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="dialogUpdateVisible = true">批量修改</el-button>
               <el-button  class="filter-item" type="primary" @click="dialogGroupUpdateVisible = true">分组修改</el-button>
@@ -103,7 +103,7 @@
       </el-table-column>
       <el-table-column
         prop="usergroup"
-        v-bind:label="$t('terminal.usergroup')"
+        v-bind:label="$t('terminal.userGroup')"
         width="100">
       </el-table-column>
       <el-table-column

@@ -42,7 +42,7 @@ export function modelUnbind(id) {
 
 export function logList(query) {
   return request({
-    url: '/terminal_sim/logList/' + query.imsi,
+    url: '/terminal_sim/logListPage/' + query.q.imsi,
     method: 'post',
     data: query
   })

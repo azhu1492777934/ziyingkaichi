@@ -22,7 +22,7 @@
           </el-select>
         </el-col>
         <el-col :span="4">
-          <el-input class="filter-item" :placeholder="$t('operator.apn')"
+          <el-input :placeholder="$t('operator.apn')"
                     v-model="listQuery.q.apn" clearable type="text"> </el-input>
         </el-col>
         <el-col :span="4">
@@ -34,7 +34,7 @@
         <el-col :span="12">
           <el-button style="margin-left: 26px" type="primary" icon="search" @click="handleFilter">搜索</el-button>
           <a :href="'#/operation/operator/new'" target="_self" style="margin-left: 10px;">
-            <el-button class="filter-item el-icon-plus" type="primary" style="margin-right: 10px;">新建</el-button>
+            <el-button class=" el-icon-plus" type="primary" style="margin-right: 10px;">新建</el-button>
           </a>
         </el-col>
       </el-row>
@@ -47,6 +47,7 @@
       v-loading="listLoading"
       :data="list"
       border
+      max-height="520"
       tooltip-effect="dark"
       style="width: 100%">
       <el-table-column
@@ -106,8 +107,8 @@
         fixed="right"
       >
         <template slot-scope="scope">
-          <a :href="'#/operation/operator/edit/' + scope.row.id" target="_self"><el-button size="small">编辑</el-button></a>
-          <el-button size="small" @click="handelDelete(scope.row.id)">删除</el-button>
+          <a :href="'#/operation/operator/edit/' + scope.row.id" target="_self"><el-button type="primary" plain size="small">编辑</el-button></a>
+          <el-button size="small" type="danger" plain @click="handelDelete(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>

@@ -12,6 +12,7 @@
 
         <el-col :span="12">
           <el-button style="margin-left: 26px" type="primary" icon="search" @click="handleFilter">搜索</el-button>
+          <el-button type="primary" style="margin-right: 10px;" @click="terminalListShow = !terminalListShow">展开APN列表数据</el-button>
         </el-col>
       </el-row>
     </div>
@@ -23,6 +24,7 @@
       v-loading="listLoading"
       :data="list"
       border
+      max-height="620"
       tooltip-effect="dark"
       style="width: 100%">
       <el-table-column
@@ -46,7 +48,6 @@
         width="170">
       </el-table-column>
       <el-table-column
-        align="right"
         prop="flowincrement"
         v-bind:label="$t('terminal_tsid.flowincrement')"
         width="120">
@@ -78,7 +79,6 @@
       </el-table-column>
       <el-table-column
         prop="usercount"
-        align="right"
         v-bind:label="$t('terminal_tsid.userCount')"
         width="80">
       </el-table-column>
@@ -95,7 +95,7 @@
       <el-table-column
         prop="apn"
         v-bind:label="$t('terminal_tsid.apn')"
-        show-overflow-tooltip
+        :show-overflow-tooltip='terminalListShow'
         width="80">
       </el-table-column>
       <el-table-column
@@ -139,6 +139,7 @@
       return {
         list: [],
         listLoading: false,
+        total: 0,
         listQuery: {
           page: 1,
           perPage: 100,
@@ -149,6 +150,7 @@
             toDate: undefined,
           }
         },
+        terminalListShow: true,
       }
     },
     created() {
@@ -166,12 +168,11 @@
             this.listQuery.q.toDate = '';
           }
           this.listLoading = true;
-          modelTsidList(this.listQuery.q).then(response => {
+          modelTsidList(this.listQuery).then(response => {
             const res = response.data;
             if (res.status > 0) {
-              const data = res.data;
-              this.list = data;
-              console.log(this.list);
+              this.list = res.data.list;
+              this.total = res.data.extra.totalCount;
             }
             this.listLoading = false
           })
@@ -181,10 +182,10 @@
           }*/
         }
       },
-      handleCurrentChange(val) {
-        this.listQuery.page = val;
-        this.getList()
-      },
+      // handleCurrentChange(val) {
+      //   this.listQuery.page = val;
+      //   this.getList()
+      // },
       handleFilter() {
         this.listQuery.page = 1;
         this.getList();
@@ -192,6 +193,14 @@
     }
   }
 </script>
+
+<style>
+  .el-tooltip__popper,.el-tooltip__popper.is-dark{
+    max-width: 20% !important;
+    background:rgb(48, 65, 86) !important;
+    color: #fff !important;
+  }
+</style>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
   #basicData_search_index {

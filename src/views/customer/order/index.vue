@@ -27,6 +27,7 @@
       v-loading="listLoading"
       :data="list"
       border
+      max-height="560"
       tooltip-effect="dark"
       style="width: 100%"
       @selection-change="handleSelectionChange">
@@ -101,7 +102,7 @@
         fixed="right"
       >
         <template slot-scope="scope">
-          <a :href="'#/customer/order/show/' + scope.row.id" target="_self"><el-button size="small">查看</el-button></a>
+          <a :href="'#/customer/order/show/' + scope.row.id" target="_self"><el-button size="small" type="primary" plain>查看</el-button></a>
         </template>
       </el-table-column>
     </el-table>

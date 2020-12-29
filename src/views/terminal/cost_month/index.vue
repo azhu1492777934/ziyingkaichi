@@ -7,8 +7,9 @@
                     v-model="listQuery.q.tsid" clearable type="text"> </el-input>
         </el-col>
         <el-col :span="4">
-          <el-input class="filter-item" :placeholder="$t('cost_month.userGroup')"
-                    v-model="listQuery.q.userGroup" clearable type="text"> </el-input>
+          <el-select v-model="listQuery.q.usergroup" filterable clearable :placeholder="$t('cost_month.userGroup')">
+            <el-option v-for="i in groupCodeArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
+          </el-select>
         </el-col>
         <el-col :span="8">
           <el-date-picker style="width: 100%;"
@@ -33,6 +34,7 @@
       v-loading="listLoading"
       :data="list"
       border
+      max-height="510"
       tooltip-effect="dark"
       style="width: 100%"
      >
@@ -88,17 +90,18 @@
         prop="flow"
         align="right"
         v-bind:label="$t('cost_month.flow')"
-        width="120">
+        width="">
       </el-table-column>
 
     </el-table>
 
-    <el-row>
+    <el-row style="margin-top: 10px;">
       <el-col :span="4" v-show="totalFlow > 0 && !listLoading">
         <span class="totalFlow">{{`总流量: ${totalFlow.toFixed(2)}TB`}}</span>
       </el-col>
       <el-col :span="16">
-         <my-pagination :listQuery="listQuery" :total="total" :listLoading="listLoading" @get="getList()"></my-pagination>
+        <!-- 分页组件 -->
+        <my-pagination :listQuery="listQuery" :total="total" :listLoading="listLoading" @get="getList()"></my-pagination>
       </el-col>
     </el-row>
     <!-- 列表-end -->
@@ -109,7 +112,7 @@
 <script>
   import { modelList,download,totalFlow } from 'api/terminal/cost_month';
   import { Message } from 'element-ui';
-
+  import { groupMap } from 'api/terminal/terminal';
   export default {
     data() {
       return {
@@ -126,11 +129,13 @@
         },
         totalFlow: 0,
         download: null,
+        groupCodeArr: [],
       }
     },
     created() {
       this.getList();
       this.getTotalFlow();
+      this.getGroupMap();
     },
     methods: {
       getList() {
@@ -147,12 +152,20 @@
 
       },
 
+      getGroupMap() {
+        groupMap().then(response=>{
+          const res = response.data;
+          if (res.status > 0) {
+            this.groupCodeArr = res.data;
+          }
+        });
+      },
+
       getTotalFlow() {
         totalFlow(this.listQuery).then(response => {
           const res = response.data
           if(res.status > 0) {
            const data = res.data;
-           console.log(data.totalFlow);
            this.totalFlow = (data.totalFlow) / (1024)
           }
         })
@@ -193,9 +206,12 @@
     }
     .totalFlow {
       display: inline-block;
-      font-size: 14px;
-      color: #444;
-      margin-top: 9px;
+      font-size: 13px;
+      color: #fff;
+      border-radius: 3px;
+      background-color: #3F9EFF;
+      margin-top: 4px;
+      padding: 6px 5px;
     }
   }
 </style>

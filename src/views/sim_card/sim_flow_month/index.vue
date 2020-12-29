@@ -39,6 +39,7 @@
       v-loading="listLoading"
       :data="list"
       border
+      max-height="510"
       tooltip-effect="dark"
       style="width: 100%"
       >
@@ -118,7 +119,7 @@
     </el-table>
 
     <!-- 分页全局组件 -->
-    <el-row>
+    <el-row style="margin-top: 10px;">
       <el-col :span="4" v-show="totalFlow > 0 && !listLoading">
         <span class="totalFlow">{{`总流量: ${totalFlow.toFixed(2)}TB`}}</span>
       </el-col>
@@ -261,9 +262,12 @@
     }
     .totalFlow {
       display: inline-block;
-      font-size: 14px;
-      color: #444;
-      margin-top: 9px;
+      font-size: 13px;
+      color: #fff;
+      border-radius: 3px;
+      background-color: #3F9EFF;
+      margin-top: 4px;
+      padding: 6px 5px;
     }
   }
 </style>

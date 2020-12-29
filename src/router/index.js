@@ -32,6 +32,10 @@ export const constantRouterMap = [
 
       { path: 'terminal', component: () => import('@/views/terminal/terminal/index'), name: '终端信息管理' },
 
+      { path: 'terminal_group', component: () => import('@/views/terminal/terminal_group/index'), name: '终端分组管理' },
+
+      { path: 'device_info', component: () => import('@/views/terminal/device_info/index'), name: '设备信息统计' },
+
       { path: 'terminal_version', component: () => import('@/views/terminal/terminal_version/index'), name: '终端升级管理' },
       { path: 'terminal_version/new', component: () => import('@/views/terminal/terminal_version/new'), name: '终端升级新增', hidden: true  },
 
@@ -107,6 +111,8 @@ export const constantRouterMap = [
       { path: 'ready_terminal_sim/new', component: () => import('@/views/sim_card/ready_terminal_sim/new'), name: '预置远程卡新增', hidden: true  },
 
       { path: 'simcard_log', component: () => import('@/views/sim_card/simcard_log/index'), name: 'SIM故障日志' },
+
+      { path: 'sim_info', component: () => import('@/views/sim_card/sim_info/index'), name: '卡概要信息' },
 
       { path: 'sim_flow_month', component: () => import('@/views/sim_card/sim_flow_month/index'), name: '卡月流量查询' },
       { path: 'sim_flow_day', component: () => import('@/views/sim_card/sim_flow_day/index'), name: '卡日流量查询' },

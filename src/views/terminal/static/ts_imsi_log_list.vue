@@ -21,6 +21,7 @@
       v-loading="listLoading"
       :data="list"
       border
+      max-height="620"
       tooltip-effect="dark"
       style="width: 100%">
       <el-table-column
@@ -49,7 +50,7 @@
       <el-table-column
         prop="result"
         v-bind:label="$t('terminal_sim_log.result')"
-        width="120">
+        width="">
       </el-table-column>
     </el-table>
     <!-- 分页全局组件 -->
@@ -66,6 +67,7 @@
     data() {
       return {
         list: [],
+        total: 0,
         listLoading: false,
         listQuery: {
           page: 1,
@@ -83,20 +85,19 @@
       getList() {
         if (this.listQuery.q.imsi != undefined) {
           this.listLoading = true;
-          logList(this.listQuery.q).then(response => {
+          logList(this.listQuery).then(response => {
             const res = response.data;
             if (res.status > 0) {
               const data = res.data;
-              this.list = data;
+              this.list = data.list;
+              this.total = res.data.extra.totalCount;
             }
             this.listLoading = false
           })
         }
       },
 
-      handleCurrentChange(val) {
-        this.getList()
-      },
+      
       handleFilter() {
         this.getList();
       },

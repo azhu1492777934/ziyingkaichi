@@ -157,9 +157,10 @@ export default {
     vCountryCode: "使用国家",
     dayFlow: "今日流量MB",
     monthFlow: "本月流量MB",
-    usergroup:"分组",
+    userGroup:"分组",
     provinceCode:"地区",
     provinceName: "地区",
+    provinceCodeEq: '设备所在地'
   },
 
   terminal_sim_log: {
@@ -213,7 +214,7 @@ export default {
     provinceName:"所在地区",
     dayFlow: "今日流量MB",
     monthFlow: "本月流量MB",
-    usergroup:"分组",
+    userGroup:"分组",
     resultCodeCn: "选卡结果",
     lac2:"LAC",
   },
@@ -319,7 +320,7 @@ export default {
     imei: "IMEI",
     upLog: "上传日志",
     model:"型号",
-    usergroup:"分组",
+    userGroup:"分组",
     ciccid:"ICCID",
     dayspeedlimit:"限速速率(Kbps)",
     maxDayData:"每日限额(KB)",
@@ -330,6 +331,11 @@ export default {
     ota:"OTA",
     provinceCode: '地区',
     provinceName: '地区',
+    networkChoose: '智能选网',
+  },
+
+  terminal_group: {
+    userGroup: '分组'
   },
 
   terminal_version: {
@@ -346,6 +352,7 @@ export default {
   flow_balance: {
     id: "ID",
     tsid: "终端",
+    imei: "IMEI",
     allowFlow: "可用流量(KB)",
     validityDate: "有效期",
     note: "说明",
@@ -361,7 +368,6 @@ export default {
     version: "版本号",
     isActive: "状态",
     isActiveCn:"状态",
-
     noCardCount: "无卡",
     offlineCount:"离线",
     usedCount: "使用中",

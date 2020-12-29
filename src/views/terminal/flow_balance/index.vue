@@ -8,12 +8,13 @@
         </el-col>
 
 
-        <el-col :span="8">
+        <el-col :span="14">
           <el-button style="margin-left: 26px" type="primary" icon="search" @click="handleFilter">搜索</el-button>
           <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="dialogUpdateVisible = true">批量修改</el-button>
           <a :href="'#/terminal/flow_balance/new'" target="_self" style="margin-left: 10px;">
             <el-button class="filter-item el-icon-plus" type="primary" style="margin-right: 10px;">新建</el-button>
           </a>
+           <el-button type="primary" @click="handleDownload">下载当前结果</el-button>
         </el-col>
       </el-row>
     </div>
@@ -25,6 +26,7 @@
       v-loading="listLoading"
       :data="list"
       border
+      max-height="570"
       tooltip-effect="dark"
       style="width: 100%"
       @selection-change="handleSelectionChange">
@@ -41,6 +43,11 @@
         prop="tsid"
         v-bind:label="$t('flow_balance.tsid')"
         width="140">
+      </el-table-column>
+      <el-table-column
+        prop="imei"
+        v-bind:label="$t('flow_balance.imei')"
+        width="160">
       </el-table-column>
       <el-table-column
         prop="allowFlow"
@@ -65,7 +72,7 @@
         fixed="right"
       >
         <template slot-scope="scope">
-          <a :href="'#/terminal/flow_balance/edit/' + scope.row.id" target="_self"><el-button size="small">编辑</el-button></a>
+          <a :href="'#/terminal/flow_balance/edit/' + scope.row.id" target="_self"><el-button size="small" type="primary" plain>编辑</el-button></a>
         </template>
       </el-table-column>
     </el-table>
@@ -100,7 +107,7 @@
 
 
 <script>
-  import { modelList, batchUpdate } from 'api/terminal/flow_balance';
+  import { modelList, batchUpdate, download } from 'api/terminal/flow_balance';
   import { Message } from 'element-ui';
   import * as moment from 'moment';
 
@@ -128,6 +135,7 @@
         dialogUpdateVisible: false,
         formLabelWidth: '150px',
         modelIds: [],
+        download: null,
       }
     },
     created() {
@@ -174,6 +182,25 @@
         }
       },
       
+      handleDownload() {
+        if(this.download) {
+          clearTimeout(this.download)
+        }
+        this.download = setTimeout( () => {
+          download(this.listQuery).then(response=>{
+            const res = response.data;
+            console.log(res);
+            require.ensure([], () => {
+              const { export_json_to_excel } = require('vendor/Export2Excel');
+              const tHeader = res.data.headList;
+              const data = res.data.dataList;
+              const fileName = res.data.fileName;
+              export_json_to_excel(tHeader, data, fileName);
+            })
+           });
+      },600)
+    },
+
       handleSelectionChange(val) {
         this.modelIds = this.getModelIds(val);
         console.log("modelIds: " + this.modelIds )

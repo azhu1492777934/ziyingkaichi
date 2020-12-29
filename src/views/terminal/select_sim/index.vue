@@ -12,8 +12,9 @@
         </el-col>
 
         <el-col :span="4">
-          <el-input class="filter-item" :placeholder="$t('select_sim.usergroup')"
-                    v-model="listQuery.q.usergroup" clearable type="text"> </el-input>
+          <el-select v-model="listQuery.q.usergroup" filterable clearable :placeholder="$t('select_sim.userGroup')">
+            <el-option v-for="i in groupCodeArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
+          </el-select>
         </el-col>
 
         <el-col :span="4">
@@ -36,6 +37,7 @@
       v-loading="listLoading"
       :data="list"
       border
+      max-height="520"
       tooltip-effect="dark"
       style="width: 100%"
       @selection-change="handleSelectionChange">
@@ -68,7 +70,7 @@
 
       <el-table-column
         prop="usergroup"
-        v-bind:label="$t('select_sim.usergroup')"
+        v-bind:label="$t('select_sim.userGroup')"
         width="160">
       </el-table-column>
 
@@ -101,7 +103,7 @@
         prop="monthFlow"
         align="right"
         v-bind:label="$t('select_sim.monthFlow')"
-        width="100">
+        width="120">
       </el-table-column>
 
 
@@ -116,6 +118,7 @@
 
 <script>
   import { provinceMap } from 'api/operation/province';
+  import { groupMap } from 'api/terminal/terminal';
   import { modelList} from 'api/terminal/select_sim';
   import * as moment from 'moment';
   import { Message } from 'element-ui';
@@ -137,11 +140,13 @@
         modelDelete: true,
         modelIds: [],
         provinceCodeArr: [],
+        groupCodeArr:[],
       }
     },
     created() {
       this.getList();
       this.getProvinceMap();
+      this.getGroupMap();
     },
     methods: {
       getList() {
@@ -165,6 +170,14 @@
           const res = response.data;
           if (res.status > 0) {
             this.provinceCodeArr = res.data;
+          }
+        });
+      },
+      getGroupMap() {
+        groupMap().then(response=>{
+          const res = response.data;
+          if (res.status > 0) {
+            this.groupCodeArr = res.data;
           }
         });
       },

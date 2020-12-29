@@ -20,6 +20,7 @@
       v-loading="listLoading"
       :data="list"
       border
+      max-height="560"
       tooltip-effect="dark"
       style="width: 100%"
       @selection-change="handleSelectionChange">
@@ -65,7 +66,7 @@
       <el-table-column
         prop="statusCn"
         v-bind:label="$t('channel_card.status')"
-        width="80">
+        width="">
       </el-table-column>
     </el-table>
 

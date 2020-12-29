@@ -122,7 +122,7 @@
     .permission-input {
       width: 300px;
     }
-    .el-input {
+    .el-input, .el-select {
       width: 300px;
     }
     .el-form-item {
