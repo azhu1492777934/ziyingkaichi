@@ -53,7 +53,7 @@
       v-loading="listLoading"
       :data="list"
       border
-      max-height="520"
+      max-height="580"
       tooltip-effect="dark"
       style="width: 100%"
       @selection-change="handleSelectionChange">
@@ -168,7 +168,7 @@
         groupCodeArr: [],
       }
     },
-    created() {
+   created() {
       this.getList();
       this.getCountryMap();
       this.getProvinceMap();

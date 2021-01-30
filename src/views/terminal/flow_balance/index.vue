@@ -26,7 +26,7 @@
       v-loading="listLoading"
       :data="list"
       border
-      max-height="570"
+      max-height="620"
       tooltip-effect="dark"
       style="width: 100%"
       @selection-change="handleSelectionChange">
@@ -82,7 +82,7 @@
     <!-- 列表-end -->
 
     <!-- 批量修改-start -->
-    <el-dialog title="批量修改" :visible.sync="dialogUpdateVisible" size="tiny" @close="dialogUpdateVisible = false">
+    <el-dialog class="modify" title="批量修改" :visible.sync="dialogUpdateVisible" size="tiny" @close="dialogUpdateVisible = false">
       <el-form :model="batchUpdateForm">
         <el-form-item v-bind:label="$t('flow_balance.allowFlow')" :label-width="formLabelWidth" prop="allowFlow">
           <el-input v-model="batchUpdateForm.allowFlow"></el-input>
@@ -235,6 +235,10 @@
     font-size: 12px;
     .buttonStyle{
       display: inline-block;
+    }
+    .modify .el-input, 
+    .modify .el-select {
+      width: 300px;
     }
   }
 </style>

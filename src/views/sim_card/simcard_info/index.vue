@@ -47,6 +47,7 @@
 
 <script>
     import * as echarts from 'echarts'
+    import { modelDevice } from 'api/sim_card/simcard_info';
 
     export default {
         data() {
@@ -64,23 +65,14 @@
                     }
                 },
                 dialogVisible: false,
-                deviceAll: [
-                    {id: '1',count: 31, value: "卡组数", color: "58B5E3"},
-                    {id: '2',count: 37206, value: "卡总数", color: "58B5E3"},
-                    {id: '3',count: 3584, value: "空闲卡", color: "53A840"},
-                    {id: '4',count: 196, value: "使用中", color: "4374E0"},
-                    {id: '5',count: 887, value: "禁用中", color: "777777"},
-                    {id: '6',count: 93, value: "失败卡", color: "D73E32"},
-                    {id: '7',count: 18604, value: "离线", color: "cccccc"},
-                    {id: '8',count: 0, value: "新卡", color: "F3B400"},
-                ],
+                deviceAll: [],
                 progress: {
                     num: 66
                 },
             }
         },
         created() {
-            
+            this.getDevice();
         },
         mounted () {
             this.$nextTick(() => {
@@ -88,6 +80,23 @@
             })
         },
         methods: {
+            getDevice() {
+                modelDevice().then( response => {
+                    const res = response.data.data;
+                    console.log(res);
+                    this.deviceAll = [
+                        {id: '1',count: res.simCardGroups, value: "卡组数", color: "58B5E3"},
+                        {id: '2',count: res.simCards, value: "卡总数", color: "58B5E3"},
+                        {id: '3',count: res.freeCards, value: "空闲卡", color: "53A840"},
+                        {id: '4',count: res.useCards, value: "使用中", color: "4374E0"},
+                        {id: '5',count: res.disableCards, value: "禁用中", color: "777777"},
+                        {id: '6',count: res.failureCards, value: "失败卡", color: "D73E32"},
+                        {id: '7',count: res.offLineCards, value: "离线", color: "cccccc"},
+                        {id: '8',count: res.waitActivateCards, value: "新卡", color: "F3B400"},
+                    ]
+                }) 
+            },
+
             setEchart() {
                 // 水行图
                 var _this = this;

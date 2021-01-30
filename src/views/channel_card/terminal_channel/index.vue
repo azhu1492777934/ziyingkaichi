@@ -32,7 +32,7 @@
       v-loading="listLoading"
       :data="list"
       border
-      max-height="560"
+      max-height="600"
       tooltip-effect="dark"
       style="width: 100%"
       @selection-change="handleSelectionChange">
@@ -67,7 +67,7 @@
     <!-- 列表-end -->
 
     <!-- 批量修改-start -->
-    <el-dialog title="批量修改" :visible.sync="dialogUpdateVisible" size="tiny" @close="dialogUpdateVisible=false">
+    <el-dialog class="modify" title="批量修改" :visible.sync="dialogUpdateVisible" size="tiny" @close="dialogUpdateVisible=false">
       <el-form :model="batchUpdateForm">
         <el-form-item v-bind:label="$t('terminal_channel.status')" :label-width="formLabelWidth" prop="status" :rules="rules.status">
           <el-select v-model="batchUpdateForm.status" placeholder="请选择">
@@ -193,6 +193,10 @@
     font-size: 12px;
     .buttonStyle{
       display: inline-block;
+    }
+    .modify .el-input, 
+    .modify .el-select {
+      width: 300px;
     }
   }
 </style>

@@ -21,7 +21,7 @@
       v-loading="listLoading"
       :data="list"
       border
-      max-height="620"
+      max-height="640"
       tooltip-effect="dark"
       style="width: 100%">
       <el-table-column

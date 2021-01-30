@@ -5,32 +5,31 @@
     <span><b style="color: red;">*</b>为必填项</span>
     <br/><br/>
 
-    <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
+    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
       <hr/>
       <br/>
 
+        <el-form-item v-bind:label="$t('lac_province.provinceCode')" prop="provinceCode">
+          <el-input  type = "number" disabled v-model="ruleForm.provinceCode"></el-input>
+        </el-form-item>
 
-      <el-form-item v-bind:label="$t('lac_province.provinceCode')" prop="provinceCode">
-        <el-input  type = "number" disabled v-model="ruleForm.provinceCode"></el-input>
-      </el-form-item>
+        <el-form-item v-bind:label="$t('lac_province.nameCn')" prop="nameCn">
+          <el-input  disabled v-model="ruleForm.nameCn"></el-input>
+        </el-form-item>
 
-      <el-form-item v-bind:label="$t('lac_province.nameCn')" prop="nameCn">
-        <el-input  disabled v-model="ruleForm.nameCn"></el-input>
-      </el-form-item>
+        <el-form-item v-bind:label="$t('lac_province.operatorCode')" prop="operatorCode">
+          <el-input  type = "number" v-model="ruleForm.operatorCode"></el-input>
+        </el-form-item>
 
-      <el-form-item v-bind:label="$t('lac_province.operatorCode')" prop="operatorCode">
-        <el-input  type = "number" v-model="ruleForm.operatorCode"></el-input>
-      </el-form-item>
-
-      <el-form-item v-bind:label="$t('lac_province.lacPref')" prop="lacPref">
-        <el-input   v-model="ruleForm.lacPref"></el-input>
-      </el-form-item>
+        <el-form-item v-bind:label="$t('lac_province.lacPref')" prop="lacPref">
+          <el-input   v-model="ruleForm.lacPref"></el-input>
+        </el-form-item>
 
 
-      <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">立即更新</el-button>
-        <el-button @click="cancelForm">取消</el-button>
-      </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submitForm('ruleForm')">立即更新</el-button>
+          <el-button @click="cancelForm">取消</el-button>
+        </el-form-item>
 
     </el-form>
 
@@ -66,17 +65,17 @@
     },
     created() {
       this.getDetail();
-      this.getOperatorMap();
+      // this.getOperatorMap();
     },
     methods: {
-      getOperatorMap() {
-        operatorMap().then(response=>{
-          const res = response.data;
-          if (res.status > 0) {
-            this.operatorCodeArr = res.data;
-          }
-        });
-      },
+      // getOperatorMap() {
+      //   operatorMap().then(response=>{
+      //     const res = response.data;
+      //     if (res.status > 0) {
+      //       this.operatorCodeArr = res.data;
+      //     }
+      //   });
+      // },
       getDetail() {
         modelDetail(this.id).then(response => {
           const res = response.data;

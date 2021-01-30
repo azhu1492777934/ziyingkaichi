@@ -30,7 +30,7 @@
       v-loading="listLoading"
       :data="list"
       border
-      max-height="560"
+      max-height="600"
       tooltip-effect="dark"
       style="width: 100%"
       @selection-change="handleSelectionChange">
@@ -96,7 +96,7 @@
     <!-- 列表-end -->
 
     <!-- 批量修改-start -->
-    <el-dialog title="批量修改" :visible.sync="dialogUpdateVisible" size="tiny" @close="handleCancel('batchUpdateForm')">
+    <el-dialog class="modify" title="批量修改" :visible.sync="dialogUpdateVisible" size="tiny" @close="handleCancel('batchUpdateForm')">
       <el-form :model="batchUpdateForm">
         <el-form-item v-bind:label="$t('country_price.countryCode')" :label-width="formLabelWidth" prop="countryCode" :rules="rules.countryCode">
           <el-select v-model="batchUpdateForm.countryCode" filterable clearable>
@@ -406,6 +406,10 @@
     font-size: 12px;
     .buttonStyle{
       display: inline-block;
+    }
+    .modify .el-input, 
+    .modify .el-select {
+      width: 300px;
     }
   }
 </style>

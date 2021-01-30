@@ -50,6 +50,8 @@
 </template>
 
 <script>
+    import { modelDevice } from 'api/terminal/terminal_info';
+
     export default {
         data() {
             return {
@@ -66,15 +68,7 @@
                     }
                 },
                 dialogVisible: false,
-                deviceAll: [
-                    {id: '1',count: 58233, value: "所有设备", color: "58B5E3"},
-                    {id: '2',count: 14280, value: "在线设备", color: "65A8AA"},
-                    {id: '3',count: 18672, value: "今日活跃", color: "58B5E3"},
-                    {id: '4',count: 196, value: "今日新增", color: "8EB4D7"},
-                    {id: '5',count: 28148, value: "本月活跃", color: "58B5E3"},
-                    {id: '6',count: 196, value: "本月新增", color: "58B5E3"},
-                    {id: '7',count: 26, value: "设备组", color: "4374E0"},
-                ],
+                deviceAll: [],
                 groupCodeArr: [],
                 provinceCodeArr: [],
                 flowRank: [
@@ -102,11 +96,25 @@
             }
         },
         mounted () {
-            // this.$nextTick(() => {
-                this.setEchart();
-            // })
+            this.getDevice();
+            this.setEchart();
         },
         methods: {
+            getDevice() {
+                modelDevice().then( response => {
+                    const res = response.data.data;
+                    this.deviceAll = [
+                        {id: '1',count: res.totalDevice, value: "所有设备", color: "58B5E3"},
+                        {id: '2',count: res.onLine, value: "在线设备", color: "65A8AA"},
+                        {id: '3',count: res.activeToDay, value: "今日活跃", color: "58B5E3"},
+                        {id: '4',count: res.addToDay, value: "今日新增", color: "8EB4D7"},
+                        {id: '5',count: res.activeToMouth, value: "本月活跃", color: "58B5E3"},
+                        {id: '6',count: res.addToMouth, value: "本月新增", color: "58B5E3"},
+                        {id: '7',count: res.groups, value: "设备组", color: "4374E0"},
+                    ]
+                }) 
+            },
+
             // 获取地图
             setEchart() {
                 let myChart = this.$echarts.init(this.$refs.myChart);

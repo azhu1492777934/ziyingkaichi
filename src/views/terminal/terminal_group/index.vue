@@ -94,6 +94,7 @@
 
 <script>
     import { groupMap } from 'api/terminal/terminal';
+    import { modelList } from 'api/terminal/terminal_group';
 
     export default {
         data() {
@@ -101,6 +102,8 @@
                 listLoading: false,
                 groupCodeArr: [],
                 listQuery: {
+                    page: 1,
+                    perPage: 100,
                     q: {
                         usergroup: '',
                     }
@@ -110,9 +113,23 @@
             }
         },
         created() {
+            this.getList();
             this.getGroupMap();
         },
         methods: {
+            getList() {
+                this.listLoading = true;
+                modelList(this.listQuery).then(response => {
+                const res = response.data;
+                console.log(res);
+                if (res.status > 0) {
+                    const data = res.data;
+                    this.list = data.list;
+                    this.total = data.extra.totalCount;
+                }
+                this.listLoading = false
+                })
+            },
             getGroupMap() {
                 groupMap().then(response=>{
                 const res = response.data;

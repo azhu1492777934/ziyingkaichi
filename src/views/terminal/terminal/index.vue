@@ -65,7 +65,7 @@
       v-loading="listLoading"
       :data="list"
       border
-      max-height="520"
+      max-height="580"
       tooltip-effect="dark"
       style="width: 100%"
       @selection-change="handleSelectionChange">
@@ -86,7 +86,7 @@
       <el-table-column
         label="操作"
         align="center"
-        min-width="160"
+        width="160"
         fixed="right"
       >
         <template slot-scope="scope">
@@ -103,8 +103,8 @@
     <!-- 列表-end -->
 
     <!-- 批量修改-start -->
-    <el-dialog title="批量修改" :visible.sync="dialogUpdateVisible" top="2vh" v-if="dialogUpdateVisible"  size="tiny" @close="dialogUpdateVisible=false">
-      <el-form :model="batchUpdateForm">
+    <el-dialog  title="批量修改" :visible.sync="dialogUpdateVisible" top="2vh" v-if="dialogUpdateVisible"  size="tiny" @close="dialogUpdateVisible=false">
+      <el-form :model="batchUpdateForm" class="modify">
         <el-form-item v-bind:label="$t('terminal.status')" :label-width="formLabelWidth" prop="status" :rules="rules.status">
           <el-select v-model="batchUpdateForm.status" placeholder="请选择">
             <el-option v-for="i in statusArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
@@ -120,7 +120,7 @@
         </el-form-item>
         <el-form-item v-bind:label="$t('terminal.networkChoose')" :label-width="formLabelWidth" prop="status" :rules="rules.status">
           <el-select v-model="batchUpdateForm.networkChoose" placeholder="请选择">
-            <el-option v-for="i in networkChooseArr" :key="i.id" :label="i.name" :value="i.name">{{i.name}}</el-option>
+            <el-option v-for="i in networkChooseArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
           </el-select>
         </el-form-item>
         <el-form-item v-bind:label="$t('terminal.userGroup')" :label-width="formLabelWidth" prop="usergroup" :rules="rules.usergroup">
@@ -157,7 +157,7 @@
     <!-- 批量修改-end -->
 
     <!-- 分组修改-start -->
-    <el-dialog title="分组修改 - 请选择一个分组" :visible.sync="dialogGroupUpdateVisible"  v-if="dialogGroupUpdateVisible" top="2vh"  size="tiny" @close="dialogGroupUpdateVisible=false">
+    <el-dialog  title="分组修改 - 请选择一个分组" :visible.sync="dialogGroupUpdateVisible"  v-if="dialogGroupUpdateVisible" top="2vh"  size="tiny" @close="dialogGroupUpdateVisible=false">
       <div class="filter-container search">
       <el-row>
       <el-col  :span="8">
@@ -166,11 +166,11 @@
         </el-select>
       </el-col>
       </el-row>
-        <el-row>-----------------------------------------------------------------------------------------------------------------------------</el-row>
+      <hr/>
         <el-row></el-row>
       </div>
 
-      <el-form :model="batchGroupUpdateForm">
+      <el-form :model="batchGroupUpdateForm" class="modify">
         <el-form-item v-bind:label="$t('terminal.status')" :label-width="formLabelWidth" prop="status" :rules="rules.status">
           <el-select v-model="batchGroupUpdateForm.status" placeholder="请选择">
             <el-option v-for="i in statusArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
@@ -186,7 +186,7 @@
         </el-form-item>
         <el-form-item v-bind:label="$t('terminal.networkChoose')" :label-width="formLabelWidth" prop="status" :rules="rules.status">
           <el-select v-model="batchUpdateForm.networkChoose" placeholder="请选择">
-            <el-option v-for="i in networkChooseArr" :key="i.id" :label="i.name" :value="i.name">{{i.name}}</el-option>
+            <el-option v-for="i in networkChooseArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
           </el-select>
         </el-form-item>
         <el-form-item v-bind:label="$t('terminal.maxDayData')" :label-width="formLabelWidth" prop="maxDayData" :rules="rules.maxDayData">
@@ -255,7 +255,11 @@
   import { Message } from 'element-ui';
   import { provinceMap } from 'api/operation/province';
   export default {
-    components: { FileTable ,FileButton },
+    components: { 
+      FileTable ,
+      FileButton 
+    },
+    
     data() {
       return {
         show:false,
@@ -292,20 +296,20 @@
         batchUpdateForm: {
           status: -1,
           upLog: -1,
-          networkChoose: '自动'
+          networkChoose: -1
         },
         batchGroupUpdateForm: {
           status: -1,
           upLog: -1,
-          networkChoose: '自动'
+          networkChoose: -1
         },
         modelDelete: true,
         modelIds: [],
         dialogUpdateVisible: false,
         dialogGroupUpdateVisible:false,
         formLabelWidth: '150px',
-        statusArr: [{id: 0, name: '正常'},{id: 1, name: '未初始化'},{id: 2, name: '停用'},{id: 3, name: '注销'}],
-        networkChooseArr: [{id: 0, name: '自动'},{id: 1, name: '移动优先'},{id: 2, name: '联通优先'},{id: 3, name: '电信优先'}],
+        statusArr: [{id: 0, name: '正常'},{id: 1, name: '未初始化'},{id: 2, name: '停用'},{id: 3, name: '注销'},{id: 4, name: -1}],
+        networkChooseArr: [{id: 0, name: '自动'},{id: 1, name: '移动优先'},{id: 2, name: '联通优先'},{id: 3, name: '电信优先'},{id: -1, name: -1}],
         otaArr: [{id: 0, name: '不支持'},{id: 1, name: '支持'}],
         upLogArr: [{id: 0, name: '否'},{id: 1, name: '是'}],
         fileList: [],
@@ -324,11 +328,12 @@
           { label: 'ICCID', width: '180', prop: 'ciccid', show: true },
           { label: '状态', width: '80', prop: 'statusCn', show: true },
           { label: '地区', width: '140', prop: 'provinceName', show: true },
-          { label: '每日限额(KB)', width: '130', prop: 'maxDayData', show: true },
-          { label: '限速速率(Kbps)', width: '130', prop: 'dayspeedlimit', show: true },
-          { label: '每月限额(GB)', width: '140', prop: 'maxMonthData', show: true },
-          { label: '每月限速速率(Kbps)', width: '150', prop: 'monthSpeedlimit', show: true },
-          { label: '无连接等待', width: '100', prop: 'timedShutoff', show: true },
+          { label: '智能选网', width: '120', prop: 'operatorName', show: true },
+          { label: '每日限额(KB)', width: '130', prop: 'maxDayData', show: false },
+          { label: '限速速率(Kbps)', width: '130', prop: 'dayspeedlimit', show: false },
+          { label: '每月限额(GB)', width: '140', prop: 'maxMonthData', show: false },
+          { label: '每月限速速率(Kbps)', width: '150', prop: 'monthSpeedlimit', show: false },
+          { label: '无连接等待', width: '100', prop: 'timedShutoff', show: false },
           { label: 'MAC', width: '140', prop: 'mac', show: false },
           { label: '批次', width: '80', prop: 'batch', show: false },
           { label: '版本', width: '80', prop: 'sversion', show: true },
@@ -588,8 +593,13 @@
 <style rel="stylesheet/scss" lang="scss" scoped>
   #basicData_search_index {
     font-size: 12px;
+
     .buttonStyle{
       display: inline-block;
+    }
+    .modify .el-input, 
+    .modify .el-select {
+      width: 340px;
     }
   }
 </style>

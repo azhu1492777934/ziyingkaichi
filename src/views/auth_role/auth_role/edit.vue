@@ -123,6 +123,7 @@
           console.log(ruleForm);
           if (valid) {
             modelUpdate(ruleForm).then(response=>{
+              console.log(ruleForm);
               const res = response.data;
               if (res.status > 0) {
                 Message({

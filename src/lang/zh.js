@@ -380,6 +380,7 @@ export default {
     cpChannelId: "通道号",
     imsi: "IMSI",
     iccid: "ICCID",
+    packageCn: "套餐名",
     status: "卡状态",
     cpStatus: "卡位状态",
     statusCn: "卡状态",

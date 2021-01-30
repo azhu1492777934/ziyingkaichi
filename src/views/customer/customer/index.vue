@@ -24,7 +24,7 @@
         <el-col :span="8">
           <el-button style="margin-left: 26px" type="primary" icon="search" @click="handleFilter">搜索</el-button>
           <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="batchDelete()" icon="delete" style="left: 10px">删除</el-button>
-          <a :href="'#/customer/customer/new'" target="_self">
+          <a :href="'#/customer/customer/new'" target="_self" style="margin: 0 10px;">
             <el-button class="filter-item el-icon-plus" type="primary" style="margin-right: 10px;">新建</el-button>
           </a>
         </el-col>
@@ -38,7 +38,7 @@
       v-loading="listLoading"
       :data="list"
       border
-      max-height="560"
+      max-height="600"
       tooltip-effect="dark"
       style="width: 100%"
       @selection-change="handleSelectionChange">

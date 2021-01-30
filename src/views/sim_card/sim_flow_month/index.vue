@@ -39,7 +39,7 @@
       v-loading="listLoading"
       :data="list"
       border
-      max-height="510"
+      max-height="540"
       tooltip-effect="dark"
       style="width: 100%"
       >
@@ -194,7 +194,6 @@
           const res = response.data
           if(res.status > 0) {
            const data = res.data;
-           console.log(data.totalFlow)
            this.totalFlow = (data.totalFlow) / (1024)
           }
         })

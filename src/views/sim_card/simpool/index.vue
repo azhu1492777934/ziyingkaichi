@@ -25,7 +25,7 @@
       v-loading="listLoading"
       :data="list"
       border
-      max-height="560"
+      max-height="600"
       tooltip-effect="dark"
       style="width: 100%">
       <el-table-column
@@ -132,9 +132,9 @@
       let data =  await this.getList();
       await this.getSpid(data);
     },
-    mounted() {
-       this.setEchart()
-    },
+    // mounted() {
+    //    this.setEchart()
+    // },
     methods: {
       
        getList() {

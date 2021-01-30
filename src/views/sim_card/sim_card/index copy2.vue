@@ -66,12 +66,20 @@
           <a :href="'#/sim_card/sim_card/new'" target="_self" style="margin-left: 10px;">
             <el-button class="filter-item el-icon-plus" type="primary">新建</el-button>
           </a>
-          <el-button :disabled="modelDelete" style="margin-left: 10px;" type="primary" @click="dialogUpdate = true">批量修改</el-button>
-          <el-button type="primary" @click="handleDownload">下载当前结果</el-button>
-          <el-button type="primary" style="margin-left: 10px" @click="dialogVisibleUpload = true">导入IMEI<i class="el-icon-upload el-icon--right"></i></el-button>
+          <el-button :disabled="modelDelete" style="margin-left: 10px;" type="primary" @click="dialogUpdatePackageVisible = true">批量修改套餐</el-button>
+          <el-button :disabled="modelDelete" type="primary" @click="dialogUpdateMonthVisible = true">批量修改月流量账期</el-button>
+          <el-button :disabled="modelDelete" type="primary" @click="dialogUpdateExpiryDateVisible = true">批量更新卡有效期</el-button>
+          <el-button :disabled="modelDelete" type="primary" @click="dialogUpdateAPNVisible = true">批量更新APN</el-button>
         </el-col>
       </el-row>
-      
+      <el-row>
+        <el-button :disabled="modelDelete" class="filter-item" type="primary" @click="dialogUpdateStatusVisible = true">批量更新状态</el-button>
+        <el-button type="primary" @click="handleDownload">下载当前结果</el-button>
+        <!-- <a :href="'/simImei.xlsx'" target="_self">
+          <el-button style="margin-left: 20px" icon="search" @click="importTeminal">导入IMEI模板</el-button>
+        </a> -->
+        <el-button type="primary" style="margin-left: 10px" @click="dialogVisibleUpload = true">导入IMEI<i class="el-icon-upload el-icon--right"></i></el-button>
+      </el-row>
     </div>
 
     
@@ -81,7 +89,7 @@
       v-loading="listLoading"
       :data="list"
       border
-      max-height="530"
+      max-height="480"
       tooltip-effect="dark"
       style="width: 100%"
       @selection-change="handleSelectionChange">
@@ -176,91 +184,83 @@
     <my-pagination :listQuery="listQuery" :total="total" :listLoading="listLoading" @get="getList()"></my-pagination>
     <!-- 列表-end -->
 
-    <!-- 批量修改 start -->
-    <el-dialog class="modify" title="批量修改" :visible.sync="dialogUpdate" size="tiny" @close="handleCancel()">
-      <el-tabs v-model="activeName">
-
-      <!-- 修改流量套餐 start -->
-        <el-tab-pane label="修改流量套餐" name="packageId">
-          <el-form :model="batchUpdatePackageForm" label-position="left" label-width="100px">
-            <el-form-item v-bind:label="$t('simcard.packageId')" prop="packageId">
-              <el-select v-model="batchUpdatePackageForm.packageId" filterable clearable>
-                <el-option v-for="i in packageArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
-              </el-select>
-            </el-form-item>
-          </el-form>
-          <div class="fr">
-            <el-button @click="dialogUpdate = false">取 消</el-button>
-            <el-button type="primary" @click="handelUpdatePackage()">确 定</el-button>
-          </div>
-        </el-tab-pane>
-      <!-- 修改流量套餐 end -->
-
-      <!-- 修改月流量账期 start -->
-        <el-tab-pane label="修改月流量账期" name="offPeriod">
-          <el-form :model="batchUpdateMonthForm" label-position="left" label-width="100px">
-            <el-form-item v-bind:label="$t('simcard.offPeriod')" prop="offPeriod">
-              <el-input v-model="batchUpdateMonthForm.offPeriod"></el-input>
-            </el-form-item>
-            <el-form-item v-bind:label="$t('simcard.suStained')" prop="suStained">
-              <el-input v-model="batchUpdateMonthForm.suStained"></el-input>
-            </el-form-item>
-          </el-form> 
-          <div class="fr">
-            <el-button @click="dialogUpdate = false">取 消</el-button>
-            <el-button type="primary" @click="handelUpdateMonth()">确 定</el-button>
-          </div>
-        </el-tab-pane>
-      <!-- 修改月流量账期 end -->
-
-      <!-- 更新卡有效期 start -->
-        <el-tab-pane label="更新卡有效期" name="expiryDate">
-          <el-form :model="batchUpdateExpiryDateForm" label-position="left" label-width="100px">
-            <el-form-item v-bind:label="$t('simcard.expiryDate')" prop="expiryDate">
-              <el-date-picker type="date" v-model="batchUpdateExpiryDateForm.expiryDate"></el-date-picker>
-            </el-form-item>
-          </el-form>
-          <div class="fr">
-            <el-button @click="dialogUpdate = false">取 消</el-button>
-            <el-button type="primary" @click="handelUpdateExpiryDate()">确 定</el-button>
-          </div>
-        </el-tab-pane>
-      <!-- 更新卡有效期 end -->
-
-      <!-- 更新APN start -->
-        <el-tab-pane label="更新APN" name="apn">
-          <el-form :model="batchUpdateAPNForm" label-position="left" label-width="100px">
-            <el-form-item v-bind:label="$t('simcard.apn')" prop="apn">
-              <el-input v-model="batchUpdateAPNForm.APN"></el-input>
-            </el-form-item>
-          </el-form>
-          <div class="fr">
-            <el-button @click="dialogUpdate = false">取 消</el-button>
-            <el-button type="primary" @click="handelUpdateAPN()">确 定</el-button>
-          </div>
-        </el-tab-pane>
-      <!-- 更新APN end -->
-
-      <!-- 更新状态 start -->
-        <el-tab-pane label="更新状态" name="status">
-          <el-form :model="batchUpdateStatusForm" label-position="left" label-width="100px">
-            <el-form-item v-bind:label="$t('simcard.status')" prop="status">
-              <el-select v-model="batchUpdateStatusForm.status" filterable clearable>
-                <el-option v-for="i in statusArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
-              </el-select>
-            </el-form-item>
-          </el-form>
-          <div class="fr">
-            <el-button @click="dialogUpdate = false">取 消</el-button>
-            <el-button type="primary" @click="handelUpdateStatus()">确 定</el-button>
-          </div>
-        </el-tab-pane>
-      <!-- 更新状态 end -->
-
-      </el-tabs>
+    <!-- 批量修改套餐-start -->
+    <el-dialog class="modify" title="批量修改套餐" :visible.sync="dialogUpdatePackageVisible" size="tiny" @close="handleCancel()">
+      <el-form :model="batchUpdatePackageForm">
+        <el-form-item v-bind:label="$t('simcard.packageId')" prop="packageId">
+          <el-select v-model="batchUpdatePackageForm.packageId" filterable clearable>
+            <el-option v-for="i in packageArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogUpdatePackageVisible = false">取 消</el-button>
+        <el-button type="primary" @click="handelUpdatePackage()">确 定</el-button>
+      </div>
     </el-dialog>
-    <!-- 批量修改 end -->
-    
+    <!-- 批量修改套餐-end -->
+
+    <!-- 批量修改月流量账期-start -->
+    <el-dialog class="modify" title="批量修改月流量账期" :visible.sync="dialogUpdateMonthVisible" size="tiny" @close="handleCancel()">
+      <el-form :model="batchUpdateMonthForm" label-position="right" label-width="100px">
+        <el-form-item v-bind:label="$t('simcard.offPeriod')" prop="offPeriod">
+          <el-input v-model="batchUpdateMonthForm.offPeriod"></el-input>
+        </el-form-item>
+        <el-form-item v-bind:label="$t('simcard.suStained')" prop="suStained">
+          <el-input v-model="batchUpdateMonthForm.suStained"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogUpdateMonthVisible = false">取 消</el-button>
+        <el-button type="primary" @click="handelUpdateMonth()">确 定</el-button>
+      </div>
+    </el-dialog>
+    <!-- 批量修改月流量账期-end -->
+
+    <!-- 批量更新卡有效期-start -->
+    <el-dialog class="modify" title="批量更新卡有效期" :visible.sync="dialogUpdateExpiryDateVisible" size="tiny" @close="handleCancel()">
+      <el-form :model="batchUpdateExpiryDateForm">
+        <el-form-item v-bind:label="$t('simcard.expiryDate')" prop="expiryDate">
+          <el-date-picker type="date" v-model="batchUpdateExpiryDateForm.expiryDate"></el-date-picker>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogUpdateExpiryDateVisible = false">取 消</el-button>
+        <el-button type="primary" @click="handelUpdateExpiryDate()">确 定</el-button>
+      </div>
+    </el-dialog>
+    <!-- 批量更新卡有效期-end -->
+
+    <!-- 批量更新APN-start -->
+    <el-dialog class="modify" title="批量更新APN" :visible.sync="dialogUpdateAPNVisible" size="tiny" @close="handleCancel()">
+      <el-form :model="batchUpdateAPNForm">
+        <el-form-item v-bind:label="$t('simcard.apn')" prop="apn">
+          <el-input v-model="batchUpdateAPNForm.APN"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogUpdateAPNVisible = false">取 消</el-button>
+        <el-button type="primary" @click="handelUpdateAPN()">确 定</el-button>
+      </div>
+    </el-dialog>
+    <!-- 批量更新APN-end -->
+
+    <!-- 批量更新状态-start -->
+    <el-dialog class="modify" title="批量更新状态" :visible.sync="dialogUpdateStatusVisible" size="tiny" @close="handleCancel()">
+      <el-form :model="batchUpdateStatusForm">
+        <el-form-item v-bind:label="$t('simcard.status')" prop="status">
+          <el-select v-model="batchUpdateStatusForm.status" filterable clearable>
+            <el-option v-for="i in statusArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogUpdateStatusVisible = false">取 消</el-button>
+        <el-button type="primary" @click="handelUpdateStatus()">确 定</el-button>
+      </div>
+    </el-dialog>
+    <!-- 批量更新状态-end -->
+
     <!-- 上传文件 -->
     <el-dialog title="文件上传" :visible.sync="dialogVisibleUpload"   size="tiny" @close="dialogVisibleUpload=false">
       <!--el-dialog title="文件上传" :visible.sync="dialogVisibleUpload"  @close="dialogVisibleUpload = false"-->
@@ -325,7 +325,11 @@
         batchUpdateStatusForm: {},
         rules: {},
         modelDelete: true,
-        dialogUpdate: false,
+        dialogUpdatePackageVisible: false,
+        dialogUpdateMonthVisible: false,
+        dialogUpdateExpiryDateVisible: false,
+        dialogUpdateAPNVisible: false,
+        dialogUpdateStatusVisible: false,
         formLabelWidth: '150px',
         countryCodeArr: [],
         operatorCodeArr: [],
@@ -345,7 +349,6 @@
         dialogVisibleUpload: false,
         uploadForm: new FormData(),
         download: null,
-        activeName: 'packageId',
       }
     },
     created() {
@@ -444,7 +447,11 @@
         // }
       },
       handleCancel() {
-        this.dialogUpdate = false;
+        this.dialogUpdatePackageVisible = false;
+        this.dialogUpdateMonthVisible = false;
+        this.dialogUpdateExpiryDateVisible = false;
+        this.dialogUpdateAPNVisible = false;
+        this.dialogUpdateStatusVisible = false;
       },
       handelUpdatePackage() {
         const noColumn = this.batchUpdatePackageForm.packageId == '';

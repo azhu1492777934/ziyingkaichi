@@ -27,7 +27,7 @@
       v-loading="listLoading"
       :data="list"
       border
-      max-height="560"
+      max-height="600"
       tooltip-effect="dark"
       style="width: 100%"
       @selection-change="handleSelectionChange">
@@ -112,7 +112,7 @@
     <!-- 列表-end -->
 
     <!-- 批量修改-start -->
-    <el-dialog title="批量修改" :visible.sync="dialogUpdateVisible" size="tiny" @close="handleCancel('batchUpdateForm')">
+    <el-dialog class="modify" title="批量修改" :visible.sync="dialogUpdateVisible" size="tiny" @close="handleCancel('batchUpdateForm')">
       <el-form :model="batchUpdateForm">
         <el-form-item v-bind:label="$t('order.tsCount')" :label-width="formLabelWidth" prop="tsCount" :rules="rules.tsCount">
           <el-input v-model="batchUpdateForm.tsCount"></el-input>
@@ -140,7 +140,7 @@
     <!-- 批量修改-end -->
 
     <!-- 批量绑定-start -->
-    <el-dialog title="批量修改" :visible.sync="dialogBindVisible" size="tiny" @close="handleCancel('batchBindForm')">
+    <el-dialog class="modify" title="批量修改" :visible.sync="dialogBindVisible" size="tiny" @close="handleCancel('batchBindForm')">
       <el-form :model="batchBindForm">
         <el-form-item v-bind:label="$t('orderTrip.tsid')" :label-width="formLabelWidth" prop="tsid" :rules="rules.tsid">
           <el-input v-model="batchBindForm.tsid"></el-input>
@@ -153,7 +153,7 @@
     </el-dialog>
 
     <!-- 批量绑定-start -->
-    <el-dialog title="批量退订" :visible.sync="dialogRefundVisible" size="tiny" @close="handleCancel('batchRefund')">
+    <el-dialog class="modify" title="批量退订" :visible.sync="dialogRefundVisible" size="tiny" @close="handleCancel('batchRefund')">
       <span>确定批量退订?</span>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogRefundVisible = false">取 消</el-button>
@@ -342,6 +342,10 @@
     font-size: 12px;
     .buttonStyle{
       display: inline-block;
+    }
+    .modify .el-input, 
+    .modify .el-select {
+      width: 300px;
     }
   }
 </style>

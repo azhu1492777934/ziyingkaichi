@@ -22,7 +22,7 @@
       ref="multipleTable"
       v-loading="listLoading"
       :data="list"
-      max-height="560"
+      max-height="600"
       border
       tooltip-effect="dark"
       style="width: 100%">

@@ -39,10 +39,11 @@ export function modelUpdate(model) {
   })
 }
 
-export function modelDetail(id) {
+export function modelDetail(id, model) {
   return request({
-    url: '/simpool/show/' + id,
-    method: 'get'
+    url: '/simpool/showQuery/' + id,
+    method: 'post',
+    data: model
   })
 }
 export function batchUpdate(ids, query, model) {

@@ -14,8 +14,6 @@
           <el-input class="filter-item" :placeholder="$t('operator.operatorNameCn')"
                     v-model="listQuery.q.operatorNameCn" clearable type="text"> </el-input>
         </el-col>
-      </el-row>
-      <el-row>
         <el-col :span="4">
           <el-select v-model="listQuery.q.countryCode" filterable clearable :placeholder="$t('operator.countryCode')">
             <el-option v-for="i in countryCodeArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
@@ -30,9 +28,10 @@
             <el-option v-for="i in statusArr" :key="i.id" :label="i.name" :value="i.id">{{i.name}}</el-option>
           </el-select>
         </el-col>
-
+      </el-row>
+      <el-row>
         <el-col :span="12">
-          <el-button style="margin-left: 26px" type="primary" icon="search" @click="handleFilter">搜索</el-button>
+          <el-button type="primary" icon="search" @click="handleFilter">搜索</el-button>
           <a :href="'#/operation/operator/new'" target="_self" style="margin-left: 10px;">
             <el-button class=" el-icon-plus" type="primary" style="margin-right: 10px;">新建</el-button>
           </a>
@@ -47,7 +46,7 @@
       v-loading="listLoading"
       :data="list"
       border
-      max-height="520"
+      max-height="580"
       tooltip-effect="dark"
       style="width: 100%">
       <el-table-column

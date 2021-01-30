@@ -34,7 +34,7 @@
       v-loading="listLoading"
       :data="list"
       border
-      max-height="510"
+      max-height="560"
       tooltip-effect="dark"
       style="width: 100%"
      >
